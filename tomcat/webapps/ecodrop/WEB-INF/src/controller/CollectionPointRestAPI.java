@@ -47,6 +47,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
         String id = splits[1];
         List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(Integer.parseInt(id));
+        System.out.println(lesWasteTypesAcceptes);
         if (lesWasteTypesAcceptes == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
