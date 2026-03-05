@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientDAOList implements DAOIngredient {
+public class IngredientDAOList implements WasteTypeDAO {
     private Ingredient ingr1 = new Ingredient(1, "poivons", 2);
     private Ingredient ingr2 = new Ingredient(2, "artichaut", 2);
     private Ingredient ingr3 = new Ingredient(3, "tomate", 2);
