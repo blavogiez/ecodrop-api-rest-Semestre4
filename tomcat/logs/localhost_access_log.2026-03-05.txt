@@ -166,3 +166,11 @@
 127.0.0.1 - - [05/Mar/2026:15:39:32 +0100] "GET /sw.js HTTP/1.1" 404 679
 127.0.0.1 - - [05/Mar/2026:15:39:34 +0100] "GET /ecodrop/points/3 HTTP/1.1" 200 181
 127.0.0.1 - - [05/Mar/2026:15:39:35 +0100] "GET /sw.js HTTP/1.1" 404 679
+127.0.0.1 - - [05/Mar/2026:16:02:11 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 500 674
+127.0.0.1 - - [05/Mar/2026:16:02:37 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 500 674
+127.0.0.1 - - [05/Mar/2026:16:02:56 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:03:31 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:03:32 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 61
+127.0.0.1 - - [05/Mar/2026:16:04:13 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:04:13 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:04:25 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67

@@ -114,4 +114,23 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
         return lesWasteTypesAcceptes;
     }
+
+    public CollectionPoint update(CollectionPoint updated) {
+        try (Connection con = DS.getConnection()) {
+            String query = "update CollectionPoint set adresse = ?, capaciteMax = ? where id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, updated.getAdresse());
+            ps.setDouble(2, updated.getCapaciteMax());
+
+            ps.setInt(3, updated.getId());
+
+            System.out.println(ps);
+            ps.executeUpdate();
+            return updated;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }

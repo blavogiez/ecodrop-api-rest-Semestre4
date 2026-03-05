@@ -15,4 +15,6 @@ public interface CollectionPointDAO {
     public boolean delete(int id);
 
     public List<WasteType> getAcceptedWasteTypes(int collectionPointId);
+
+    public CollectionPoint update(CollectionPoint updated);
 }

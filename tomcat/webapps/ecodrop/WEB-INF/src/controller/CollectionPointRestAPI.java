@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,7 @@ import model.dao.CollectionPointDAO;
 import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
 import model.dto.WasteType;
+import utils.FormatAdapter;
 
 @WebServlet("/points/*")
 public class CollectionPointRestAPI extends HttpServlet {
@@ -27,7 +29,7 @@ public class CollectionPointRestAPI extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
 
         System.out.println(info);
@@ -53,26 +55,43 @@ public class CollectionPointRestAPI extends HttpServlet {
         return;
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        String info = req.getPathInfo();
+        String[] splits = info == null ? new String[0] : info.split("/");
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        int id = Integer.parseInt(splits[1]);
+
         try {
-            CollectionPoint collectionPoint = objectMapper.readValue(data, CollectionPoint.class);
-            System.out.println(collectionPoint);
+            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                    .collect(Collectors.joining());
+            data = FormatAdapter.toUniversalJSON(data);
 
-            if (!dao.add(collectionPoint)) {
+            // recup l'objet existant pour ne modifier que les champs fournis
+            CollectionPoint existing = dao.findById(id);
+            if (existing == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            ObjectMapper mapper = FormatAdapter.JSON_MAPPER;
+            CollectionPoint updated = mapper.readerForUpdating(existing).readValue(data);
+
+            if (dao.update(updated) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
+
             PrintWriter out = res.getWriter();
-            String jsonstring = objectMapper.writeValueAsString(collectionPoint);
-            out.print(jsonstring);
+            out.print(mapper.writeValueAsString(updated));
         } catch (Exception e) {
-            System.out.println("Could not save collection point : " + e.getMessage());
+            System.out.println("Could not update collection point : " + e.getMessage());
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-        return;
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
