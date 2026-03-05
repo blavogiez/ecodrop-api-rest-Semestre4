@@ -77,7 +77,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
     public boolean delete(int id) {
         try (Connection con = DS.getConnection()) {
-            String query = "delete from CollectionPoint where id = ?";
+            String query = "delete from accepts where pointId = ?";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, id);
@@ -86,7 +86,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             ps.executeUpdate();
             return true ;
         } catch (Exception e) {
-            System.err.println("Could not delete Collection Point [id:" + id + "] : " + e);
+            System.err.println("Could not delete waste types in Collection Point [id:" + id + "] : " + e);
         }
         return false ;
     }

@@ -79,18 +79,23 @@ public class CollectionPointRestAPI extends HttpServlet {
         System.out.println(info);
 
         String[] splits = info.split("/");
-        if (splits.length != 2) {
+        if (splits.length != 3) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         String id = splits[1];
-        boolean success = dao.delete(Integer.parseInt(id));
+        String order = splits[2];
 
-        if (!success) {
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
+        if ("clear".equals(order)) {
+            boolean success = dao.delete(Integer.parseInt(id));
+
+            if (!success) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            res.sendError(HttpServletResponse.SC_OK);
         }
-        res.sendError(HttpServletResponse.SC_OK);
+        res.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return ;
     }
 }
