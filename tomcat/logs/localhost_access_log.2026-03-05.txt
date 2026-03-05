@@ -158,3 +158,19 @@
 127.0.0.1 - - [05/Mar/2026:15:11:15 +0100] "POST /ecodrop/waste-types HTTP/1.1" 200 113
 127.0.0.1 - - [05/Mar/2026:15:11:15 +0100] "DELETE /ecodrop/waste-types/2 HTTP/1.1" 200 -
 >>>>>>> bd4732d (end of merge)
+127.0.0.1 - - [05/Mar/2026:15:39:23 +0100] "GET /ecodrop/points/2 HTTP/1.1" 200 190
+127.0.0.1 - - [05/Mar/2026:15:39:23 +0100] "GET /favicon.ico HTTP/1.1" 200 8192
+127.0.0.1 - - [05/Mar/2026:15:39:24 +0100] "GET /sw.js HTTP/1.1" 404 679
+127.0.0.1 - - [05/Mar/2026:15:39:25 +0100] "GET /ecodrop/points/1 HTTP/1.1" 200 187
+127.0.0.1 - - [05/Mar/2026:15:39:26 +0100] "GET /sw.js HTTP/1.1" 404 679
+127.0.0.1 - - [05/Mar/2026:15:39:32 +0100] "GET /sw.js HTTP/1.1" 404 679
+127.0.0.1 - - [05/Mar/2026:15:39:34 +0100] "GET /ecodrop/points/3 HTTP/1.1" 200 181
+127.0.0.1 - - [05/Mar/2026:15:39:35 +0100] "GET /sw.js HTTP/1.1" 404 679
+127.0.0.1 - - [05/Mar/2026:16:02:11 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 500 674
+127.0.0.1 - - [05/Mar/2026:16:02:37 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 500 674
+127.0.0.1 - - [05/Mar/2026:16:02:56 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:03:31 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:03:32 +0100] "PATCH /ecodrop/points/2 HTTP/1.1" 200 61
+127.0.0.1 - - [05/Mar/2026:16:04:13 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:04:13 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67
+127.0.0.1 - - [05/Mar/2026:16:04:25 +0100] "PATCH /ecodrop/points/3 HTTP/1.1" 200 67

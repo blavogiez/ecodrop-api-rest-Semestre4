@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-@WebServlet("/accepts")
+@WebServlet("/accepts/*")
 public class AcceptsRestAPI extends HttpServlet {
     AcceptsDAO dao = new AcceptsDAOPostgres();
 
@@ -28,6 +28,11 @@ public class AcceptsRestAPI extends HttpServlet {
         String info = req.getPathInfo();
 
         System.out.println(info);
+
+        if (info != null || !info.isEmpty()) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
 
         Collection<Accepts> l = dao.findAll();
         String jsonstring = objectMapper.writeValueAsString(l);

@@ -36,7 +36,7 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
 
     public boolean add(Accepts accepts) {
         try (Connection con = DS.getConnection()) {
-            String query = "insert into Accepts(pointsId, wasteTypeId) values(?, ?)";
+            String query = "insert into Accepts(pointId, wasteTypeId) values(?, ?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, accepts.getPointsId());
             ps.setInt(2, accepts.getWasteTypesId());
@@ -52,7 +52,7 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
 
     public boolean delete(int pointId, int wasteTypeId) {
         try (Connection con = DS.getConnection()) {
-            String query = "delete from Accepts where pointsId = ? AND  wasteTypeId = ?";
+            String query = "delete from Accepts where pointId = ? AND  wasteTypeId = ?";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, pointId);
