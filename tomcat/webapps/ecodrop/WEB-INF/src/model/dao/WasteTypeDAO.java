@@ -11,5 +11,7 @@ public interface WasteTypeDAO {
 
     public boolean add(WasteType wasteType);
 
-    public boolean delete(WasteType wasteType);
+    public boolean delete(int id);
+
+    public WasteType update(int targetId, WasteType wasteType);
 }

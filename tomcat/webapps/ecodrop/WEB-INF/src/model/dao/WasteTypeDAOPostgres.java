@@ -59,12 +59,11 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
     public boolean add(WasteType wasteType) {
         try (Connection con = DS.getConnection()) {
-            String query = "insert into WasteType(id,nom,pointsPerKilo) values(?,?,?)";
+            String query = "insert into WasteType(nom,pointsPerKilo) values(?,?)";
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setInt(1, wasteType.getId());
-            ps.setString(2, wasteType.getNom());
-            ps.setDouble(3, wasteType.getPointsPerKilo());
+            ps.setString(1, wasteType.getNom());
+            ps.setDouble(2, wasteType.getPointsPerKilo());
 
             System.out.println(ps);
             ps.executeUpdate();
@@ -75,12 +74,12 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
         return false ;
     }
 
-    public boolean delete(WasteType wasteType) {
+    public boolean delete(int id) {
         try (Connection con = DS.getConnection()) {
             String query = "delete from WasteType where id = ?";
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setInt(1, wasteType.getId());
+            ps.setInt(1, id);
 
             System.out.println(ps);
             ps.executeUpdate();
@@ -89,5 +88,27 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             System.err.println("Could not delete Waste Type " + wasteType + " : " + e.getMessage());
         }
         return false ;
+    }
+
+    // le WasteType à l'ID existant devient le wasteType en argument
+    public WasteType update(int targetId, WasteType wasteType) {
+        try (Connection con = DS.getConnection()) {
+            String query = "update WasteType set nom = ?, pointsPerKilo = ? where id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            // arguments à modifier
+            ps.setString(1, wasteType.getNom());
+            ps.setDouble(2, wasteType.getPointsPerKilo());
+
+            // cible à changer
+            ps.setInt(3, targetId);
+
+            System.out.println(ps);
+            ps.executeUpdate();
+            return wasteType ;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null ;
     }
 }
