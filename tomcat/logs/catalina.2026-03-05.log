@@ -1428,3 +1428,172 @@
 05-Mar-2026 16:00:43.727 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples] has finished in [296] ms
 05-Mar-2026 16:00:43.730 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
 05-Mar-2026 16:00:43.738 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1516] milliseconds
+05-Mar-2026 16:18:28.654 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+05-Mar-2026 16:18:28.656 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+05-Mar-2026 16:18:28.656 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+05-Mar-2026 16:18:28.656 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.1.0-40-amd64
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.18+8-Debian-1deb12u1
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Debian
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:18:28.657 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:18:28.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/conf/logging.properties
+05-Mar-2026 16:18:28.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Mar-2026 16:18:28.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Mar-2026 16:18:28.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Mar-2026 16:18:28.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:18:28.662 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/temp
+05-Mar-2026 16:18:28.663 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Mar-2026 16:18:28.798 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:18:28.808 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [235] milliseconds
+05-Mar-2026 16:18:28.828 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Mar-2026 16:18:28.828 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+05-Mar-2026 16:18:28.834 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX]
+05-Mar-2026 16:18:29.227 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:29.245 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX] has finished in [410] ms
+05-Mar-2026 16:18:29.245 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT]
+05-Mar-2026 16:18:29.432 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:29.434 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT] has finished in [188] ms
+05-Mar-2026 16:18:29.434 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs]
+05-Mar-2026 16:18:29.586 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:29.588 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs] has finished in [153] ms
+05-Mar-2026 16:18:29.588 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager]
+05-Mar-2026 16:18:29.745 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:29.748 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager] has finished in [160] ms
+05-Mar-2026 16:18:29.748 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop]
+05-Mar-2026 16:18:29.920 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:29.921 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop] has finished in [172] ms
+05-Mar-2026 16:18:29.921 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager]
+05-Mar-2026 16:18:30.059 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:30.060 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager] has finished in [139] ms
+05-Mar-2026 16:18:30.060 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples]
+05-Mar-2026 16:18:30.325 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:18:30.338 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples] has finished in [278] ms
+05-Mar-2026 16:18:30.340 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:18:30.345 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1536] milliseconds
+05-Mar-2026 16:20:50.244 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:20:50.247 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Mar-2026 16:20:50.262 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ecodrop] registered the JDBC driver [org.h2.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+05-Mar-2026 16:20:50.266 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:20:50.270 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:20:50.753 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.1.0-40-amd64
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.18+8-Debian-1deb12u1
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Debian
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:20:50.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:20:50.760 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/conf/logging.properties
+05-Mar-2026 16:20:50.760 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:20:50.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/temp
+05-Mar-2026 16:20:50.762 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Mar-2026 16:20:50.886 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:20:50.896 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [223] milliseconds
+05-Mar-2026 16:20:50.915 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Mar-2026 16:20:50.915 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+05-Mar-2026 16:20:50.920 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX]
+05-Mar-2026 16:20:51.272 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:51.289 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX] has finished in [370] ms
+05-Mar-2026 16:20:51.290 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT]
+05-Mar-2026 16:20:51.454 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:51.455 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT] has finished in [165] ms
+05-Mar-2026 16:20:51.455 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs]
+05-Mar-2026 16:20:51.610 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:51.612 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs] has finished in [157] ms
+05-Mar-2026 16:20:51.612 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager]
+05-Mar-2026 16:20:51.766 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:51.770 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager] has finished in [157] ms
+05-Mar-2026 16:20:51.770 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop]
+05-Mar-2026 16:20:51.936 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:51.937 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop] has finished in [167] ms
+05-Mar-2026 16:20:51.937 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager]
+05-Mar-2026 16:20:52.075 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:52.076 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager] has finished in [139] ms
+05-Mar-2026 16:20:52.076 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples]
+05-Mar-2026 16:20:52.350 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:20:52.362 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples] has finished in [285] ms
+05-Mar-2026 16:20:52.363 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:20:52.369 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1472] milliseconds
+05-Mar-2026 16:21:18.284 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:21:18.287 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Mar-2026 16:21:18.325 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ecodrop] registered the JDBC driver [org.h2.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+05-Mar-2026 16:21:18.336 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:21:18.341 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:21:23.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+05-Mar-2026 16:21:23.435 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.1.0-40-amd64
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.18+8-Debian-1deb12u1
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Debian
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:21:23.436 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:21:23.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/conf/logging.properties
+05-Mar-2026 16:21:23.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Mar-2026 16:21:23.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Mar-2026 16:21:23.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat
+05-Mar-2026 16:21:23.441 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/temp
+05-Mar-2026 16:21:23.442 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Mar-2026 16:21:23.569 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:21:23.579 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [228] milliseconds
+05-Mar-2026 16:21:23.599 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Mar-2026 16:21:23.599 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+05-Mar-2026 16:21:23.604 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX]
+05-Mar-2026 16:21:23.950 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:23.969 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/__MACOSX] has finished in [365] ms
+05-Mar-2026 16:21:23.969 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT]
+05-Mar-2026 16:21:24.140 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.141 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ROOT] has finished in [172] ms
+05-Mar-2026 16:21:24.142 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs]
+05-Mar-2026 16:21:24.297 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.299 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/docs] has finished in [156] ms
+05-Mar-2026 16:21:24.299 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager]
+05-Mar-2026 16:21:24.452 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.456 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/manager] has finished in [156] ms
+05-Mar-2026 16:21:24.456 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop]
+05-Mar-2026 16:21:24.623 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.624 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/ecodrop] has finished in [168] ms
+05-Mar-2026 16:21:24.624 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager]
+05-Mar-2026 16:21:24.762 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.763 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/host-manager] has finished in [139] ms
+05-Mar-2026 16:21:24.763 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples]
+05-Mar-2026 16:21:24.985 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Mar-2026 16:21:24.996 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre2/Ecodrop/tomcat/webapps/examples] has finished in [233] ms
+05-Mar-2026 16:21:24.998 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:21:25.004 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1424] milliseconds
