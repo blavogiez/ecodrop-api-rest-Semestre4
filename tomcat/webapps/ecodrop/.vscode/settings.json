@@ -1,6 +1,6 @@
 {
   "java.project.sourcePaths": [
-    "WEB-INF/src"
+    "WEB/INF/src"
   ],
   "java.project.outputPath": "classes",
   "java.project.referencedLibraries": [
