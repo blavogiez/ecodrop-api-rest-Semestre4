@@ -1,0 +1,15 @@
+{
+  "java.project.sourcePaths": [
+    "WEB-INF/src"
+  ],
+  "java.project.outputPath": "classes",
+  "java.project.referencedLibraries": [
+    "~/jars/*.jar"
+  ],
+  "java.autobuild.enabled": true,
+  "java.compile.nullAnalysis.mode": "automatic",
+  "editor.formatOnSave": true,
+  "java.saveActions.organizeImports": true,
+  "explorer.fileNesting.enabled": false,
+  "git.ignoreLimitWarning": true
+}
