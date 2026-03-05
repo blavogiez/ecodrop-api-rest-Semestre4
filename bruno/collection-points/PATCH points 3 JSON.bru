@@ -1,0 +1,22 @@
+meta {
+  name: PATCH points 3 JSON
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:8080/ecodrop/points/3
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    adresse:"1 Rue de la modification réussie"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
