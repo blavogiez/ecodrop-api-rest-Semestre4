@@ -1,0 +1,15 @@
+meta {
+  name: DELETE points waste-types
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8080/ecodrop/points/id/clear
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
