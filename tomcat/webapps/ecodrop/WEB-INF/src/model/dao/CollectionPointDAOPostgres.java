@@ -36,7 +36,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
     }
 
     public List<CollectionPoint> findAll() {
-        List<CollectionPoint> lesWasteTypes = new ArrayList<>();
+        List<CollectionPoint> pointsList = new ArrayList<>();
         try (Connection con = DS.getConnection()) {
             String query = "select * from CollectionPoint";
             PreparedStatement ps = con.prepareStatement(query);
@@ -48,13 +48,13 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
                 int capaciteMax = rs.getInt("capaciteMax");
 
                 CollectionPoint collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
-                lesWasteTypes.add(collectionPoint);
+                pointsList.add(collectionPoint);
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve collection points : " + e.getMessage());
         }
 
-        return lesWasteTypes;
+        return pointsList;
     }
 
     public boolean add(CollectionPoint collectionPoint) {
