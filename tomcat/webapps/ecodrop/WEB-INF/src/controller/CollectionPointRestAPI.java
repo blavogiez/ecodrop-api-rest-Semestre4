@@ -52,6 +52,7 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(lesWasteTypesAcceptes));
+        res.sendError(HttpServletResponse.SC_OK);
         return;
     }
 
@@ -69,7 +70,6 @@ public class CollectionPointRestAPI extends HttpServlet {
         try {
             String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
                     .collect(Collectors.joining());
-            data = FormatAdapter.toUniversalJSON(data);
 
             // recup l'objet existant pour ne modifier que les champs fournis
             CollectionPoint existing = dao.findById(id);
@@ -78,7 +78,7 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
 
-            ObjectMapper mapper = FormatAdapter.JSON_MAPPER;
+            ObjectMapper mapper = FormatAdapter.mapperFor(req);
             CollectionPoint updated = mapper.readerForUpdating(existing).readValue(data);
 
             if (dao.update(updated) == null) {
@@ -88,6 +88,7 @@ public class CollectionPointRestAPI extends HttpServlet {
 
             PrintWriter out = res.getWriter();
             out.print(mapper.writeValueAsString(updated));
+            res.sendError(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -108,7 +109,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         String id = splits[1];
         String order = splits[2];
 
-        if ("clear".equals(order)) {
+        if (order.equals("clear")) {
             boolean success = dao.delete(Integer.parseInt(id));
 
             if (!success) {
@@ -118,6 +119,6 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_OK);
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        return ;
+        return;
     }
 }

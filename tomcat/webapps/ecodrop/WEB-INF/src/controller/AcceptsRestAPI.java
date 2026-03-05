@@ -1,6 +1,13 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Collection;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,12 +17,6 @@ import model.dao.AcceptsDAO;
 import model.dao.AcceptsDAOPostgres;
 import model.dto.Accepts;
 import utils.FormatAdapter;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Collection;
 
 @WebServlet("/accepts/*")
 public class AcceptsRestAPI extends HttpServlet {
@@ -37,6 +38,7 @@ public class AcceptsRestAPI extends HttpServlet {
         Collection<Accepts> l = dao.findAll();
         String jsonstring = objectMapper.writeValueAsString(l);
         out.print(jsonstring);
+        res.sendError(HttpServletResponse.SC_OK);
         return;
     }
 
@@ -56,6 +58,7 @@ public class AcceptsRestAPI extends HttpServlet {
             PrintWriter out = res.getWriter();
             String jsonstring = objectMapper.writeValueAsString(accepts);
             out.print(jsonstring);
+            res.sendError(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -83,6 +86,6 @@ public class AcceptsRestAPI extends HttpServlet {
             return;
         }
         res.sendError(HttpServletResponse.SC_OK);
-        return ;
+        return;
     }
 }
