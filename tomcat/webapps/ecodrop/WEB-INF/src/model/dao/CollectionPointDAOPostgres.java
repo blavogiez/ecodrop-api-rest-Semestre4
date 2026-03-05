@@ -60,7 +60,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
     public boolean add(CollectionPoint collectionPoint) {
         try (Connection con = DS.getConnection()) {
-            String query = "insert into CollectionPoint(id,nom,capaciteMax) values(?,?,?)";
+            String query = "insert into CollectionPoint(id,adresse,capaciteMax) values(?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, collectionPoint.getId());
