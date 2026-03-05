@@ -1,6 +1,5 @@
 package utils;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -18,23 +17,24 @@ public class FormatAdapter {
         return JSON_MAPPER;
     }
 
-    public static String toUniversalJSON(String input) throws Exception {
-        if (input == null || input.isBlank())
-            return input;
+    // public static String toUniversalJSON(String input) throws Exception {
+    // if (input == null || input.isBlank())
+    // return input;
 
-        String trimmed = input.stripLeading();
+    // String trimmed = input.stripLeading();
 
-        if (trimmed.startsWith("<")) {
-            JsonNode node = XML_MAPPER.readTree(trimmed);
-            return JSON_MAPPER.writeValueAsString(node);
-        }
+    // if (trimmed.startsWith("<")) {
+    // JsonNode node = XML_MAPPER.readTree(trimmed);
+    // return JSON_MAPPER.writeValueAsString(node);
+    // }
 
-        if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-            JSON_MAPPER.readTree(trimmed);
-            return input;
-        }
+    // if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+    // JSON_MAPPER.readTree(trimmed);
+    // return input;
+    // }
 
-        throw new IllegalArgumentException(
-                "Format non reconnu (ni JSON ni XML) : " + trimmed.substring(0, Math.min(20, trimmed.length())));
-    }
+    // throw new IllegalArgumentException(
+    // "Format non reconnu (ni JSON ni XML) : " + trimmed.substring(0, Math.min(20,
+    // trimmed.length())));
+    // }
 }

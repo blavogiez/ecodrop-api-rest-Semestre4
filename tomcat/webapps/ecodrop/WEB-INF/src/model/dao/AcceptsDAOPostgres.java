@@ -1,14 +1,13 @@
 package model.dao;
 
-import model.dto.Accepts;
-import model.dto.Accepts;
-import utils.DS;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.dto.Accepts;
+import utils.DS;
 
 public class AcceptsDAOPostgres implements AcceptsDAO {
     static final DS DS = new DS();
@@ -43,11 +42,11 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not add Accepts " + accepts + " : " + e.getMessage());
         }
-        return false ;
+        return false;
     }
 
     public boolean delete(int pointId, int wasteTypeId) {
@@ -60,10 +59,10 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not delete Accepts [id:" + pointId + "," + wasteTypeId + "] : " + e);
         }
-        return false ;
+        return false;
     }
 }

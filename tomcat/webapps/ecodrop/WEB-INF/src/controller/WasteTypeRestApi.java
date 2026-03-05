@@ -23,8 +23,10 @@ public class WasteTypeRestApi extends HttpServlet {
 
     WasteTypeDAO dao = new WasteTypeDAOPostgres();
 
-    // GET /waste-types : Liste tous les types de déchets disponibles. Ce endpoint doit supporter application/json et application/xml.
-    // GET /waste-types/id : Détails d’un type spécifique. Renvoie 404 si l’ID n’existe pa
+    // GET /waste-types : Liste tous les types de déchets disponibles. Ce endpoint
+    // doit supporter application/json et application/xml.
+    // GET /waste-types/id : Détails d’un type spécifique. Renvoie 404 si l’ID
+    // n’existe pa
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
@@ -34,8 +36,8 @@ public class WasteTypeRestApi extends HttpServlet {
         System.out.println(info);
 
         if (info == null || info.equals("/")) {
-            Collection<WasteType> l = dao.findAll();
-            String jsonstring = objectMapper.writeValueAsString(l);
+            Collection<WasteType> lesWasteTypes = dao.findAll();
+            String jsonstring = objectMapper.writeValueAsString(lesWasteTypes);
             out.print(jsonstring);
             return;
         }
@@ -51,6 +53,7 @@ public class WasteTypeRestApi extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(wasteType));
+        res.sendError(HttpServletResponse.SC_OK);
         return;
     }
 
@@ -75,6 +78,7 @@ public class WasteTypeRestApi extends HttpServlet {
             System.out.println(e);
         }
 
+        res.sendError(HttpServletResponse.SC_OK);
         return;
     }
 
@@ -97,7 +101,7 @@ public class WasteTypeRestApi extends HttpServlet {
             return;
         }
         res.sendError(HttpServletResponse.SC_OK);
-        return ;
+        return;
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -114,10 +118,10 @@ public class WasteTypeRestApi extends HttpServlet {
             return;
         }
         String id = splits[1];
-              // Lecture du corps de la requête (même principe que doPost)
+        // Lecture du corps de la requête (même principe que doPost)
         String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
 
-        WasteType updatedWasteType = objectMapper.readValue(data,WasteType.class);
+        WasteType updatedWasteType = objectMapper.readValue(data, WasteType.class);
 
         WasteType wasteType = dao.update(Integer.parseInt(id), updatedWasteType);
 
@@ -126,8 +130,8 @@ public class WasteTypeRestApi extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(wasteType));
-        return ;
+        res.sendError(HttpServletResponse.SC_OK);
+        return;
     }
-
 
 }
