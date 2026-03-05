@@ -3,6 +3,7 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.dao.CollectionPointDAO;
@@ -15,8 +16,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-@WebServlet("/waste-type/*")
-public class CollectionPointRestAPI {
+@WebServlet("/points/*")
+public class CollectionPointRestAPI extends HttpServlet {
 
     CollectionPointDAO dao = new CollectionPointDAOPostgres();
 

@@ -3,12 +3,12 @@ package model.dto;
 public class CollectionPoint {
 
     private int id;
-    private String addresse;
+    private String adresse;
     private int capaciteMax;
 
-    public CollectionPoint(int id, String addresse, int capaciteMax) {
+    public CollectionPoint(int id, String adresse, int capaciteMax) {
         this.id = id;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.capaciteMax = capaciteMax;
     }
 
@@ -22,12 +22,12 @@ public class CollectionPoint {
         this.id = id;
     }
 
-    public String getAddresse() {
-        return addresse;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setAddresse(String addresse) {
-        this.addresse = addresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public int getCapaciteMax() {
@@ -42,7 +42,7 @@ public class CollectionPoint {
     public String toString() {
         return "CollectionPoint{" +
                 "id=" + id +
-                ", addresse='" + addresse + '\'' +
+                ", addresse='" + adresse + '\'' +
                 ", capaciteMax=" + capaciteMax +
                 '}';
     }

@@ -23,10 +23,10 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String nom = rs.getString("nom");
-                int prix = rs.getInt("prix");
+                String adresse = rs.getString("adresse");
+                int capaciteMax = rs.getInt("capaciteMax");
 
-                collectionPoint = new CollectionPoint(id, nom, prix);
+                collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
             }
         } catch (Exception e) {
             System.err.println("Could not find Collection Point with id " + id + " : " + e.getMessage());
@@ -44,10 +44,10 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String addresse = rs.getString("addresse");
+                String adresse = rs.getString("adresse");
                 int capaciteMax = rs.getInt("capaciteMax");
 
-                CollectionPoint collectionPoint = new CollectionPoint(id, addresse, capaciteMax);
+                CollectionPoint collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
                 lesWasteTypes.add(collectionPoint);
             }
         } catch (Exception e) {
@@ -63,7 +63,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, collectionPoint.getId());
-            ps.setString(2, collectionPoint.getAddresse());
+            ps.setString(2, collectionPoint.getAdresse());
             ps.setDouble(3, collectionPoint.getCapaciteMax());
 
             System.out.println(ps);

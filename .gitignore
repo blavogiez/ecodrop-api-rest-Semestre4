@@ -2,3 +2,4 @@
 *.class
 */classes/*
 */temp
+*/logs
