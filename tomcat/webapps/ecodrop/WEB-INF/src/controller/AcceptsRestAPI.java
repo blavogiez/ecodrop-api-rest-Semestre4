@@ -85,7 +85,5 @@ public class AcceptsRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 }

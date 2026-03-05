@@ -53,7 +53,6 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(lesWasteTypesAcceptes));
-        res.sendError(HttpServletResponse.SC_OK);
         return;
     }
 
@@ -118,6 +117,7 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
             res.sendError(HttpServletResponse.SC_OK);
+            return;
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return;
