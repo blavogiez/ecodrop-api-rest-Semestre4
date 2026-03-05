@@ -11,5 +11,5 @@ public interface CollectionPointDAO {
 
     public boolean add(CollectionPoint collectionPoint);
 
-    public boolean delete(CollectionPoint collectionPoint);
+    public boolean delete(int id);
 }

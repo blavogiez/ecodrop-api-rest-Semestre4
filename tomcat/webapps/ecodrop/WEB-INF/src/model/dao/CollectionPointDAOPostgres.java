@@ -75,18 +75,18 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
         return false ;
     }
 
-    public boolean delete(CollectionPoint collectionPoint) {
+    public boolean delete(int id) {
         try (Connection con = DS.getConnection()) {
             String query = "delete from CollectionPoint where id = ?";
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setInt(1, collectionPoint.getId());
+            ps.setInt(1, id);
 
             System.out.println(ps);
             ps.executeUpdate();
             return true ;
         } catch (Exception e) {
-            System.err.println("Could not delete Collection Point " + collectionPoint + " : " + e);
+            System.err.println("Could not delete Collection Point [id:" + id + "] : " + e);
         }
         return false ;
     }

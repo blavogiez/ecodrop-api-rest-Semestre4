@@ -71,4 +71,26 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
         return;
     }
+
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setContentType("application/json;charset=UTF-8");
+        String info = req.getPathInfo();
+
+        System.out.println(info);
+
+        String[] splits = info.split("/");
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        String id = splits[1];
+        boolean success = dao.delete(Integer.parseInt(id));
+
+        if (!success) {
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        res.sendError(HttpServletResponse.SC_OK);
+        return ;
+    }
 }
