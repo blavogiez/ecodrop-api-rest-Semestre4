@@ -57,7 +57,7 @@ public class WasteTypeRestApi extends HttpServlet {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            WasteType wasteType = objectMapper.readValue(data, wasteType.class);
+            WasteType wasteType = objectMapper.readValue(data, WasteType.class);
             System.out.println(wasteType);
 
             if (!dao.add(wasteType)) {

@@ -24,9 +24,9 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
             while (rs.next()) {
                 String nom = rs.getString("nom");
-                int prix = rs.getInt("prix");
+                int pointsPerKilo = rs.getInt("pointsPerKilo");
 
-                wasteType = new WasteType(id, nom, prix);
+                wasteType = new WasteType(id, nom, pointsPerKilo);
             }
         } catch (Exception e) {
             System.err.println("Could not  find Waste Type with id " + id + " : " + e.getMessage());
