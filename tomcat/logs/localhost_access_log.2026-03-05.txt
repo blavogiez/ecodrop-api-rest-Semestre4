@@ -40,6 +40,7 @@
 127.0.0.1 - - [05/Mar/2026:14:54:50 +0100] "GET /sw.js HTTP/1.1" 404 679
 127.0.0.1 - - [05/Mar/2026:14:54:52 +0100] "GET /ecodrop/waste-types/3 HTTP/1.1" 200 46
 127.0.0.1 - - [05/Mar/2026:14:54:53 +0100] "GET /sw.js HTTP/1.1" 404 679
+<<<<<<< HEAD
 127.0.0.1 - - [05/Mar/2026:14:57:28 +0100] "GET / HTTP/1.1" 200 11237
 127.0.0.1 - - [05/Mar/2026:14:57:29 +0100] "GET /tomcat.css HTTP/1.1" 200 5584
 127.0.0.1 - - [05/Mar/2026:14:57:29 +0100] "GET /tomcat.svg HTTP/1.1" 200 67795
@@ -150,3 +151,10 @@
 127.0.0.1 - - [05/Mar/2026:15:19:27 +0100] "GET /index.php/apps/files/preview-service-worker.js HTTP/1.1" 404 732
 127.0.0.1 - - [05/Mar/2026:15:20:35 +0100] "GET /ecodrop/points HTTP/1.1" 200 229
 127.0.0.1 - - [05/Mar/2026:15:20:36 +0100] "GET /index.php/apps/files/preview-service-worker.js HTTP/1.1" 404 732
+=======
+127.0.0.1 - - [05/Mar/2026:15:11:14 +0100] "PUT /ecodrop/waste-types/2 HTTP/1.1" 200 65
+127.0.0.1 - - [05/Mar/2026:15:11:14 +0100] "POST /ecodrop/waste-types HTTP/1.1" 200 64
+127.0.0.1 - - [05/Mar/2026:15:11:14 +0100] "DELETE /ecodrop/waste-types/2 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Mar/2026:15:11:15 +0100] "POST /ecodrop/waste-types HTTP/1.1" 200 113
+127.0.0.1 - - [05/Mar/2026:15:11:15 +0100] "DELETE /ecodrop/waste-types/2 HTTP/1.1" 200 -
+>>>>>>> bd4732d (end of merge)

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.WasteTypeDAO;
 import model.dao.WasteTypeDAOPostgres;
 import model.dto.WasteType;
+import utils.FormatAdapter;
 
 @WebServlet("/waste-types/*")
 public class WasteTypeRestApi extends HttpServlet {
@@ -27,7 +28,7 @@ public class WasteTypeRestApi extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
 
         System.out.println(info);
@@ -58,7 +59,7 @@ public class WasteTypeRestApi extends HttpServlet {
         res.setContentType("application/json;charset=UTF-8");
         String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
             WasteType wasteType = objectMapper.readValue(data, WasteType.class);
             System.out.println(wasteType);
@@ -102,7 +103,7 @@ public class WasteTypeRestApi extends HttpServlet {
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
 
         System.out.println(info);
