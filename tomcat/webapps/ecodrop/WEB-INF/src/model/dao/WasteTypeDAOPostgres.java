@@ -29,7 +29,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
                 wasteType = new WasteType(id, nom, prix);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println("Could not  find Waste Type with id " + id + " : " + e.getMessage());
         }
 
         return wasteType;
@@ -51,7 +51,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
                 lesWasteTypes.add(wasteType);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println("Could not retrieve all Waste Types : " + e.getMessage());
         }
 
         return lesWasteTypes;
@@ -70,7 +70,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.executeUpdate();
             return true ;
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println("Could not add Waste Type " + wasteType + " : " + e.getMessage());
         }
         return false ;
     }
@@ -86,7 +86,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.executeUpdate();
             return true ;
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println("Could not delete Waste Type " + wasteType + " : " + e.getMessage());
         }
         return false ;
     }
