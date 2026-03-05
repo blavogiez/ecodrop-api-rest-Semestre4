@@ -1,6 +1,14 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,12 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.CollectionPointDAO;
 import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Collection;
+import model.dto.WasteType;
 
 @WebServlet("/points/*")
 public class CollectionPointRestAPI extends HttpServlet {
@@ -41,12 +44,12 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         String id = splits[1];
-        CollectionPoint e = dao.findById(Integer.parseInt(id));
-        if (e == null) {
+        List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(Integer.parseInt(id));
+        if (lesWasteTypesAcceptes == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        out.print(objectMapper.writeValueAsString(e));
+        out.print(objectMapper.writeValueAsString(lesWasteTypesAcceptes));
         return;
     }
 

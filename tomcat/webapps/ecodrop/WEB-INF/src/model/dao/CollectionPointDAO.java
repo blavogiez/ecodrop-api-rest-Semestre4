@@ -1,8 +1,9 @@
 package model.dao;
 
-import model.dto.CollectionPoint;
-
 import java.util.List;
+
+import model.dto.CollectionPoint;
+import model.dto.WasteType;
 
 public interface CollectionPointDAO {
     public List<CollectionPoint> findAll();
@@ -12,4 +13,6 @@ public interface CollectionPointDAO {
     public boolean add(CollectionPoint collectionPoint);
 
     public boolean delete(int id);
+
+    public List<WasteType> getAcceptedWasteTypes(int collectionPointId);
 }

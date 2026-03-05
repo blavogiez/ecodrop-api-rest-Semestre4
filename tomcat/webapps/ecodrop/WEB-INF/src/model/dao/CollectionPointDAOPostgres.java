@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.CollectionPoint;
+import model.dto.WasteType;
 import utils.DS;
 
 public class CollectionPointDAOPostgres implements CollectionPointDAO {
@@ -68,11 +69,11 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not add Collection Point " + collectionPoint + " : " + e.getMessage());
         }
-        return false ;
+        return false;
     }
 
     public boolean delete(int id) {
@@ -84,10 +85,33 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not delete waste types in Collection Point [id:" + id + "] : " + e);
         }
-        return false ;
+        return false;
+    }
+
+    public List<WasteType> getAcceptedWasteTypes(int collectionPointId) {
+        List<WasteType> lesWasteTypesAcceptes = new ArrayList<>();
+        try (Connection con = DS.getConnection()) {
+            String query = "select wt.* from wastetype wt join accepts ac on ac.wastetypeid=wt.id where ac.pointid=?;";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, collectionPointId);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                double pointsPerKilo = rs.getDouble("pointsPerKilo");
+
+                WasteType wasteType = new WasteType(id, nom, pointsPerKilo);
+                lesWasteTypesAcceptes.add(wasteType);
+            }
+        } catch (Exception e) {
+            System.err.println("Could not retrieve all Waste Types : " + e.getMessage());
+        }
+
+        return lesWasteTypesAcceptes;
     }
 }
