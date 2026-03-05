@@ -1,9 +1,10 @@
-package model;
+package model.dto;
 
 public class WasteType {
-    private int id ;
-    private String nom ;
-    private double pointsPerKilo ;
+    // pour jackson
+    public int id ;
+    public String nom ;
+    public double pointsPerKilo ;
 
     public int getId() {
         return id;
@@ -34,6 +35,11 @@ public class WasteType {
         this.nom = nom;
         this.pointsPerKilo = pointsPerKilo;
     }
+
+    // pour jackson
+    public WasteType() {
+
+    };
 
     @Override
     public String toString() {

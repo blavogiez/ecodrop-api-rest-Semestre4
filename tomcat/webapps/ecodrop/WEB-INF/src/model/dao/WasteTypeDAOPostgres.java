@@ -9,7 +9,7 @@ import java.util.List;
 import model.dto.WasteType;
 import utils.DS;
 
-public class WasteTypeDAODatabase implements WasteTypeDAO {
+public class WasteTypeDAOPostgres implements WasteTypeDAO {
     static final DS DS = new DS();
 
     public WasteType findById(int id) {

@@ -13,14 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.DAOIngredient;
-import model.Ingredient;
-import model.IngredientDAODatabase;
+import model.dao.WasteTypeDAO;
+import model.dao.WasteTypeDAOPostgres;
+import model.dto.WasteType;
 
-@WebServlet("/ingredients/*")
-public class IngredientRestApi extends HttpServlet {
+@WebServlet("/waste-type/*")
+public class WasteTypeRestApi extends HttpServlet {
 
-    DAOIngredient dao = new IngredientDAODatabase();
+    WasteTypeDAO dao = new WasteTypeDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
@@ -31,7 +31,7 @@ public class IngredientRestApi extends HttpServlet {
         System.out.println(info);
 
         if (info == null || info.equals("/")) {
-            Collection<Ingredient> l = dao.findAll();
+            Collection<WasteType> l = dao.findAll();
             String jsonstring = objectMapper.writeValueAsString(l);
             out.print(jsonstring);
             return;
@@ -42,7 +42,7 @@ public class IngredientRestApi extends HttpServlet {
             return;
         }
         String id = splits[1];
-        Ingredient e = dao.findById(Integer.parseInt(id));
+        WasteType e = dao.findById(Integer.parseInt(id));
         if (e == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
@@ -57,15 +57,15 @@ public class IngredientRestApi extends HttpServlet {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            Ingredient ingr = objectMapper.readValue(data, Ingredient.class);
-            System.out.println(ingr);
+            WasteType wasteType = objectMapper.readValue(data, wasteType.class);
+            System.out.println(wasteType);
 
-            if (!dao.save(ingr)) {
+            if (!dao.add(wasteType)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
             PrintWriter out = res.getWriter();
-            String jsonstring = objectMapper.writeValueAsString(ingr);
+            String jsonstring = objectMapper.writeValueAsString(wasteType);
             out.print(jsonstring);
         } catch (Exception e) {
             System.out.println(e);
