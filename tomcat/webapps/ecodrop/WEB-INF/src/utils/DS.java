@@ -9,7 +9,6 @@ public class DS {
     static final String password = "jeanjean";
 
     public Connection getConnection() throws Exception {
-        Connection con = DriverManager.getConnection(url, user, password);
-        return con;
+        return DriverManager.getConnection(url, user, password);
     }
 }
