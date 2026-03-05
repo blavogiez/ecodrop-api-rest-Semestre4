@@ -30,3 +30,9 @@
 127.0.0.1 - - [05/Mar/2026:14:52:56 +0100] "PUT /ecodrop/waste-types/2 HTTP/1.1" 200 60
 127.0.0.1 - - [05/Mar/2026:14:52:56 +0100] "POST /ecodrop/waste-types HTTP/1.1" 200 59
 127.0.0.1 - - [05/Mar/2026:14:52:56 +0100] "DELETE /ecodrop/waste-types/2 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Mar/2026:14:54:39 +0100] "PUT /ecodrop/waste-types/2 HTTP/1.1" 200 60
+127.0.0.1 - - [05/Mar/2026:14:54:40 +0100] "POST /ecodrop/waste-types HTTP/1.1" 200 59
+127.0.0.1 - - [05/Mar/2026:14:54:40 +0100] "DELETE /ecodrop/waste-types/2 HTTP/1.1" 200 -
+127.0.0.1 - - [05/Mar/2026:14:54:46 +0100] "GET /ecodrop/waste-types/2 HTTP/1.1" 404 605
+127.0.0.1 - - [05/Mar/2026:14:54:47 +0100] "GET /ecodrop/waste-types/2 HTTP/1.1" 404 605
+127.0.0.1 - - [05/Mar/2026:14:54:47 +0100] "GET /sw.js HTTP/1.1" 404 679

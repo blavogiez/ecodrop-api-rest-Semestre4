@@ -85,7 +85,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.executeUpdate();
             return true ;
         } catch (Exception e) {
-            System.err.println("Could not delete Waste Type " + wasteType + " : " + e.getMessage());
+            System.err.println("Could not delete Waste Type at id : " + id + " : " + e.getMessage());
         }
         return false ;
     }
