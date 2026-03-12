@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.sql.Wrapper;
-import java.text.Normalizer.Form;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +20,6 @@ import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
 import model.dto.Deposit;
 import model.dto.WasteType;
-import utils.Format;
 import utils.FormatAdapter;
 
 @WebServlet("/points/*")
@@ -56,10 +53,8 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        String wasteList = objectMapper.writeValueAsString(lesWasteTypesAcceptes);
-        String point = objectMapper.writeValueAsString(dao.findById(Integer.parseInt(id)));
-        out.print(FormatAdapter.wrapper(Format.JSON, point, wasteList));
-        return;
+        CollectionPoint collectionPoint = dao.findById(Integer.parseInt(id));
+        out.print(objectMapper.writeValueAsString(new Object[]{collectionPoint, lesWasteTypesAcceptes}));
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -165,6 +160,5 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        return;
     }
 }

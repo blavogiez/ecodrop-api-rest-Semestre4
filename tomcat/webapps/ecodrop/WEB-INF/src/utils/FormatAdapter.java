@@ -17,18 +17,6 @@ public class FormatAdapter {
         return JSON_MAPPER;
     }
 
-    public static String wrapper(Format format, String... toWrap){
-        StringBuilder sb = new StringBuilder();
-        String open = format.open;
-        String close = format.close;
-        sb.append(open);
-        for (String element : toWrap){
-            sb.append(element);
-        }
-        sb.append(close);
-        return sb.toString();
-    }
-
     // public static String toUniversalJSON(String input) throws Exception {
     // if (input == null || input.isBlank())
     // return input;
