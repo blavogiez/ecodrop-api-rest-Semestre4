@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,7 +57,6 @@ public class UsersRestAPI extends HttpServlet {
             return ;
         }
         res.sendError(HttpServletResponse.SC_NOT_FOUND);
-        return;
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -86,7 +86,45 @@ public class UsersRestAPI extends HttpServlet {
         }
         out.print(objectMapper.writeValueAsString(user));
         res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 
+    @Override
+    protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json;charset=UTF-8");
+
+        String info = req.getPathInfo();
+        String[] splits = info == null ? new String[0] : info.split("/");
+        if (splits.length != 2) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        int id = Integer.parseInt(splits[1]);
+
+        try {
+            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                    .collect(Collectors.joining());
+
+            // recup l'objet existant pour ne modifier que les champs fournis
+            Users existing = dao.findById(id);
+            if (existing == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            ObjectMapper mapper = FormatAdapter.mapperFor(req);
+            Users updated = mapper.readerForUpdating(existing).readValue(data);
+
+            if (dao.update(id, updated) == null) {
+                resp.sendError(HttpServletResponse.SC_CONFLICT);
+                return;
+            }
+
+            PrintWriter out = resp.getWriter();
+            out.print(mapper.writeValueAsString(updated));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            System.out.println("Could not update user : " + e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
