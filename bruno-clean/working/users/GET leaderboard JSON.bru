@@ -1,0 +1,21 @@
+meta {
+  name: GET leaderboard JSON
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/users/leaderboard
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
