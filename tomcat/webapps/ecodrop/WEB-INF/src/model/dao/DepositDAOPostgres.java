@@ -86,7 +86,7 @@ public class DepositDAOPostgres implements DepositDAO {
     }
 
     @Override
-    public Deposit update(Deposit updated) {
+    public Deposit update(int id, Deposit updated) {
         try (Connection con = DS.getConnection()) {
             String query = "update Deposit set userId = ?, pointId = ?, wasteTypeId = ?, poids = ? where id = ?";
             PreparedStatement ps = con.prepareStatement(query);
@@ -95,6 +95,7 @@ public class DepositDAOPostgres implements DepositDAO {
             ps.setInt(2, updated.getPointId());
             ps.setInt(3, updated.getWasteTypeId());
             ps.setDouble(4, updated.getPoids());
+            ps.setInt(5, id);
 
             System.out.println(ps);
             ps.executeUpdate();
