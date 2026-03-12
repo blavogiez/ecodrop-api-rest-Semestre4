@@ -2,6 +2,8 @@
 DROP TABLE IF EXISTS Accepts CASCADE;
 DROP TABLE IF EXISTS WasteType CASCADE;
 DROP TABLE IF EXISTS CollectionPoint CASCADE;
+DROP TABLE IF EXISTS Users CASCADE ;
+DROP TABLE IF EXISTS Deposit CASCADE ;
 
 create table WasteType (
     id serial primary key,
@@ -12,7 +14,7 @@ create table WasteType (
 CREATE TABLE CollectionPoint (
     id SERIAL PRIMARY KEY,
     adresse VARCHAR(30) NOT NULL,
-    capaciteMax int NOT NULL
+    capaciteMax FLOAT NOT NULL
 );
 
 CREATE TABLE Accepts (
@@ -20,5 +22,24 @@ CREATE TABLE Accepts (
     wastetypeid INT REFERENCES WasteType(id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT pk_ids PRIMARY KEY (pointid, wastetypeid)
 );
+
+CREATE TABLE Users (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL CHECK (char_length(password) > 10),
+    role VARCHAR(10) NOT NULL CHECK (role IN ('USER','ADMIN'))
+);
+
+
+create table Deposit (
+    id serial primary key,
+    userId int references Users(id) on update cascade on delete cascade,
+    pointId int references CollectionPoint(id) on update cascade on delete cascade,
+    wasteTypeId int references WasteType(id) on update cascade on delete cascade,
+    poids FLOAT not null
+);
+
+
+
 
 \i fill.sql;
