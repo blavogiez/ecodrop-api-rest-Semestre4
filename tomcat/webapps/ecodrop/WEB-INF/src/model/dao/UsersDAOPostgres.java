@@ -83,4 +83,30 @@ public class UsersDAOPostgres implements UsersDAO {
         }
         return null;
     }
+
+    @Override
+    public List<Users> findArgumentTopRecyclers(int theLimit) {
+        List<Users> theBestNRecyclers = new ArrayList<>();
+
+        try (Connection con = DS.getConnection()) {
+            String query = "select * from Users where id in (select userId from Deposit group by userId order by count(*) desc limit = ?)";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, theLimit);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                Role role = Role.valueOf(rs.getString("role"));
+
+                theBestNRecyclers.add(new Users(id, login, password, role));
+            }
+        } catch (Exception e) {
+            System.err.println("Could not retrieve all Users " + " : " + e.getMessage());
+        }
+        return theBestNRecyclers;
+    }
+
 }

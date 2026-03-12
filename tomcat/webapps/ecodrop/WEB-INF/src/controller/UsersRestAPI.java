@@ -1,6 +1,14 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,16 +19,12 @@ import model.dao.UsersDAOPostgres;
 import model.dto.Users;
 import utils.FormatAdapter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Collection;
-
 @WebServlet("/users/*")
 public class UsersRestAPI extends HttpServlet {
 
     UsersDAO dao = new UsersDAOPostgres();
+
+    private static final int DEFAULT_LEADERBOARD_LIMIT=10;
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
@@ -41,14 +45,17 @@ public class UsersRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        Users user = dao.findById(Integer.parseInt(id));
-        if (user == null) {
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
+        String choice = splits[1];
+
+        if(choice.equals("leaderboard")) {
+            List<Users> theTenBestRecyclers = dao.findArgumentTopRecyclers(DEFAULT_LEADERBOARD_LIMIT);
+
+            String jsonstring = objectMapper.writeValueAsString(theTenBestRecyclers);
+            out.print(jsonstring);
+            res.setStatus(HttpServletResponse.SC_OK);
+            return ;
         }
-        out.print(objectMapper.writeValueAsString(user));
-        res.sendError(HttpServletResponse.SC_OK);
+        res.sendError(HttpServletResponse.SC_NOT_FOUND);
         return;
     }
 

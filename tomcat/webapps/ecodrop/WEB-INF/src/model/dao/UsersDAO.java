@@ -10,4 +10,6 @@ public interface UsersDAO {
     Users findById(int id);
 
     Users update(int id, Users users);
+
+    List<Users> findArgumentTopRecyclers(int theLimit);
 }
