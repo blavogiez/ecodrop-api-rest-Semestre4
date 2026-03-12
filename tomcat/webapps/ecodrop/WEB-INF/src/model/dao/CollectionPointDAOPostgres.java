@@ -94,7 +94,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
     }
 
     public List<WasteType> getAcceptedWasteTypes(int collectionPointId) {
-        List<WasteType> lesWasteTypesAcceptes = new ArrayList<>();
+        List<WasteType> acceptedWasteTypes = new ArrayList<>();
         try (Connection con = DS.getConnection()) {
             String query = "select wt.* from wastetype wt join accepts ac on ac.wastetypeid=wt.id where ac.pointid=?;";
             PreparedStatement ps = con.prepareStatement(query);
@@ -107,13 +107,13 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
                 double pointsPerKilo = rs.getDouble("pointsPerKilo");
 
                 WasteType wasteType = new WasteType(id, nom, pointsPerKilo);
-                lesWasteTypesAcceptes.add(wasteType);
+                acceptedWasteTypes.add(wasteType);
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve all Waste Types : " + e.getMessage());
         }
 
-        return lesWasteTypesAcceptes;
+        return acceptedWasteTypes;
     }
 
     public List<Deposit> deleteAllDepositsFromPoint(int collectionPointId) {
