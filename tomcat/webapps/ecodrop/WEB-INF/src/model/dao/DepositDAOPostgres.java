@@ -1,13 +1,13 @@
 package model.dao;
 
-import model.dto.Deposit;
-import utils.DS;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.dto.Deposit;
+import utils.DS;
 
 public class DepositDAOPostgres implements DepositDAO {
 

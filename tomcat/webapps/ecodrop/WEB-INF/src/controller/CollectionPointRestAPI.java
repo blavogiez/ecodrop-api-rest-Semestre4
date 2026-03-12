@@ -56,7 +56,44 @@ public class CollectionPointRestAPI extends HttpServlet {
         return;
     }
 
-    // doPut à faire
+    public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setContentType("application/json;charset=UTF-8");
+
+        String info = req.getPathInfo();
+        String[] splits = info == null ? new String[0] : info.split("/");
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        int id = Integer.parseInt(splits[1]);
+
+        try {
+            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                    .collect(Collectors.joining());
+
+            // vérification de l'existence d'un point avant de le modifier
+            CollectionPoint existing = dao.findById(id);
+            if (existing == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            ObjectMapper mapper = FormatAdapter.mapperFor(req);
+            CollectionPoint toPut = mapper.readValue(data, CollectionPoint.class);
+
+            if (dao.update(toPut) == null) {
+                res.sendError(HttpServletResponse.SC_CONFLICT);
+                return;
+            }
+
+            PrintWriter out = res.getWriter();
+            out.print(mapper.writeValueAsString(toPut));
+            res.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            System.out.println("Could not update collection point : " + e.getMessage());
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
@@ -90,7 +127,7 @@ public class CollectionPointRestAPI extends HttpServlet {
 
             PrintWriter out = res.getWriter();
             out.print(mapper.writeValueAsString(updated));
-            res.sendError(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -118,7 +155,7 @@ public class CollectionPointRestAPI extends HttpServlet {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
-            res.sendError(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);
