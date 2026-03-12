@@ -1,0 +1,22 @@
+meta {
+  name: PATCH points 3 JSON
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/points/3
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "introuvable":"1 Rue du JSON"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

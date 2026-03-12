@@ -1,0 +1,22 @@
+meta {
+  name: PATCH points 67 JSON
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/points/67
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "adresse":"1 Rue du JSON"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

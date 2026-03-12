@@ -1,0 +1,28 @@
+meta {
+  name: PATCH points 67 XML
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{baseUrl}}/points/67
+  body: xml
+  auth: inherit
+}
+
+body:json {
+  {
+    adresse:"1 Rue de la modification réussie"
+  }
+}
+
+body:xml {
+  <points>
+    <adresse>1 Rue du XML</adresse>
+  </points>
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
