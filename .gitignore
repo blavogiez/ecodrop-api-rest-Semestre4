@@ -3,4 +3,5 @@
 */classes/*
 */temp
 */logs
+*.log
 tomcat/logs
