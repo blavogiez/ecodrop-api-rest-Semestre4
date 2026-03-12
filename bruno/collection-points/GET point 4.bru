@@ -5,11 +5,12 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/ecodrop/points/4
+  url: {{baseUrl}}/points/4
   body: none
   auth: inherit
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

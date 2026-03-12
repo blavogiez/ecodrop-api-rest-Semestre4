@@ -5,11 +5,12 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/ecodrop/accepts
+  url: {{baseUrl}}/accepts
   body: none
   auth: inherit
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
