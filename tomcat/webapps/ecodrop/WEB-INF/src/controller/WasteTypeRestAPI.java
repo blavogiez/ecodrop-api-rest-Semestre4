@@ -75,7 +75,7 @@ public class WasteTypeRestAPI extends HttpServlet {
             String jsonstring = objectMapper.writeValueAsString(wasteType);
             out.print(jsonstring);
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println("Could not add waste type to database : " + e.getMessage());
         }
 
         res.sendError(HttpServletResponse.SC_OK);

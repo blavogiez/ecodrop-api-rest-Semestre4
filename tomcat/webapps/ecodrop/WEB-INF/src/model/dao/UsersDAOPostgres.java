@@ -65,7 +65,7 @@ public class UsersDAOPostgres implements UsersDAO {
     }
 
     @Override
-    public Users update(Users updated) {
+    public Users update(int id, Users updated) {
         try (Connection con = DS.getConnection()) {
             String query = "update users SET login = ?, password = ?, role = ? where id = ?";
             PreparedStatement ps = con.prepareStatement(query);
@@ -73,6 +73,7 @@ public class UsersDAOPostgres implements UsersDAO {
             ps.setString(1, updated.getLogin());
             ps.setString(2, updated.getPassword());
             ps.setString(3, updated.getRole().toString());
+            ps.setInt(4, id);
 
             System.out.println(ps);
             ps.executeUpdate();

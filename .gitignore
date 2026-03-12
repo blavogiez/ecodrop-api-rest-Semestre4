@@ -5,3 +5,6 @@
 */logs
 *.log
 tomcat/logs
+
+# Secrets
+.env*

@@ -9,5 +9,5 @@ public interface UsersDAO {
 
     Users findById(int id);
 
-    Users update(Users users);
+    Users update(int id, Users users);
 }
