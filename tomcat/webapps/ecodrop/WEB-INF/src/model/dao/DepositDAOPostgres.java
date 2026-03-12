@@ -59,7 +59,7 @@ public class DepositDAOPostgres implements DepositDAO {
                 deposit = new Deposit(id, userId, pointId, wasteTypeId, poids);
             }
         } catch (Exception e) {
-            System.err.println("Could not find Collection Point with id " + id + " : " + e.getMessage());
+            System.err.println("Could not find Deposit with id " + id + " : " + e.getMessage());
         }
 
         return deposit;
@@ -80,7 +80,7 @@ public class DepositDAOPostgres implements DepositDAO {
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
-            System.err.println("Could not add Collection Point " + deposit + " : " + e.getMessage());
+            System.err.println("Could not add Deposit " + deposit + " : " + e.getMessage());
         }
         return false;
     }
@@ -100,7 +100,7 @@ public class DepositDAOPostgres implements DepositDAO {
             ps.executeUpdate();
             return updated;
         } catch (Exception e) {
-            System.err.println("Could not update Deposit with informations " + updated + " : " + e.getMessage());;
+            System.err.println("Could not update Deposit with informations " + updated + " : " + e.getMessage());
         }
         return null;
     }
