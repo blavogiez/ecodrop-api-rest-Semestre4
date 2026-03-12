@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.dto.CollectionPoint;
+import model.dto.Deposit;
 import model.dto.WasteType;
 
 public interface CollectionPointDAO {
@@ -17,4 +18,6 @@ public interface CollectionPointDAO {
     public List<WasteType> getAcceptedWasteTypes(int collectionPointId);
 
     public CollectionPoint update(CollectionPoint updated);
+
+    public List<Deposit> deleteAllDepositsFromPoint(int collectionPointId);
 }

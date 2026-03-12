@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.CollectionPointDAO;
 import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
+import model.dto.Deposit;
 import model.dto.WasteType;
 import utils.FormatAdapter;
 
@@ -149,12 +150,12 @@ public class CollectionPointRestAPI extends HttpServlet {
         String order = splits[2];
 
         if (order.equals("clear")) {
-            boolean success = dao.delete(Integer.parseInt(id));
+            List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(Integer.parseInt(id));
+            ObjectMapper mapper = FormatAdapter.mapperFor(req);
+            
+            PrintWriter out = res.getWriter();
+            out.print(mapper.writeValueAsString(deletedDeposits));
 
-            if (!success) {
-                res.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }

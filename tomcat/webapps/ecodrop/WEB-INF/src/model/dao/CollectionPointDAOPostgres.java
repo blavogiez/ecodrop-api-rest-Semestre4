@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.CollectionPoint;
+import model.dto.Deposit;
 import model.dto.WasteType;
 import utils.DS;
 
@@ -113,6 +114,41 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
         }
 
         return lesWasteTypesAcceptes;
+    }
+
+    public List<Deposit> deleteAllDepositsFromPoint(int collectionPointId) {
+        List<Deposit> deposits = new ArrayList<>();
+
+        try (Connection con = DS.getConnection()) {
+
+            String query = "select * from Deposit where pointId=?";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, collectionPointId);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                int pointId = rs.getInt("pointId");
+                int wasteTypeId = rs.getInt("wasteTypeId");
+                double poids = rs.getDouble("poids");
+
+                deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids));
+            }
+
+            query = "delete from Deposit where pointId=?";
+            ps = con.prepareStatement(query);
+
+            ps.setInt(1, collectionPointId);
+            System.out.println(ps);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.println("Deletion or retrieval of the deposits failed : " + e.getMessage());
+        }
+
+        return deposits;
     }
 
     public CollectionPoint update(CollectionPoint updated) {
