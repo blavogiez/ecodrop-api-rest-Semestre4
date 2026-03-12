@@ -1824,3 +1824,8 @@
 05-Mar-2026 16:31:23.938 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/infoetu/paul-arnaud.delavictoire.etu/ecodrop/tomcat/webapps/examples] has finished in [275] ms
 05-Mar-2026 16:31:23.940 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
 05-Mar-2026 16:31:23.947 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1508] milliseconds
+05-Mar-2026 16:32:48.898 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:32:48.899 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Mar-2026 16:32:48.910 WARNING [Thread-1] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [ecodrop] registered the JDBC driver [org.h2.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+05-Mar-2026 16:32:48.916 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Mar-2026 16:32:48.922 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
