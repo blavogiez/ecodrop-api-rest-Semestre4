@@ -56,6 +56,8 @@ public class CollectionPointRestAPI extends HttpServlet {
         return;
     }
 
+    // doPut à faire
+
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json;charset=UTF-8");
 
