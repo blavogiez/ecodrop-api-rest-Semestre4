@@ -62,8 +62,9 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
     public List<CollectionPoint> getOccupatedPointsAboveThreshold(int threshold) {
         List<CollectionPoint> pointsList = new ArrayList<>();
         try (Connection con = DS.getConnection()) {
-            String query = "select * from CollectionPoint";
+            String query = "select cp.* from CollectionPoint cp left join Deposit dp on dp.pointId = cp.id and (dp.collecte is not true) group by cp.id, cp.adresse, cp.capaciteMax having (coalesce(sum(dp.poids), 0) / cp.capaciteMax * 100) > ?";
             PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, threshold);
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -143,7 +144,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
         try (Connection con = DS.getConnection()) {
 
-            String query = "select * from Deposit where pointId=?";
+            String query = "select * from Deposit where pointId=? and (collecte is not true)";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, collectionPointId);
@@ -160,7 +161,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
                 deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids));
             }
 
-            query = "delete from Deposit where pointId=?";
+            query = "update Deposit set collecte=true where pointId=?";
             ps = con.prepareStatement(query);
 
             ps.setInt(1, collectionPointId);

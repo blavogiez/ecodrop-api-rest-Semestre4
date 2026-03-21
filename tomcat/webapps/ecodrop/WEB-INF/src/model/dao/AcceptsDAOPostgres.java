@@ -58,8 +58,7 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
             ps.setInt(2, wasteTypeId);
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not delete Accepts [id:" + pointId + "," + wasteTypeId + "] : " + e);
         }

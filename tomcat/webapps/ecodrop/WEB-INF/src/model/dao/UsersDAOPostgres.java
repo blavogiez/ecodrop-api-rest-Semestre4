@@ -90,7 +90,7 @@ public class UsersDAOPostgres implements UsersDAO {
         List<Users> theBestNRecyclers = new ArrayList<>();
 
         try (Connection con = DS.getConnection()) {
-            String query = "select Users.*, sum(poids) * sum(pointsPerKilo) as score from Users join Deposit on Users.id=Deposit.userId join WasteType on Deposit.wasteTypeId=WasteType.id group by Users.id order by (sum(poids) * sum(pointsPerKilo)) desc limit ?;";
+            String query = "select Users.*, sum(dp.poids * wt.pointsPerKilo) as score from Users join Deposit dp on Users.id=dp.userId join WasteType wt on dp.wasteTypeId=wt.id group by Users.id order by sum(dp.poids * wt.pointsPerKilo) desc limit ?;";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, theLimit);
             System.out.println(ps);
