@@ -77,8 +77,13 @@ INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 5, 
 -- Point 4 (capaciteMax=200) : +155 kg → total 169.8 kg → 84.9% → overloaded
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 4, 3, 155.0, false);
 
+
 -- Point 5 (capaciteMax=50) : +35 kg → total 48.5 kg → 97% → overloaded + full=true
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 5, 4, 35.0, false);
 
 -- Point 1 : dépôt déjà collecté (collecte=true) — ne compte pas dans le taux de remplissage
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 1, 50.0, true);
+
+-- on rajoute aussi un poids énorme en collecté à un poids non surchargé, pour être sur que ça compte pas (le point 1 ne doit donc pas être retourné)
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 1, 10000.0, true);
+
