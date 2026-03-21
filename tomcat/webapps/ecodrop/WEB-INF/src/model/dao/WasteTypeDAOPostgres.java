@@ -24,7 +24,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
             while (rs.next()) {
                 String nom = rs.getString("nom");
-                int pointsPerKilo = rs.getInt("pointsPerKilo");
+                double pointsPerKilo = rs.getDouble("pointsPerKilo");
 
                 wasteType = new WasteType(id, nom, pointsPerKilo);
                 System.out.println(wasteType);
@@ -83,8 +83,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.setInt(1, id);
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not delete Waste Type at id : " + id + " : " + e.getMessage());
         }

@@ -51,11 +51,11 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
 
     public boolean delete(int pointId, int wasteTypeId) {
         try (Connection con = DS.getConnection()) {
-            String query = "delete from Accepts where pointId = ? AND  wasteTypeId = ?";
+            String query = "delete from Accepts where pointId = ? AND wasteTypeId = ?";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, pointId);
-            ps.setInt(2, pointId);
+            ps.setInt(2, wasteTypeId);
 
             System.out.println(ps);
             ps.executeUpdate();
