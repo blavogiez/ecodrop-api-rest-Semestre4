@@ -25,6 +25,8 @@ import utils.FormatAdapter;
 @WebServlet("/points/*")
 public class CollectionPointRestAPI extends HttpServlet {
 
+    public static final int OVERLOADED_THRESHOLD = 80;
+
     CollectionPointDAO dao = new CollectionPointDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -46,15 +48,29 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(Integer.parseInt(id));
-        System.out.println(lesWasteTypesAcceptes);
-        if (lesWasteTypesAcceptes == null) {
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
+        String choice = splits[1];
+
+        if (choice.equals("overloaded")) {
+            List<CollectionPoint> pointsAboveThreshold = dao.getOccupatedPointsAboveThreshold(OVERLOADED_THRESHOLD);
+            System.out.println(pointsAboveThreshold);
+            if (pointsAboveThreshold == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            out.print(objectMapper.writeValueAsString(pointsAboveThreshold));
+        } else {
+            // dans l'autre cas, c'est un id qu'on cherche
+            Integer targetId = Integer.parseInt(choice);
+            List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(targetId);
+            System.out.println(lesWasteTypesAcceptes);
+            if (lesWasteTypesAcceptes == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            CollectionPoint collectionPoint = dao.findById(targetId);
+            out.print(objectMapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
         }
-        CollectionPoint collectionPoint = dao.findById(Integer.parseInt(id));
-        out.print(objectMapper.writeValueAsString(new Object[]{collectionPoint, lesWasteTypesAcceptes}));
+
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -152,7 +168,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         if (order.equals("clear")) {
             List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(Integer.parseInt(id));
             ObjectMapper mapper = FormatAdapter.mapperFor(req);
-            
+
             PrintWriter out = res.getWriter();
             out.print(mapper.writeValueAsString(deletedDeposits));
 

@@ -36,7 +36,9 @@ create table Deposit (
     userId int references Users(id) on update cascade on delete cascade,
     pointId int references CollectionPoint(id) on update cascade on delete cascade,
     wasteTypeId int references WasteType(id) on update cascade on delete cascade,
-    poids FLOAT not null
+    poids FLOAT not null,
+    datedepot DATE,
+    collecte BOOLEAN
 );
 
 

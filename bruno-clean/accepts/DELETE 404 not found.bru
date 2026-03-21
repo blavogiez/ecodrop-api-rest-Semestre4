@@ -1,0 +1,15 @@
+meta {
+  name: DELETE accepts 404 not found
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/accepts/9999/9999
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: DELETE accepts success
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/accepts/1/4
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

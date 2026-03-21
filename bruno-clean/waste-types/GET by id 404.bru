@@ -1,0 +1,15 @@
+meta {
+  name: GET waste-type by id 404
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/waste-types/9999
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,23 @@
+meta {
+  name: POST waste-type JSON
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/waste-types
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 99,
+    "nom": "test déchets JSON",
+    "pointsPerKilo": 3.5
+  }
+}

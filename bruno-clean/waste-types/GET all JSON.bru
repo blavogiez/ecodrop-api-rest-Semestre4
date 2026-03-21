@@ -1,0 +1,15 @@
+meta {
+  name: GET all waste-types JSON
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/waste-types
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

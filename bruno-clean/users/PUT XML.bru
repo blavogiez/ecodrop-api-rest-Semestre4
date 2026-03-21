@@ -1,0 +1,24 @@
+meta {
+  name: PUT user XML
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/users/1
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <users>
+    <id>1</id>
+    <login>paulpaulpaul</login>
+    <password>newpasswordxml</password>
+    <role>ADMIN</role>
+  </users>
+}

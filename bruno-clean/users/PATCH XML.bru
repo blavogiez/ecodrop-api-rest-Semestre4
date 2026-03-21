@@ -1,0 +1,21 @@
+meta {
+  name: PATCH user XML
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{baseUrl}}/users/2
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <users>
+    <login>podman-patched-xml</login>
+  </users>
+}

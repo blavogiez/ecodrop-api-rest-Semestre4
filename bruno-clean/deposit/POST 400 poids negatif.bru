@@ -1,0 +1,24 @@
+meta {
+  name: POST deposit 400 poids negatif [Partie B]
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/deposit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "userId": 1,
+    "pointId": 1,
+    "wasteTypeId": 1,
+    "poids": -5.0
+  }
+}

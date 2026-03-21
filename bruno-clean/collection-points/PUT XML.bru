@@ -1,0 +1,23 @@
+meta {
+  name: PUT collection-point XML
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{baseUrl}}/points/1
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <collectionPoint>
+    <id>1</id>
+    <adresse>21 Rue DuChemin modifiée XML</adresse>
+    <capaciteMax>500</capaciteMax>
+  </collectionPoint>
+}

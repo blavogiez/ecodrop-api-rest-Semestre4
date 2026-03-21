@@ -1,0 +1,22 @@
+meta {
+  name: POST accepts XML
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/accepts
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <accepts>
+    <pointsId>5</pointsId>
+    <wasteTypesId>6</wasteTypesId>
+  </accepts>
+}

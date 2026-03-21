@@ -9,6 +9,8 @@ import model.dto.WasteType;
 public interface CollectionPointDAO {
     public List<CollectionPoint> findAll();
 
+    public List<CollectionPoint> getOccupatedPointsAboveThreshold(int threshold);
+
     public CollectionPoint findById(int id);
 
     public boolean add(CollectionPoint collectionPoint);
@@ -20,4 +22,5 @@ public interface CollectionPointDAO {
     public CollectionPoint update(CollectionPoint updated);
 
     public List<Deposit> deleteAllDepositsFromPoint(int collectionPointId);
+
 }

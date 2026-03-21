@@ -1,0 +1,25 @@
+meta {
+  name: PUT deposit XML
+  type: http
+  seq: 11
+}
+
+put {
+  url: {{baseUrl}}/deposit/1
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <deposit>
+    <id>1</id>
+    <userId>1</userId>
+    <pointId>1</pointId>
+    <wasteTypeId>1</wasteTypeId>
+    <poids>4.0</poids>
+  </deposit>
+}

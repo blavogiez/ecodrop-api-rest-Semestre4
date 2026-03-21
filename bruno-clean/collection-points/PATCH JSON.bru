@@ -1,0 +1,21 @@
+meta {
+  name: PATCH collection-point JSON
+  type: http
+  seq: 11
+}
+
+patch {
+  url: {{baseUrl}}/points/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "adresse": "21 Rue DuChemin patchée JSON"
+  }
+}

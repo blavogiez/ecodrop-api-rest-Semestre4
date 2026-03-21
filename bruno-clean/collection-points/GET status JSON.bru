@@ -1,0 +1,15 @@
+meta {
+  name: GET collection-point status JSON [Partie B]
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/points/1/status
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

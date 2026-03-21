@@ -1,0 +1,23 @@
+meta {
+  name: PUT waste-type JSON
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{baseUrl}}/waste-types/2
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 2,
+    "nom": "Textile modifié JSON",
+    "pointsPerKilo": 3.5
+  }
+}

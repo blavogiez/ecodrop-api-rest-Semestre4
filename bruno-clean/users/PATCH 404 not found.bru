@@ -1,0 +1,21 @@
+meta {
+  name: PATCH user 404 not found
+  type: http
+  seq: 10
+}
+
+patch {
+  url: {{baseUrl}}/users/9999
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "login": "inexistant"
+  }
+}

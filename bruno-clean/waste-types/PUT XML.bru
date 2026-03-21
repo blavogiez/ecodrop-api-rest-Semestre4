@@ -1,0 +1,23 @@
+meta {
+  name: PUT waste-type XML
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{baseUrl}}/waste-types/2
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <wasteType>
+    <id>2</id>
+    <nom>Textile modifié XML</nom>
+    <pointsPerKilo>3.5</pointsPerKilo>
+  </wasteType>
+}

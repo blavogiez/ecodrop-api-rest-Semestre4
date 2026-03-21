@@ -1,0 +1,23 @@
+meta {
+  name: POST waste-type XML
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/waste-types
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <wasteType>
+    <id>98</id>
+    <nom>test déchets XML</nom>
+    <pointsPerKilo>4.0</pointsPerKilo>
+  </wasteType>
+}

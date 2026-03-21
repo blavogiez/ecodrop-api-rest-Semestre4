@@ -1,0 +1,24 @@
+meta {
+  name: POST deposit JSON
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/deposit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "userId": 1,
+    "pointId": 3,
+    "wasteTypeId": 1,
+    "poids": 5.0
+  }
+}

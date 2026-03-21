@@ -1,0 +1,15 @@
+meta {
+  name: GET deposit by id 404
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/deposit/9999
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,24 @@
+meta {
+  name: PUT user JSON
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "login": "paulpaulpaul",
+    "password": "newpassword",
+    "role": "ADMIN"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: DELETE clear deposits from point
+  type: http
+  seq: 14
+}
+
+delete {
+  url: {{baseUrl}}/points/1/clear
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,22 @@
+meta {
+  name: POST accepts 409 conflict
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/accepts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "pointsId": 1,
+    "wasteTypesId": 1
+  }
+}

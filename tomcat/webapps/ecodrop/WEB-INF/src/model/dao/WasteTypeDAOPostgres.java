@@ -27,6 +27,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
                 int pointsPerKilo = rs.getInt("pointsPerKilo");
 
                 wasteType = new WasteType(id, nom, pointsPerKilo);
+                System.out.println(wasteType);
             }
         } catch (Exception e) {
             System.err.println("Could not  find Waste Type with id " + id + " : " + e.getMessage());
@@ -67,11 +68,11 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not add Waste Type " + wasteType + " : " + e.getMessage());
         }
-        return false ;
+        return false;
     }
 
     public boolean delete(int id) {
@@ -83,11 +84,11 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return true ;
+            return true;
         } catch (Exception e) {
             System.err.println("Could not delete Waste Type at id : " + id + " : " + e.getMessage());
         }
-        return false ;
+        return false;
     }
 
     // le WasteType à l'ID existant devient le wasteType en argument
@@ -105,10 +106,10 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
             System.out.println(ps);
             ps.executeUpdate();
-            return wasteType ;
+            return wasteType;
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null ;
+        return null;
     }
 }

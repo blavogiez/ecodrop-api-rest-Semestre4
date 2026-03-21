@@ -1,0 +1,25 @@
+meta {
+  name: PUT deposit 404 not found
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{baseUrl}}/deposit/9999
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 9999,
+    "userId": 1,
+    "pointId": 1,
+    "wasteTypeId": 1,
+    "poids": 1.0
+  }
+}

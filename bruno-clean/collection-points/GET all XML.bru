@@ -1,0 +1,15 @@
+meta {
+  name: GET all collection-points XML
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/points
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}

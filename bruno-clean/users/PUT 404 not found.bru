@@ -1,0 +1,24 @@
+meta {
+  name: PUT user 404 not found
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/users/9999
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 9999,
+    "login": "inexistant",
+    "password": "inexistant",
+    "role": "USER"
+  }
+}

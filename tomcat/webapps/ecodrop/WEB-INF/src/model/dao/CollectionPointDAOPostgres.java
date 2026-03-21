@@ -59,6 +59,28 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
         return pointsList;
     }
 
+    public List<CollectionPoint> getOccupatedPointsAboveThreshold(int threshold) {
+        List<CollectionPoint> pointsList = new ArrayList<>();
+        try (Connection con = DS.getConnection()) {
+            String query = "select * from CollectionPoint";
+            PreparedStatement ps = con.prepareStatement(query);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String adresse = rs.getString("adresse");
+                int capaciteMax = rs.getInt("capaciteMax");
+
+                CollectionPoint collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
+                pointsList.add(collectionPoint);
+            }
+        } catch (Exception e) {
+            System.err.println("Could not retrieve collection points : " + e.getMessage());
+        }
+
+        return pointsList;
+    }
+
     public boolean add(CollectionPoint collectionPoint) {
         try (Connection con = DS.getConnection()) {
             String query = "insert into CollectionPoint(id,adresse,capaciteMax) values(?,?,?)";

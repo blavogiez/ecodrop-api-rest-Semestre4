@@ -1,0 +1,25 @@
+meta {
+  name: PUT deposit JSON
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{baseUrl}}/deposit/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "userId": 1,
+    "pointId": 1,
+    "wasteTypeId": 1,
+    "poids": 3.0
+  }
+}

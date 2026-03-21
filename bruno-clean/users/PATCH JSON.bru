@@ -1,0 +1,21 @@
+meta {
+  name: PATCH user JSON
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{baseUrl}}/users/2
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "login": "podman-patched"
+  }
+}

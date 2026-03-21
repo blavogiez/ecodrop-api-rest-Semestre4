@@ -1,0 +1,15 @@
+meta {
+  name: GET all deposits XML
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/deposit
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}

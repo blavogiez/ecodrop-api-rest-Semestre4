@@ -1,0 +1,23 @@
+meta {
+  name: PUT collection-point JSON
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{baseUrl}}/points/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "adresse": "21 Rue DuChemin modifiée JSON",
+    "capaciteMax": 500
+  }
+}

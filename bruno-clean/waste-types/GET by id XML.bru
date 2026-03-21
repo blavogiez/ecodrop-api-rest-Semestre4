@@ -1,0 +1,15 @@
+meta {
+  name: GET waste-type by id XML
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/waste-types/1
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}

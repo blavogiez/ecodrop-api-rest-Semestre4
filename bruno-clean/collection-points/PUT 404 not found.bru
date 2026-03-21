@@ -1,0 +1,23 @@
+meta {
+  name: PUT collection-point 404 not found
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{baseUrl}}/points/9999
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 9999,
+    "adresse": "adresse inexistante",
+    "capaciteMax": 100
+  }
+}

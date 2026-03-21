@@ -1,0 +1,15 @@
+meta {
+  name: GET all deposits JSON
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/deposit
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

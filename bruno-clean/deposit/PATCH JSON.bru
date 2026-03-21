@@ -1,0 +1,21 @@
+meta {
+  name: PATCH deposit JSON [Partie B]
+  type: http
+  seq: 13
+}
+
+patch {
+  url: {{baseUrl}}/deposit/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "poids": 6.0
+  }
+}

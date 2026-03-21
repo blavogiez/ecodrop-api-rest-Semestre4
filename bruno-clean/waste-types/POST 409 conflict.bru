@@ -1,0 +1,23 @@
+meta {
+  name: POST waste-type 409 conflict
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/waste-types
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "nom": "batteries",
+    "pointsPerKilo": 5.0
+  }
+}

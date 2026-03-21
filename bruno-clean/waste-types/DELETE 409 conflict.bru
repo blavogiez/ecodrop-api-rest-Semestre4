@@ -1,0 +1,15 @@
+meta {
+  name: DELETE waste-type 409 conflict
+  type: http
+  seq: 13
+}
+
+delete {
+  url: {{baseUrl}}/waste-types/1
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

@@ -1,0 +1,21 @@
+meta {
+  name: PATCH deposit XML [Partie B]
+  type: http
+  seq: 14
+}
+
+patch {
+  url: {{baseUrl}}/deposit/1
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <deposit>
+    <poids>7.0</poids>
+  </deposit>
+}

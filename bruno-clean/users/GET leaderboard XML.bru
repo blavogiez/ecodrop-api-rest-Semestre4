@@ -1,0 +1,15 @@
+meta {
+  name: GET leaderboard XML
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/users/leaderboard
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}

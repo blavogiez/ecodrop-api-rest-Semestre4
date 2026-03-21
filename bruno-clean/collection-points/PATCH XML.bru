@@ -1,0 +1,21 @@
+meta {
+  name: PATCH collection-point XML
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{baseUrl}}/points/1
+  body: xml
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
+
+body:xml {
+  <collectionPoint>
+    <adresse>21 Rue DuChemin patchée XML</adresse>
+  </collectionPoint>
+}

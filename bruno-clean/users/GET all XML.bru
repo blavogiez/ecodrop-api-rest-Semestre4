@@ -1,0 +1,15 @@
+meta {
+  name: GET all users XML
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/users
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/xml
+}
