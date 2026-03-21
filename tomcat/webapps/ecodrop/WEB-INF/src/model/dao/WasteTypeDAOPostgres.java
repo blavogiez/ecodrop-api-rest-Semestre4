@@ -105,8 +105,12 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.setInt(3, targetId);
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return wasteType;
+            boolean hasChanged = (1 == ps.executeUpdate());
+
+            if (hasChanged) {
+                System.out.println(wasteType);
+                return wasteType;
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
