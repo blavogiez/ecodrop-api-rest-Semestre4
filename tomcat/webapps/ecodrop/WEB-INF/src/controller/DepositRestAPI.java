@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,9 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.dao.DepositDAO;
 import model.dao.DepositDAOPostgres;
-import model.dao.WasteTypeDAO;
-import model.dao.WasteTypeDAOPostgres;
-import model.dto.Deposit;
 import model.dto.Deposit;
 import utils.FormatAdapter;
 
@@ -27,7 +25,7 @@ public class DepositRestAPI extends HttpServlet {
     DepositDAO dao = new DepositDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -36,8 +34,7 @@ public class DepositRestAPI extends HttpServlet {
 
         if (info == null || info.equals("/")) {
             Collection<Deposit> deposits = dao.findAll();
-            String jsonstring = objectMapper.writeValueAsString(deposits);
-            out.print(jsonstring);
+            out.print(objectMapper.writeValueAsString(deposits));
             return;
         }
         String[] splits = info.split("/");
@@ -52,14 +49,12 @@ public class DepositRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(deposit));
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 
-    // POST /waste-types : Ajoute un nouveau type.
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        res.setContentType(FormatAdapter.contentTypeFor(req));
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
@@ -71,18 +66,16 @@ public class DepositRestAPI extends HttpServlet {
                 return;
             }
             PrintWriter out = res.getWriter();
-            String jsonstring = objectMapper.writeValueAsString(deposit);
-            out.print(jsonstring);
+            out.print(objectMapper.writeValueAsString(deposit));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not add deposit to database : " + e.getMessage());
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -95,20 +88,19 @@ public class DepositRestAPI extends HttpServlet {
             return;
         }
         String id = splits[1];
-        // Lecture du corps de la requête (même principe que doPost)
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         Deposit updatedDeposit = objectMapper.readValue(data, Deposit.class);
 
-        Deposit wasteType = dao.update(Integer.parseInt(id), updatedDeposit);
+        Deposit deposit = dao.update(Integer.parseInt(id), updatedDeposit);
 
-        if (wasteType == null) {
+        if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        out.print(objectMapper.writeValueAsString(wasteType));
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
+        out.print(objectMapper.writeValueAsString(deposit));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
 }

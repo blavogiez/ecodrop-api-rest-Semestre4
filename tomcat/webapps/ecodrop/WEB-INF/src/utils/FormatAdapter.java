@@ -17,6 +17,14 @@ public class FormatAdapter {
         return JSON_MAPPER;
     }
 
+    public static String contentTypeFor(HttpServletRequest req) {
+        String ct = req.getContentType();
+        if (ct != null && ct.contains("application/xml")) {
+            return "application/xml;charset=UTF-8";
+        }
+        return "application/json;charset=UTF-8";
+    }
+
     // public static String toUniversalJSON(String input) throws Exception {
     // if (input == null || input.isBlank())
     // return input;

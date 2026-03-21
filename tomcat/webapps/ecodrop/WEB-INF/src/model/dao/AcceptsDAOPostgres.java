@@ -20,7 +20,7 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int pointId = rs.getInt("id");
+                int pointId = rs.getInt("pointId");
                 int wasteTypeId = rs.getInt("wasteTypeId");
 
                 Accepts accepts = new Accepts(pointId, wasteTypeId);

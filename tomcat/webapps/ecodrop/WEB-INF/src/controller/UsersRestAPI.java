@@ -28,7 +28,7 @@ public class UsersRestAPI extends HttpServlet {
     private static final int DEFAULT_LEADERBOARD_LIMIT=10;
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -60,7 +60,7 @@ public class UsersRestAPI extends HttpServlet {
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -73,8 +73,8 @@ public class UsersRestAPI extends HttpServlet {
             return;
         }
         String id = splits[1];
-        // Lecture du corps de la requête (même principe que doPost)
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         Users updatedWasteType = objectMapper.readValue(data, Users.class);
 
@@ -85,12 +85,12 @@ public class UsersRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(user));
-        res.sendError(HttpServletResponse.SC_OK);
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
     protected void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json;charset=UTF-8");
+        resp.setContentType(FormatAdapter.contentTypeFor(req));
 
         String info = req.getPathInfo();
         String[] splits = info == null ? new String[0] : info.split("/");

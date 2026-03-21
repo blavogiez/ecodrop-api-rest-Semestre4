@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,12 +24,8 @@ public class WasteTypeRestAPI extends HttpServlet {
 
     WasteTypeDAO dao = new WasteTypeDAOPostgres();
 
-    // GET /waste-types : Liste tous les types de déchets disponibles. Ce endpoint
-    // doit supporter application/json et application/xml.
-    // GET /waste-types/id : Détails d’un type spécifique. Renvoie 404 si l’ID
-    // n’existe pa
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -37,8 +34,7 @@ public class WasteTypeRestAPI extends HttpServlet {
 
         if (info == null || info.equals("/")) {
             Collection<WasteType> lesWasteTypes = dao.findAll();
-            String jsonstring = objectMapper.writeValueAsString(lesWasteTypes);
-            out.print(jsonstring);
+            out.print(objectMapper.writeValueAsString(lesWasteTypes));
             return;
         }
         String[] splits = info.split("/");
@@ -53,14 +49,12 @@ public class WasteTypeRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(wasteType));
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 
-    // POST /waste-types : Ajoute un nouveau type.
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        res.setContentType(FormatAdapter.contentTypeFor(req));
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
@@ -72,18 +66,16 @@ public class WasteTypeRestAPI extends HttpServlet {
                 return;
             }
             PrintWriter out = res.getWriter();
-            String jsonstring = objectMapper.writeValueAsString(wasteType);
-            out.print(jsonstring);
+            out.print(objectMapper.writeValueAsString(wasteType));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.err.println("Could not add waste type to database : " + e.getMessage());
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         String info = req.getPathInfo();
 
         System.out.println(info);
@@ -100,12 +92,11 @@ public class WasteTypeRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -118,8 +109,8 @@ public class WasteTypeRestAPI extends HttpServlet {
             return;
         }
         String id = splits[1];
-        // Lecture du corps de la requête (même principe que doPost)
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         WasteType updatedWasteType = objectMapper.readValue(data, WasteType.class);
 
@@ -130,8 +121,7 @@ public class WasteTypeRestAPI extends HttpServlet {
             return;
         }
         out.print(objectMapper.writeValueAsString(wasteType));
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
 }

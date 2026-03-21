@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,9 +24,9 @@ public class AcceptsRestAPI extends HttpServlet {
     AcceptsDAO dao = new AcceptsDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
 
         System.out.println(info);
@@ -36,15 +37,14 @@ public class AcceptsRestAPI extends HttpServlet {
         }
 
         Collection<Accepts> l = dao.findAll();
-        String jsonstring = objectMapper.writeValueAsString(l);
-        out.print(jsonstring);
-        res.sendError(HttpServletResponse.SC_OK);
-        return;
+        out.print(objectMapper.writeValueAsString(l));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).readLine();
+        res.setContentType(FormatAdapter.contentTypeFor(req));
+        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                .collect(Collectors.joining());
 
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
@@ -56,18 +56,16 @@ public class AcceptsRestAPI extends HttpServlet {
                 return;
             }
             PrintWriter out = res.getWriter();
-            String jsonstring = objectMapper.writeValueAsString(accepts);
-            out.print(jsonstring);
-            res.sendError(HttpServletResponse.SC_OK);
+            out.print(objectMapper.writeValueAsString(accepts));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println(e);
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        return;
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         String info = req.getPathInfo();
 
         System.out.println(info);
@@ -85,5 +83,6 @@ public class AcceptsRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 }

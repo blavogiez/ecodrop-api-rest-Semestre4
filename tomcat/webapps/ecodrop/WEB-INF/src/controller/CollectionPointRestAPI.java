@@ -30,7 +30,7 @@ public class CollectionPointRestAPI extends HttpServlet {
     CollectionPointDAO dao = new CollectionPointDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         String info = req.getPathInfo();
@@ -74,7 +74,7 @@ public class CollectionPointRestAPI extends HttpServlet {
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
 
         String info = req.getPathInfo();
         String[] splits = info == null ? new String[0] : info.split("/");
@@ -113,7 +113,7 @@ public class CollectionPointRestAPI extends HttpServlet {
     }
 
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
 
         String info = req.getPathInfo();
         String[] splits = info == null ? new String[0] : info.split("/");
@@ -152,7 +152,7 @@ public class CollectionPointRestAPI extends HttpServlet {
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("application/json;charset=UTF-8");
+        res.setContentType(FormatAdapter.contentTypeFor(req));
         String info = req.getPathInfo();
 
         System.out.println(info);
