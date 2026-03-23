@@ -44,46 +44,46 @@ INSERT INTO Users(login, password, role) VALUES('podmanpodman', 'podmanpodman', 
 INSERT INTO Users(login, password, role) VALUES('podman-compose', 'podman-compose', 'USER');
 
 -- Dépôts existants — collecte=false (pas encore ramassés)
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 1, 1, 2.5, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 1, 4, 1.8, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 5, 3.2, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 1, 3, 0.9, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 2, 7, 5.1, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 1, 1, 2.5, '2024-03-10', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 1, 4, 1.8, '2024-03-12', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 1, 5, 3.2, '2024-03-15', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 1, 3, 0.9, '2024-03-18', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 2, 7, 5.1, '2024-04-02', false);
 
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 2, 2, 2.3, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 2, 5, 4.7, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 2, 6, 1.2, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 3, 1, 3.5, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 3, 4, 2.1, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 2, 2, 2.3, '2024-04-05', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 2, 5, 4.7, '2024-04-08', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 2, 6, 1.2, '2024-04-11', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 3, 1, 3.5, '2024-05-01', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 3, 4, 2.1, '2024-05-06', false);
 
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 3, 5, 1.6, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 3, 2, 4.3, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 4, 9, 0.7, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 4, 8, 6.2, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 4, 7, 2.9, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 3, 5, 1.6, '2024-05-10', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 3, 2, 4.3, '2024-05-14', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 4, 9, 0.7, '2024-06-03', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 4, 8, 6.2, '2024-06-07', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 4, 7, 2.9, '2024-06-11', false);
 
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 4, 3, 1.4, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 5, 4, 3.8, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 5, 5, 2.2, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 5, 7, 4.5, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 5, 1, 1.9, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 4, 3, 1.4, '2024-06-15', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 5, 4, 3.8, '2024-07-02', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 5, 5, 2.2, '2024-07-05', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 5, 7, 4.5, '2024-07-09', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 5, 1, 1.9, '2024-07-13', false);
 
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 1, 5.3, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 2, 2, 0.8, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 3, 1, 2.4, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 4, 8, 3.6, false);
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 5, 4, 1.1, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 1, 1, 5.3, '2024-08-01', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 2, 2, 0.8, '2024-08-05', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 3, 1, 2.4, '2024-08-09', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 4, 8, 3.6, '2024-08-13', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 5, 4, 1.1, '2024-08-17', false);
 
 -- Point 4 (capaciteMax=200) : +155 kg → total 169.8 kg → 84.9% → overloaded
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(1, 4, 3, 155.0, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 4, 3, 155.0, '2025-01-10', false);
 
 
 -- Point 5 (capaciteMax=50) : +35 kg → total 48.5 kg → 97% → overloaded + full=true
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(2, 5, 4, 35.0, false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 5, 4, 35.0, '2025-01-15', false);
 
 -- Point 1 : dépôt déjà collecté (collecte=true) — ne compte pas dans le taux de remplissage
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 1, 50.0, true);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 1, 1, 50.0, '2024-02-20', true);
 
 -- on rajoute aussi un poids énorme en collecté à un poids non surchargé, pour être sur que ça compte pas (le point 1 ne doit donc pas être retourné)
-INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, collecte) VALUES(3, 1, 1, 10000.0, true);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 1, 1, 10000.0, '2024-02-25', true);
 

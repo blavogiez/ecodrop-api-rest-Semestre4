@@ -3,13 +3,13 @@ package model.dto;
 import java.sql.Date;
 
 public class Deposit {
-    int id;
-    int userId;
-    int pointId;
-    int wasteTypeId;
-    double poids;
-    Date datedepot;
-    String collecte;
+    public int id;
+    public int userId;
+    public int pointId;
+    public int wasteTypeId;
+    public double poids;
+    public Date datedepot;
+    public String collecte;
 
     public int getId() {
         return id;

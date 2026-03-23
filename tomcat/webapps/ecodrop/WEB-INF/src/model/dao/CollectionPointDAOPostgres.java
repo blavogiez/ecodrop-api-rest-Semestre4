@@ -60,6 +60,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
         return pointsList;
     }
 
+    // liste les points dont l'occupation est > $SEUIL_PARAMETRE
     public List<CollectionPoint> getOccupatedPointsAboveThreshold(int threshold) {
         List<CollectionPoint> pointsList = new ArrayList<>();
         try (Connection con = DS.getConnection()) {
