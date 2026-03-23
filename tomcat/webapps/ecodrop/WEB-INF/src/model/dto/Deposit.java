@@ -1,22 +1,15 @@
 package model.dto;
 
+import java.sql.Date;
+
 public class Deposit {
     int id;
     int userId;
     int pointId;
     int wasteTypeId;
     double poids;
-
-    public Deposit(int id, int userId, int pointId, int wasteTypeId, double poids) {
-        this.id = id;
-        this.userId = userId;
-        this.pointId = pointId;
-        this.wasteTypeId = wasteTypeId;
-        this.poids = poids;
-    }
-
-    public Deposit() {
-    }
+    Date datedepot;
+    String collecte;
 
     public int getId() {
         return id;
@@ -58,14 +51,30 @@ public class Deposit {
         this.poids = poids;
     }
 
-    @Override
-    public String toString() {
-        return "DepositDAO{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", pointId=" + pointId +
-                ", wasteTypeId=" + wasteTypeId +
-                ", poids=" + poids +
-                '}';
+    public Date getDatedepot() {
+        return datedepot;
     }
+
+    public void setDatedepot(Date datedepot) {
+        this.datedepot = datedepot;
+    }
+
+    public String getCollecte() {
+        return collecte;
+    }
+
+    public void setCollecte(String collecte) {
+        this.collecte = collecte;
+    }
+
+    public Deposit(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, String collecte) {
+        this.id = id;
+        this.userId = userId;
+        this.pointId = pointId;
+        this.wasteTypeId = wasteTypeId;
+        this.poids = poids;
+        this.datedepot = datedepot;
+        this.collecte = collecte;
+    }
+
 }

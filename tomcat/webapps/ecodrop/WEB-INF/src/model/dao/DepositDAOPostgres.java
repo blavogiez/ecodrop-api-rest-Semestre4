@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -29,8 +30,10 @@ public class DepositDAOPostgres implements DepositDAO {
                 int pointId = rs.getInt("pointId");
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
+                Date datedepot = rs.getDate("datedepot");
+                String collecte = rs.getString("collecte");
 
-                deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids));
+                deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte));
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve all Deposits " + " : " + e.getMessage());
@@ -55,8 +58,10 @@ public class DepositDAOPostgres implements DepositDAO {
                 int pointId = rs.getInt("pointId");
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
+                Date datedepot = rs.getDate("datedepot");
+                String collecte = rs.getString("collecte");
 
-                deposit = new Deposit(id, userId, pointId, wasteTypeId, poids);
+                deposit = new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte);
             }
         } catch (Exception e) {
             System.err.println("Could not find Deposit with id " + id + " : " + e.getMessage());

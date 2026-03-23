@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -157,8 +158,10 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
                 int pointId = rs.getInt("pointId");
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
+                Date datedepot = rs.getDate("datedepot");
+                String collecte = rs.getString("collecte");
 
-                deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids));
+                deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte));
             }
 
             query = "update Deposit set collecte=true where pointId=?";
