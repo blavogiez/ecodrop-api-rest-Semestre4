@@ -92,6 +92,44 @@ public class DepositRestAPI extends HttpServlet {
         }
     }
 
+    public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setContentType(FormatAdapter.contentTypeFor(req));
+        String info = req.getPathInfo();
+        String[] splits = info == null ? new String[0] : info.split("/");
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        int id = Integer.parseInt(splits[1]);
+
+        try {
+            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
+                    .collect(Collectors.joining());
+
+            Deposit existing = dao.findById(id);
+            if (existing == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
+            Deposit merged = objectMapper.readerForUpdating(existing).readValue(data);
+
+            Deposit updated = dao.update(id, merged);
+            if (updated == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            PrintWriter out = res.getWriter();
+            out.print(objectMapper.writeValueAsString(updated));
+            res.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            System.out.println("Could not patch deposit : " + e.getMessage());
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
         PrintWriter out = res.getWriter();
