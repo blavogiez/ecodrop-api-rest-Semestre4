@@ -41,8 +41,7 @@ public class AcceptsDAOPostgres implements AcceptsDAO {
             ps.setInt(2, accepts.getWasteTypesId());
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not add Accepts " + accepts + " : " + e.getMessage());
         }

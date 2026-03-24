@@ -94,8 +94,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             ps.setDouble(3, collectionPoint.getCapaciteMax());
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not add Collection Point " + collectionPoint + " : " + e.getMessage());
         }
@@ -110,8 +109,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             ps.setInt(1, id);
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not delete waste types in Collection Point [id:" + id + "] : " + e);
         }

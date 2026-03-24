@@ -67,8 +67,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.setDouble(2, wasteType.getPointsPerKilo());
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not add Waste Type " + wasteType + " : " + e.getMessage());
         }
@@ -104,7 +103,7 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
             ps.setInt(3, targetId);
 
             System.out.println(ps);
-            boolean hasChanged = (1 == ps.executeUpdate());
+            boolean hasChanged = (ps.executeUpdate() > 0);
 
             if (hasChanged) {
                 System.out.println(wasteType);

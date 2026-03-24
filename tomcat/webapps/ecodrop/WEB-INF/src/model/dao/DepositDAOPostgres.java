@@ -82,8 +82,7 @@ public class DepositDAOPostgres implements DepositDAO {
             ps.setDouble(4, deposit.getPoids());
 
             System.out.println(ps);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Could not add Deposit " + deposit + " : " + e.getMessage());
         }

@@ -64,10 +64,13 @@ public class DepositRestAPI extends HttpServlet {
             if (!dao.add(deposit)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
+            } else {
+                System.out.println("IL PASSE");
+                PrintWriter out = res.getWriter();
+                out.print(objectMapper.writeValueAsString(deposit));
+                res.setStatus(HttpServletResponse.SC_OK);
             }
-            PrintWriter out = res.getWriter();
-            out.print(objectMapper.writeValueAsString(deposit));
-            res.setStatus(HttpServletResponse.SC_OK);
+
         } catch (Exception e) {
             System.out.println("Could not add deposit to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);

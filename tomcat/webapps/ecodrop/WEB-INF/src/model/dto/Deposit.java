@@ -67,6 +67,8 @@ public class Deposit {
         this.collecte = collecte;
     }
 
+    public Deposit() {}
+
     public Deposit(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, String collecte) {
         this.id = id;
         this.userId = userId;
