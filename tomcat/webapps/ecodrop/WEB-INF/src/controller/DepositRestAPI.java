@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.DepositDAO;
 import model.dao.DepositDAOPostgres;
 import model.dto.Deposit;
+import model.dto.DepositView;
 import utils.FormatAdapter;
 
 @WebServlet("/deposit/*")
@@ -33,7 +34,7 @@ public class DepositRestAPI extends HttpServlet {
         System.out.println(info);
 
         if (info == null || info.equals("/")) {
-            Collection<Deposit> deposits = dao.findAll();
+            Collection<DepositView> deposits = dao.findAllEnriched();
             out.print(objectMapper.writeValueAsString(deposits));
             return;
         }
@@ -65,7 +66,6 @@ public class DepositRestAPI extends HttpServlet {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             } else {
-                System.out.println("IL PASSE");
                 PrintWriter out = res.getWriter();
                 out.print(objectMapper.writeValueAsString(deposit));
                 res.setStatus(HttpServletResponse.SC_OK);

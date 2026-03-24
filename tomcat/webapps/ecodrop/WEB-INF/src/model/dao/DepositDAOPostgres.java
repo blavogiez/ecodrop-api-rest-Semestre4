@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.Deposit;
+import model.dto.DepositView;
 import utils.DS;
 
 public class DepositDAOPostgres implements DepositDAO {
@@ -37,6 +38,40 @@ public class DepositDAOPostgres implements DepositDAO {
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve all Deposits " + " : " + e.getMessage());
+        }
+
+        return deposits;
+    }
+
+    // vue enrichie demandée pour retourner le nom du déchet et l'adresse
+    public List<DepositView> findAllEnriched() {
+        List<DepositView> deposits = new ArrayList<>();
+
+        try (Connection con = DS.getConnection()) {
+            String query = "select d.*, wt.nom as nomDechet, cp.adresse as adressePoint " +
+                    "from Deposit d " +
+                    "join WasteType wt on wt.id = d.wasteTypeId " +
+                    "join CollectionPoint cp on cp.id = d.pointId";
+            PreparedStatement ps = con.prepareStatement(query);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                int pointId = rs.getInt("pointId");
+                int wasteTypeId = rs.getInt("wasteTypeId");
+                double poids = rs.getDouble("poids");
+                Date datedepot = rs.getDate("datedepot");
+                String collecte = rs.getString("collecte");
+                String nomDechet = rs.getString("nomDechet");
+                String adressePoint = rs.getString("adressePoint");
+
+                deposits.add(new DepositView(id, userId, pointId, wasteTypeId, poids, datedepot, collecte, nomDechet,
+                        adressePoint));
+            }
+        } catch (Exception e) {
+            System.err.println("Could not retrieve all Deposits enriched : " + e.getMessage());
         }
 
         return deposits;
