@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dto.CollectionPoint;
+import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.WasteType;
 import utils.DS;
@@ -174,6 +175,27 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
         }
 
         return deposits;
+    }
+
+    public CollectionPointStatus getStatus(int id) {
+        try (Connection con = DS.getConnection()) {
+            String query =
+                "select cp.id, cp.adresse, coalesce(sum(dp.poids), 0) / cp.capaciteMax * 100 as taux " +
+                "from CollectionPoint cp " +
+                "left join Deposit dp on dp.pointId = cp.id and dp.collecte is not true " +
+                "where cp.id = ? " +
+                "group by cp.id, cp.adresse, cp.capaciteMax";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new CollectionPointStatus(rs.getInt("id"), rs.getString("adresse"), rs.getDouble("taux"));
+            }
+        } catch (Exception e) {
+            System.err.println("Could not get status for Collection Point [id:" + id + "] : " + e.getMessage());
+        }
+        return null;
     }
 
     public CollectionPoint update(CollectionPoint updated) {

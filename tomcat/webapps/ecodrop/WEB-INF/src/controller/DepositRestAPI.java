@@ -14,8 +14,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.dao.CollectionPointDAO;
+import model.dao.CollectionPointDAOPostgres;
 import model.dao.DepositDAO;
 import model.dao.DepositDAOPostgres;
+import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.DepositView;
 import utils.FormatAdapter;
@@ -24,6 +27,7 @@ import utils.FormatAdapter;
 public class DepositRestAPI extends HttpServlet {
 
     DepositDAO dao = new DepositDAOPostgres();
+    CollectionPointDAO pointDao = new CollectionPointDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
@@ -61,6 +65,17 @@ public class DepositRestAPI extends HttpServlet {
         try {
             Deposit deposit = objectMapper.readValue(data, Deposit.class);
             System.out.println(deposit);
+
+            if (deposit.getPoids() < 0) {
+                res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            CollectionPointStatus status = pointDao.getStatus(deposit.getPointId());
+            if (status == null || status.taux >= 100.0) {
+                res.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return;
+            }
 
             if (!dao.add(deposit)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);

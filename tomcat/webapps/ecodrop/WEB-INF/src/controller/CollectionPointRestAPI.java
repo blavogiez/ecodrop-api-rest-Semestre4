@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.CollectionPointDAO;
 import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
+import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.WasteType;
 import utils.FormatAdapter;
@@ -44,6 +45,15 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         String[] splits = info.split("/");
+        if (splits.length == 3 && splits[2].equals("status")) {
+            CollectionPointStatus status = dao.getStatus(Integer.parseInt(splits[1]));
+            if (status == null) {
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            out.print(objectMapper.writeValueAsString(status));
+            return;
+        }
         if (splits.length != 2) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
