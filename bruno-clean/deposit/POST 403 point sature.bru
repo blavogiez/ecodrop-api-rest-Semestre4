@@ -24,3 +24,9 @@ body:json {
     "collecte": "false"
   }
 }
+
+tests {
+  test("Status 403", function() {
+    expect(res.status).to.equal(403);
+  });
+}

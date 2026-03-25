@@ -19,3 +19,9 @@ body:json {
     "adresse": "21 Rue DuChemin patchée JSON"
   }
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

@@ -23,3 +23,9 @@ body:json {
     "poids": 1.0
   }
 }
+
+tests {
+  test("Status 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

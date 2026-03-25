@@ -19,3 +19,9 @@ body:xml {
     <poids>7.0</poids>
   </deposit>
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

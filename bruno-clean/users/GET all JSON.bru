@@ -13,3 +13,9 @@ get {
 headers {
   Content-Type: application/json
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

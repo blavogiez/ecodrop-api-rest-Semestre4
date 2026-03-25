@@ -21,3 +21,9 @@ body:json {
     "pointsPerKilo": 3.5
   }
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

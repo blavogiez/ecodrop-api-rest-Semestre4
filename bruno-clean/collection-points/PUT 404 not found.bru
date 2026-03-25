@@ -21,3 +21,9 @@ body:json {
     "capaciteMax": 100
   }
 }
+
+tests {
+  test("Status 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

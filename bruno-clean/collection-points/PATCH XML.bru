@@ -19,3 +19,9 @@ body:xml {
     <adresse>21 Rue DuChemin patchée XML</adresse>
   </collectionPoint>
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

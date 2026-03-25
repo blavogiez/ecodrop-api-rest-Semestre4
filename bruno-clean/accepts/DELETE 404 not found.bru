@@ -13,3 +13,9 @@ delete {
 headers {
   Content-Type: application/json
 }
+
+tests {
+  test("Status 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

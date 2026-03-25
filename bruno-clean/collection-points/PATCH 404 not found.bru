@@ -19,3 +19,9 @@ body:json {
     "adresse": "adresse inexistante"
   }
 }
+
+tests {
+  test("Status 404", function() {
+    expect(res.status).to.equal(404);
+  });
+}

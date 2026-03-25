@@ -22,3 +22,9 @@ body:xml {
     <role>ADMIN</role>
   </users>
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

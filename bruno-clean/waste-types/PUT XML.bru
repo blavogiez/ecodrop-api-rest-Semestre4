@@ -21,3 +21,9 @@ body:xml {
     <pointsPerKilo>3.5</pointsPerKilo>
   </wasteType>
 }
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
