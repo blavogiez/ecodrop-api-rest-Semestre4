@@ -1,0 +1,26 @@
+# ecodrop + postgresql ; utile pour les tests CI
+
+services:
+  ecodrop:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - psqlserv
+    # env définis dans DS.java en classe utilitaire
+
+  psqlserv:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=baptistelavogiezetu
+      - POSTGRES_PASSWORD=jeanjean
+      - POSTGRES_DB=but2
+    volumes:
+    # initialisée avec le script init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+# quelques tests :
+# docker exec ecodrop-ecodrop-1 bash -c "curl localhost:8080/ecodrop/points"
+# docker exec ecodrop-ecodrop-1 bash -c "cd /bruno-clean && bru run --env local"

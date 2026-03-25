@@ -1,0 +1,23 @@
+# test API bruno en utilisant le docker-compose
+
+stages:
+  - Test Bruno
+
+test:
+  stage: Test Bruno
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker compose up -d --build
+    - until docker compose exec -T psqlserv pg_isready -U baptistelavogiezetu; do sleep 2; done
+    - sleep 10
+    - docker compose logs ecodrop
+    - docker compose exec -T ecodrop bash -c "curl localhost:8080/ecodrop/points"
+    - docker compose exec -T ecodrop bash -c "cd /bruno-clean && bru run --env local"
+  after_script:
+    - docker compose down
+

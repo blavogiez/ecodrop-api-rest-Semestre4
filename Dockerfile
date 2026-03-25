@@ -1,14 +1,25 @@
-FROM amazoncorretto:21
+# ecodrop : cette image lance le projet directement, avec bruno de disponible. l'objectif est de lancer les tests API dedans
 
-COPY . .
+FROM tomcat:11.0-jdk21-temurin
 
-# todo : installer bruno et 
+# installer Node.js et Bruno CLI pour tests API
+RUN apt-get update && apt-get install -y nodejs npm && npm install -g @usebruno/cli && rm -rf /var/lib/apt/lists/*
 
-RUN cd tomcat/bin && bash catalina.sh run &
+# webapp + drivers nécessaires
+COPY tomcat/webapps/ecodrop /usr/local/tomcat/webapps/ecodrop
+COPY tomcat/lib/* /usr/local/tomcat/lib/
 
-RUN test-bruno.sh
+# recompiler avec les bons jars jakarta de l'image
+RUN cd /usr/local/tomcat/webapps/ecodrop/WEB-INF && \
+    mkdir -p classes && \
+    javac -cp "/usr/local/tomcat/lib/*:lib/*" -d classes $(find src -name "*.java")
 
+# collection bruno
+COPY bruno-clean /bruno-clean
 
+EXPOSE 8080
 
-# docker build -t blavogiez/ecodrop-tester
-# docker run --rm -it -p 8080:8080 blavogiez/ecodrop-tester
+CMD ["catalina.sh", "run"]
+
+# docker build .
+# docker run --rm -it -p blavogiez/ecodrop-tester
