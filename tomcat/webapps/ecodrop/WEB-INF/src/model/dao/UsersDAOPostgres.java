@@ -76,7 +76,8 @@ public class UsersDAOPostgres implements UsersDAO {
             ps.setInt(4, id);
 
             System.out.println(ps);
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
+            if (rows == 0) return null;
             return updated;
         } catch (Exception e) {
             System.err.println("Could not update User with informations " + updated + " : " + e.getMessage());

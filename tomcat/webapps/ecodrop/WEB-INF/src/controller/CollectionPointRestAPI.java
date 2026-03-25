@@ -71,13 +71,13 @@ public class CollectionPointRestAPI extends HttpServlet {
         } else {
             // dans l'autre cas, c'est un id qu'on cherche
             Integer targetId = Integer.parseInt(choice);
-            List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(targetId);
-            System.out.println(lesWasteTypesAcceptes);
-            if (lesWasteTypesAcceptes == null) {
+            CollectionPoint collectionPoint = dao.findById(targetId);
+            if (collectionPoint == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
-            CollectionPoint collectionPoint = dao.findById(targetId);
+            List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(targetId);
+            System.out.println(lesWasteTypesAcceptes);
             out.print(objectMapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
         }
 
