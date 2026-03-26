@@ -1,11 +1,8 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +15,7 @@ import model.dao.WasteTypeDAO;
 import model.dao.WasteTypeDAOPostgres;
 import model.dto.WasteType;
 import utils.FormatAdapter;
+import utils.RequestUtils;
 
 @WebServlet("/waste-types/*")
 public class WasteTypeRestAPI extends HttpServlet {
@@ -42,8 +40,9 @@ public class WasteTypeRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        WasteType wasteType = dao.findById(Integer.parseInt(id));
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        WasteType wasteType = dao.findById(id);
         if (wasteType == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
@@ -53,11 +52,9 @@ public class WasteTypeRestAPI extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
-
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
+            String data = RequestUtils.readBody(req);
             WasteType wasteType = objectMapper.readValue(data, WasteType.class);
             System.out.println(wasteType);
 
@@ -85,8 +82,9 @@ public class WasteTypeRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        boolean success = dao.delete(Integer.parseInt(id));
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        boolean success = dao.delete(id);
 
         if (!success) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -108,13 +106,13 @@ public class WasteTypeRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        String data = RequestUtils.readBody(req);
 
         WasteType updatedWasteType = objectMapper.readValue(data, WasteType.class);
 
-        WasteType wasteType = dao.update(Integer.parseInt(id), updatedWasteType);
+        WasteType wasteType = dao.update(id, updatedWasteType);
 
         if (wasteType == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);

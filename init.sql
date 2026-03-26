@@ -123,8 +123,9 @@ INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VA
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 4, 3, 155.0, '2025-01-10', false);
 
 
--- Point 5 (capaciteMax=50) : +35 kg → total 48.5 kg → 97% → overloaded + full=true
+-- Point 5 (capaciteMax=50) : +35 kg + 2 kg → total 50.5 kg → 101% → full (nécessaire pour le test 403)
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(2, 5, 4, 35.0, '2025-01-15', false);
+INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 5, 4, 2.0, '2025-01-16', false);
 
 -- Point 1 : dépôt déjà collecté (collecte=true) — ne compte pas dans le taux de remplissage
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(3, 1, 1, 50.0, '2024-02-20', true);

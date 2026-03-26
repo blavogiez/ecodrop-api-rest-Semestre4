@@ -1,11 +1,8 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +15,7 @@ import model.dao.AcceptsDAO;
 import model.dao.AcceptsDAOPostgres;
 import model.dto.Accepts;
 import utils.FormatAdapter;
+import utils.RequestUtils;
 
 @WebServlet("/accepts/*")
 public class AcceptsRestAPI extends HttpServlet {
@@ -43,11 +41,9 @@ public class AcceptsRestAPI extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
-
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
+            String data = RequestUtils.readBody(req);
             Accepts accepts = objectMapper.readValue(data, Accepts.class);
             System.out.println(accepts);
 
@@ -75,9 +71,11 @@ public class AcceptsRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String pointId = splits[1];
-        String wasteTypeId = splits[2];
-        boolean success = dao.delete(Integer.parseInt(pointId), Integer.parseInt(wasteTypeId));
+        int pointId = RequestUtils.parseId(splits[1], res);
+        if (pointId < 0) return;
+        int wasteTypeId = RequestUtils.parseId(splits[2], res);
+        if (wasteTypeId < 0) return;
+        boolean success = dao.delete(pointId, wasteTypeId);
 
         if (!success) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);

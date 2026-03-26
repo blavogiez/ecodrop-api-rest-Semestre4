@@ -10,7 +10,7 @@ import model.dto.WasteType;
 import utils.DS;
 
 public class WasteTypeDAOPostgres implements WasteTypeDAO {
-    static final DS DS = new DS();
+    private static final DS DS = new DS();
 
     public WasteType findById(int id) {
         WasteType wasteType = null;
@@ -60,11 +60,12 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
 
     public boolean add(WasteType wasteType) {
         try (Connection con = DS.getConnection()) {
-            String query = "insert into WasteType(nom,pointsPerKilo) values(?,?)";
+            String query = "insert into WasteType(id,nom,pointsPerKilo) values(?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setString(1, wasteType.getNom());
-            ps.setDouble(2, wasteType.getPointsPerKilo());
+            ps.setInt(1, wasteType.getId());
+            ps.setString(2, wasteType.getNom());
+            ps.setDouble(3, wasteType.getPointsPerKilo());
 
             System.out.println(ps);
             return ps.executeUpdate() > 0;

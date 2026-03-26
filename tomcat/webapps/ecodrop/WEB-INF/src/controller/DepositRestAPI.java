@@ -1,11 +1,8 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,6 +19,7 @@ import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.DepositView;
 import utils.FormatAdapter;
+import utils.RequestUtils;
 
 @WebServlet("/deposit/*")
 public class DepositRestAPI extends HttpServlet {
@@ -47,8 +45,9 @@ public class DepositRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        Deposit deposit = dao.findById(Integer.parseInt(id));
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        Deposit deposit = dao.findById(id);
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
@@ -58,11 +57,9 @@ public class DepositRestAPI extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
-
         ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
         try {
+            String data = RequestUtils.readBody(req);
             Deposit deposit = objectMapper.readValue(data, Deposit.class);
             System.out.println(deposit);
 
@@ -100,11 +97,11 @@ public class DepositRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = Integer.parseInt(splits[1]);
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
 
         try {
-            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                    .collect(Collectors.joining());
+            String data = RequestUtils.readBody(req);
 
             Deposit existing = dao.findById(id);
             if (existing == null) {
@@ -143,13 +140,13 @@ public class DepositRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        String data = RequestUtils.readBody(req);
 
         Deposit updatedDeposit = objectMapper.readValue(data, Deposit.class);
 
-        Deposit deposit = dao.update(Integer.parseInt(id), updatedDeposit);
+        Deposit deposit = dao.update(id, updatedDeposit);
 
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);

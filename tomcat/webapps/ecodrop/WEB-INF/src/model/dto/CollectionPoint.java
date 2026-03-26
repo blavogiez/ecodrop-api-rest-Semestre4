@@ -4,9 +4,9 @@ public class CollectionPoint {
 
     private int id;
     private String adresse;
-    private int capaciteMax;
+    private double capaciteMax;
 
-    public CollectionPoint(int id, String adresse, int capaciteMax) {
+    public CollectionPoint(int id, String adresse, double capaciteMax) {
         this.id = id;
         this.adresse = adresse;
         this.capaciteMax = capaciteMax;
@@ -30,11 +30,11 @@ public class CollectionPoint {
         this.adresse = adresse;
     }
 
-    public int getCapaciteMax() {
+    public double getCapaciteMax() {
         return capaciteMax;
     }
 
-    public void setCapaciteMax(int capaciteMax) {
+    public void setCapaciteMax(double capaciteMax) {
         this.capaciteMax = capaciteMax;
     }
 

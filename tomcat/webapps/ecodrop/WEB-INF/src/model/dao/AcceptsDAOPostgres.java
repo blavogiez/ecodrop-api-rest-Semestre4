@@ -10,7 +10,7 @@ import model.dto.Accepts;
 import utils.DS;
 
 public class AcceptsDAOPostgres implements AcceptsDAO {
-    static final DS DS = new DS();
+    private static final DS DS = new DS();
 
     public List<Accepts> findAll() {
         List<Accepts> acceptsList = new ArrayList<>();

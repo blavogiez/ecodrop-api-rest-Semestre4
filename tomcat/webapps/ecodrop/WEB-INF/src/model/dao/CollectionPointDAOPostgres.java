@@ -14,7 +14,7 @@ import model.dto.WasteType;
 import utils.DS;
 
 public class CollectionPointDAOPostgres implements CollectionPointDAO {
-    static final DS DS = new DS();
+    private static final DS DS = new DS();
 
     public CollectionPoint findById(int id) {
         CollectionPoint collectionPoint = null;
@@ -28,7 +28,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
 
             while (rs.next()) {
                 String adresse = rs.getString("adresse");
-                int capaciteMax = rs.getInt("capaciteMax");
+                double capaciteMax = rs.getDouble("capaciteMax");
 
                 collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
             }
@@ -49,7 +49,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String adresse = rs.getString("adresse");
-                int capaciteMax = rs.getInt("capaciteMax");
+                double capaciteMax = rs.getDouble("capaciteMax");
 
                 CollectionPoint collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
                 pointsList.add(collectionPoint);
@@ -73,7 +73,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String adresse = rs.getString("adresse");
-                int capaciteMax = rs.getInt("capaciteMax");
+                double capaciteMax = rs.getDouble("capaciteMax");
 
                 CollectionPoint collectionPoint = new CollectionPoint(id, adresse, capaciteMax);
                 pointsList.add(collectionPoint);

@@ -1,12 +1,9 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +16,7 @@ import model.dao.UsersDAO;
 import model.dao.UsersDAOPostgres;
 import model.dto.Users;
 import utils.FormatAdapter;
+import utils.RequestUtils;
 
 @WebServlet("/users/*")
 public class UsersRestAPI extends HttpServlet {
@@ -72,13 +70,13 @@ public class UsersRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
-        String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                .collect(Collectors.joining());
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
+        String data = RequestUtils.readBody(req);
 
-        Users updatedWasteType = objectMapper.readValue(data, Users.class);
+        Users updatedUser = objectMapper.readValue(data, Users.class);
 
-        Users user = dao.update(Integer.parseInt(id), updatedWasteType);
+        Users user = dao.update(id, updatedUser);
 
         if (user == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -98,11 +96,11 @@ public class UsersRestAPI extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = Integer.parseInt(splits[1]);
+        int id = RequestUtils.parseId(splits[1], resp);
+        if (id < 0) return;
 
         try {
-            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                    .collect(Collectors.joining());
+            String data = RequestUtils.readBody(req);
 
             // recup l'objet existant pour ne modifier que les champs fournis
             Users existing = dao.findById(id);

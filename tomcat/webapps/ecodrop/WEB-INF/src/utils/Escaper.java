@@ -2,6 +2,7 @@ package utils;
 
 public class Escaper {
     public static String escapeHTML(String s) {
+        if (s == null) return "";
         StringBuilder out = new StringBuilder(Math.max(16, s.length()));
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -15,14 +16,4 @@ public class Escaper {
         }
         return out.toString();
     }
-
-    public static String escapeHtmlDeux(String s) {
-        if (s == null)
-            return "";
-        return s.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;");
-    }
-
 }

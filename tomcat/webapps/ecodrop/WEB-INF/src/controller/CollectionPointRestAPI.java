@@ -1,12 +1,9 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,6 +19,7 @@ import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.WasteType;
 import utils.FormatAdapter;
+import utils.RequestUtils;
 
 @WebServlet("/points/*")
 public class CollectionPointRestAPI extends HttpServlet {
@@ -46,7 +44,9 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
         String[] splits = info.split("/");
         if (splits.length == 3 && splits[2].equals("status")) {
-            CollectionPointStatus status = dao.getStatus(Integer.parseInt(splits[1]));
+            int statusId = RequestUtils.parseId(splits[1], res);
+            if (statusId < 0) return;
+            CollectionPointStatus status = dao.getStatus(statusId);
             if (status == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
@@ -70,7 +70,8 @@ public class CollectionPointRestAPI extends HttpServlet {
             out.print(objectMapper.writeValueAsString(pointsAboveThreshold));
         } else {
             // dans l'autre cas, c'est un id qu'on cherche
-            Integer targetId = Integer.parseInt(choice);
+            int targetId = RequestUtils.parseId(choice, res);
+            if (targetId < 0) return;
             CollectionPoint collectionPoint = dao.findById(targetId);
             if (collectionPoint == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -92,11 +93,11 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = Integer.parseInt(splits[1]);
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
 
         try {
-            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                    .collect(Collectors.joining());
+            String data = RequestUtils.readBody(req);
 
             // vérification de l'existence d'un point avant de le modifier
             CollectionPoint existing = dao.findById(id);
@@ -131,11 +132,11 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = Integer.parseInt(splits[1]);
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
 
         try {
-            String data = new BufferedReader(new InputStreamReader(req.getInputStream())).lines()
-                    .collect(Collectors.joining());
+            String data = RequestUtils.readBody(req);
 
             // recup l'objet existant pour ne modifier que les champs fournis
             CollectionPoint existing = dao.findById(id);
@@ -172,11 +173,12 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String id = splits[1];
+        int id = RequestUtils.parseId(splits[1], res);
+        if (id < 0) return;
         String order = splits[2];
 
         if (order.equals("clear")) {
-            List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(Integer.parseInt(id));
+            List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(id);
             ObjectMapper mapper = FormatAdapter.mapperFor(req);
 
             PrintWriter out = res.getWriter();
