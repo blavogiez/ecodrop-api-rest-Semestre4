@@ -52,6 +52,12 @@ public class UsersRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         String data = RequestUtils.readBody(req);
 
         Users updatedUser = ctx.readValue(data, Users.class);
@@ -75,6 +81,11 @@ public class UsersRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
 
         try {
             String data = RequestUtils.readBody(req);

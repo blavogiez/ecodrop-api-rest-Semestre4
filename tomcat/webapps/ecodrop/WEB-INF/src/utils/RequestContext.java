@@ -2,6 +2,9 @@ package utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,6 +21,7 @@ public class RequestContext {
     private final ObjectMapper mapper;
     /** Segments de chemin URL sans le "" initial (ex: "/foo/42" → ["foo", "42"]) */
     private final String[] segments;
+    private final String token;
 
     public RequestContext(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType(FormatAdapter.contentTypeFor(req));
@@ -30,6 +34,7 @@ public class RequestContext {
             String[] parts = info.split("/");
             this.segments = Arrays.copyOfRange(parts, 1, parts.length);
         }
+        this.token = String.valueOf(req.getAttribute("token"));
     }
 
     public boolean hasArguments(){
@@ -54,5 +59,37 @@ public class RequestContext {
 
     public ObjectReader readerForUpdating(Object valueToUpdate){
         return this.mapper.readerForUpdating(valueToUpdate);
+    }
+
+    public boolean tokenIsNotValid (HttpServletRequest req){
+        String token;
+        try{
+            token = req.getParameter("token");
+        } catch (Exception e){
+            token = "";
+        }
+
+        boolean isValid = false;
+
+        try (Connection con = new DS().getConnection()){
+            String sql2 = "SELECT * FROM users WHERE token=?";
+            PreparedStatement ps = con.prepareStatement(sql2);
+            ps.setString(1, token);
+            ResultSet rs = ps.executeQuery();
+            isValid = rs.next();
+        } catch (Exception e){
+            System.err.println("Could not connect to database : " + e.getMessage());
+        }
+        return !isValid;
+    }
+
+    public boolean hasNoToken(){
+        return this.token.equals("null");
+    }
+
+    public void print(String... args){
+        for (String arg : args) {
+            this.out.print(arg);
+        }
     }
 }

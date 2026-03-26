@@ -53,6 +53,12 @@ public class WasteTypeRestAPI extends HttpServlet {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
+
+            if (RequestUtils.tokenIsInvalid(ctx, req)){
+                res.sendError(RequestUtils.getTokenError(ctx, req));
+                return;
+            }
+
             ctx.printValueAsString(wasteType);
             res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
@@ -70,6 +76,11 @@ public class WasteTypeRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
 
         if (dao.isReferencedInDeposits(id)) {
             res.sendError(HttpServletResponse.SC_CONFLICT);
@@ -91,6 +102,12 @@ public class WasteTypeRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         String data = RequestUtils.readBody(req);
 
         WasteType updatedWasteType = ctx.readValue(data, WasteType.class);

@@ -32,12 +32,15 @@ public class DepositRestAPI extends HttpServlet {
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.doesNotHaveExactlyXArguments(1)) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
+
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         Deposit deposit = dao.findById(id);
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -56,6 +59,11 @@ public class DepositRestAPI extends HttpServlet {
 
             if (deposit.getPoids() < 0) {
                 res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            if (RequestUtils.tokenIsInvalid(ctx, req)){
+                res.sendError(RequestUtils.getTokenError(ctx, req));
                 return;
             }
 
@@ -86,6 +94,11 @@ public class DepositRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
 
         try {
             String data = RequestUtils.readBody(req);
@@ -120,6 +133,12 @@ public class DepositRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         String data = RequestUtils.readBody(req);
 
         Deposit updatedDeposit = ctx.readValue(data, Deposit.class);

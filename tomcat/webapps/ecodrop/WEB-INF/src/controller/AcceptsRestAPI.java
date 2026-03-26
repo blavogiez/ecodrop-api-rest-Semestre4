@@ -31,6 +31,12 @@ public class AcceptsRestAPI extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         try {
             String data = RequestUtils.readBody(req);
             Accepts accepts = ctx.readValue(data, Accepts.class);
@@ -58,6 +64,11 @@ public class AcceptsRestAPI extends HttpServlet {
         if (pointId < 0) return;
         int wasteTypeId = RequestUtils.parseId(ctx.getArgument(1), res);
         if (wasteTypeId < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
 
         if (!dao.delete(pointId, wasteTypeId)) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);

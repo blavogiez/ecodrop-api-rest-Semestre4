@@ -33,7 +33,7 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.doesNotHaveExactlyXArguments(2) && ctx.getArgument(1).equals("status")) {
+        if (!ctx.doesNotHaveExactlyXArguments(2) && ctx.getArgument(1).equals("status")) {
             int id = RequestUtils.parseId(ctx.getArgument(0), res);
             if (id < 0) return;
             CollectionPointStatus status = dao.getStatus(id);
@@ -74,6 +74,12 @@ public class CollectionPointRestAPI extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
@@ -110,6 +116,11 @@ public class CollectionPointRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
+
         try {
             String data = RequestUtils.readBody(req);
 
@@ -143,6 +154,11 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
+
+        if (RequestUtils.tokenIsInvalid(ctx, req)){
+            res.sendError(RequestUtils.getTokenError(ctx, req));
+            return;
+        }
 
         if (ctx.getArgument(1).equals("clear")) {
             List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(id);

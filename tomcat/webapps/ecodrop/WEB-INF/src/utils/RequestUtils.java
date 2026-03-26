@@ -23,4 +23,17 @@ public class RequestUtils {
             return -1;
         }
     }
+
+    public static boolean tokenIsInvalid(RequestContext ctx, HttpServletRequest req){
+        return ctx.hasNoToken() || ctx.tokenIsNotValid(req);
+    }
+
+    public static int getTokenError(RequestContext ctx, HttpServletRequest req){
+        if (ctx.hasNoToken()){
+            return HttpServletResponse.SC_UNAUTHORIZED;
+        } else if (ctx.tokenIsNotValid(req)) {
+            return HttpServletResponse.SC_FORBIDDEN;
+        }
+        return -1;
+    }
 }
