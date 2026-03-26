@@ -1,0 +1,29 @@
+meta {
+  name: POST waste-type 401 no token
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/waste-types
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 99,
+    "nom": "test sans token",
+    "pointsPerKilo": 1.0
+  }
+}
+
+tests {
+  test("Status 401", function() {
+    expect(res.status).to.equal(401);
+  });
+}

@@ -1,0 +1,28 @@
+meta {
+  name: GET token admin
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/auth/token
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: paulpaulpaul
+  password: paulpaulpaul
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setEnvVar("tokenAdmin", res.body);
+  }
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

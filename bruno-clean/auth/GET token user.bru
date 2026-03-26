@@ -1,0 +1,28 @@
+meta {
+  name: GET token user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/auth/token
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: podmanpodman
+  password: podmanpodman
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setEnvVar("token", res.body);
+  }
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}

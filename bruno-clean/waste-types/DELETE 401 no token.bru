@@ -1,7 +1,7 @@
 meta {
-  name: DELETE waste-type success
+  name: DELETE waste-type 401 no token
   type: http
-  seq: 12
+  seq: 15
 }
 
 delete {
@@ -12,11 +12,10 @@ delete {
 
 headers {
   Content-Type: application/json
-  Authorization: Bearer {{tokenAdmin}}
 }
 
 tests {
-  test("Status 200", function() {
-    expect(res.status).to.equal(200);
+  test("Status 401", function() {
+    expect(res.status).to.equal(401);
   });
 }
