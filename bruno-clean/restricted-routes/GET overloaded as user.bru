@@ -1,0 +1,22 @@
+meta {
+  name: GET overloaded as user - 401
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/points/overloaded
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+  test("Status 401 - user ne peut pas accéder aux stats admin", function() {
+    expect(res.status).to.equal(401);
+  });
+}

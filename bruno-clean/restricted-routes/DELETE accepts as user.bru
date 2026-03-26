@@ -1,0 +1,22 @@
+meta {
+  name: DELETE accepts as user - 401
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/accepts/1/1
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+  test("Status 401 - user ne peut pas DELETE", function() {
+    expect(res.status).to.equal(401);
+  });
+}

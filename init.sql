@@ -87,6 +87,8 @@ INSERT INTO Accepts VALUES(5,1);
 INSERT INTO Users(login, password, role) VALUES('paulpaulpaul', 'paulpaulpaul', 'ADMIN');
 INSERT INTO Users(login, password, role) VALUES('podmanpodman', 'podmanpodman', 'USER');
 INSERT INTO Users(login, password, role) VALUES('podman-compose', 'podman-compose', 'USER');
+INSERT INTO Users(login, password, role) VALUES('temoin', 'temointemoin', 'USER');
+
 
 -- Dépôts existants — collecte=false (pas encore ramassés)
 INSERT INTO Deposit(userId, pointId, wasteTypeId, poids, datedepot, collecte) VALUES(1, 1, 1, 2.5, '2024-03-10', false);

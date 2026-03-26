@@ -1,4 +1,4 @@
-# ecodrop : cette image lance le projet directement, avec bruno de disponible. l'objectif est de lancer les tests API dedans
+# ecodrop : cette image lance le projet compilé directement, avec bruno de disponible. l'objectif est de lancer les tests API dedans
 
 FROM tomcat:11.0-jdk21-temurin
 

@@ -1,0 +1,33 @@
+meta {
+  name: POST deposit fake token - 401
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/deposit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{fakeToken}}
+}
+
+body:json {
+  {
+    "userId": 1,
+    "pointId": 1,
+    "wasteTypeId": 1,
+    "poids": 5.0,
+    "datedepot": "2025-01-15",
+    "collecte": "false"
+  }
+}
+
+tests {
+  test("Status 401 - fake token rejeté", function() {
+    expect(res.status).to.equal(401);
+  });
+}
