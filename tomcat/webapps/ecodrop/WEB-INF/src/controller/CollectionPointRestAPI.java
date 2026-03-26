@@ -1,11 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +15,7 @@ import model.dto.CollectionPoint;
 import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.WasteType;
-import utils.FormatAdapter;
+import utils.RequestContext;
 import utils.RequestUtils;
 
 @WebServlet("/points/*")
@@ -29,94 +26,70 @@ public class CollectionPointRestAPI extends HttpServlet {
     CollectionPointDAO dao = new CollectionPointDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
-        String info = req.getPathInfo();
+        RequestContext ctx = new RequestContext(req, res);
 
-        System.out.println(info);
-
-        if (info == null || info.equals("/")) {
+        if (ctx.segments.length == 0) {
             Collection<CollectionPoint> l = dao.findAll();
-            String jsonstring = objectMapper.writeValueAsString(l);
-            out.print(jsonstring);
+            ctx.out.print(ctx.mapper.writeValueAsString(l));
             return;
         }
-        String[] splits = info.split("/");
-        if (splits.length == 3 && splits[2].equals("status")) {
-            int statusId = RequestUtils.parseId(splits[1], res);
-            if (statusId < 0) return;
-            CollectionPointStatus status = dao.getStatus(statusId);
+        if (ctx.segments.length == 2 && ctx.segments[1].equals("status")) {
+            int id = RequestUtils.parseId(ctx.segments[0], res);
+            if (id < 0) return;
+            CollectionPointStatus status = dao.getStatus(id);
             if (status == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
-            out.print(objectMapper.writeValueAsString(status));
+            ctx.out.print(ctx.mapper.writeValueAsString(status));
             return;
         }
-        if (splits.length != 2) {
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String choice = splits[1];
-
-        if (choice.equals("overloaded")) {
+        if (ctx.segments[0].equals("overloaded")) {
             List<CollectionPoint> pointsAboveThreshold = dao.getOccupatedPointsAboveThreshold(OVERLOADED_THRESHOLD);
-            System.out.println(pointsAboveThreshold);
-            if (pointsAboveThreshold == null) {
-                res.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-            out.print(objectMapper.writeValueAsString(pointsAboveThreshold));
-        } else {
-            // dans l'autre cas, c'est un id qu'on cherche
-            int targetId = RequestUtils.parseId(choice, res);
-            if (targetId < 0) return;
-            CollectionPoint collectionPoint = dao.findById(targetId);
-            if (collectionPoint == null) {
-                res.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-            List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(targetId);
-            System.out.println(lesWasteTypesAcceptes);
-            out.print(objectMapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
+            ctx.out.print(ctx.mapper.writeValueAsString(pointsAboveThreshold));
+            return;
         }
-
+        int id = RequestUtils.parseId(ctx.segments[0], res);
+        if (id < 0) return;
+        CollectionPoint collectionPoint = dao.findById(id);
+        if (collectionPoint == null) {
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(id);
+        ctx.out.print(ctx.mapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
+        RequestContext ctx = new RequestContext(req, res);
 
-        String info = req.getPathInfo();
-        String[] splits = info == null ? new String[0] : info.split("/");
-        if (splits.length != 2) {
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
 
         try {
             String data = RequestUtils.readBody(req);
 
-            // vérification de l'existence d'un point avant de le modifier
             CollectionPoint existing = dao.findById(id);
             if (existing == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
 
-            ObjectMapper mapper = FormatAdapter.mapperFor(req);
-            CollectionPoint toPut = mapper.readValue(data, CollectionPoint.class);
-
+            CollectionPoint toPut = ctx.mapper.readValue(data, CollectionPoint.class);
             if (dao.update(toPut) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
-            PrintWriter out = res.getWriter();
-            out.print(mapper.writeValueAsString(toPut));
-            res.setStatus(HttpServletResponse.SC_OK);
+            ctx.out.print(ctx.mapper.writeValueAsString(toPut));
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -124,15 +97,13 @@ public class CollectionPointRestAPI extends HttpServlet {
     }
 
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
+        RequestContext ctx = new RequestContext(req, res);
 
-        String info = req.getPathInfo();
-        String[] splits = info == null ? new String[0] : info.split("/");
-        if (splits.length != 2) {
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
 
         try {
@@ -145,17 +116,13 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
 
-            ObjectMapper mapper = FormatAdapter.mapperFor(req);
-            CollectionPoint updated = mapper.readerForUpdating(existing).readValue(data);
-
+            CollectionPoint updated = ctx.mapper.readerForUpdating(existing).readValue(data);
             if (dao.update(updated) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
-            PrintWriter out = res.getWriter();
-            out.print(mapper.writeValueAsString(updated));
-            res.setStatus(HttpServletResponse.SC_OK);
+            ctx.out.print(ctx.mapper.writeValueAsString(updated));
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -163,28 +130,18 @@ public class CollectionPointRestAPI extends HttpServlet {
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        String info = req.getPathInfo();
+        RequestContext ctx = new RequestContext(req, res);
 
-        System.out.println(info);
-
-        String[] splits = info == null ? new String[0] : info.split("/");
-        if (splits.length != 3) {
+        if (ctx.segments.length != 2) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
-        String order = splits[2];
 
-        if (order.equals("clear")) {
+        if (ctx.segments[1].equals("clear")) {
             List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(id);
-            ObjectMapper mapper = FormatAdapter.mapperFor(req);
-
-            PrintWriter out = res.getWriter();
-            out.print(mapper.writeValueAsString(deletedDeposits));
-
-            res.setStatus(HttpServletResponse.SC_OK);
+            ctx.out.print(ctx.mapper.writeValueAsString(deletedDeposits));
             return;
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);

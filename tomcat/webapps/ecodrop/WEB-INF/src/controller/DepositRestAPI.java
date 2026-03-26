@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +15,7 @@ import model.dao.DepositDAOPostgres;
 import model.dto.CollectionPointStatus;
 import model.dto.Deposit;
 import model.dto.DepositView;
-import utils.FormatAdapter;
+import utils.RequestContext;
 import utils.RequestUtils;
 
 @WebServlet("/deposit/*")
@@ -28,39 +25,32 @@ public class DepositRestAPI extends HttpServlet {
     CollectionPointDAO pointDao = new CollectionPointDAOPostgres();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
-        String info = req.getPathInfo();
+        RequestContext ctx = new RequestContext(req, res);
 
-        System.out.println(info);
-
-        if (info == null || info.equals("/")) {
+        if (ctx.segments.length == 0) {
             Collection<DepositView> deposits = dao.findAllEnriched();
-            out.print(objectMapper.writeValueAsString(deposits));
+            ctx.out.print(ctx.mapper.writeValueAsString(deposits));
             return;
         }
-        String[] splits = info.split("/");
-        if (splits.length != 2) {
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
         Deposit deposit = dao.findById(id);
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        out.print(objectMapper.writeValueAsString(deposit));
+        ctx.out.print(ctx.mapper.writeValueAsString(deposit));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
+        RequestContext ctx = new RequestContext(req, res);
         try {
             String data = RequestUtils.readBody(req);
-            Deposit deposit = objectMapper.readValue(data, Deposit.class);
+            Deposit deposit = ctx.mapper.readValue(data, Deposit.class);
             System.out.println(deposit);
 
             if (deposit.getPoids() < 0) {
@@ -77,12 +67,8 @@ public class DepositRestAPI extends HttpServlet {
             if (!dao.add(deposit)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
-            } else {
-                PrintWriter out = res.getWriter();
-                out.print(objectMapper.writeValueAsString(deposit));
-                res.setStatus(HttpServletResponse.SC_OK);
             }
-
+            ctx.out.print(ctx.mapper.writeValueAsString(deposit));
         } catch (Exception e) {
             System.out.println("Could not add deposit to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -90,14 +76,13 @@ public class DepositRestAPI extends HttpServlet {
     }
 
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        String info = req.getPathInfo();
-        String[] splits = info == null ? new String[0] : info.split("/");
-        if (splits.length != 2) {
+        RequestContext ctx = new RequestContext(req, res);
+
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
 
         try {
@@ -109,18 +94,14 @@ public class DepositRestAPI extends HttpServlet {
                 return;
             }
 
-            ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
-            Deposit merged = objectMapper.readerForUpdating(existing).readValue(data);
-
+            Deposit merged = ctx.mapper.readerForUpdating(existing).readValue(data);
             Deposit updated = dao.update(id, merged);
             if (updated == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
 
-            PrintWriter out = res.getWriter();
-            out.print(objectMapper.writeValueAsString(updated));
-            res.setStatus(HttpServletResponse.SC_OK);
+            ctx.out.print(ctx.mapper.writeValueAsString(updated));
         } catch (Exception e) {
             System.out.println("Could not patch deposit : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -128,32 +109,23 @@ public class DepositRestAPI extends HttpServlet {
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType(FormatAdapter.contentTypeFor(req));
-        PrintWriter out = res.getWriter();
-        ObjectMapper objectMapper = FormatAdapter.mapperFor(req);
-        String info = req.getPathInfo();
+        RequestContext ctx = new RequestContext(req, res);
 
-        System.out.println(info);
-
-        String[] splits = info.split("/");
-        if (splits.length != 2) {
+        if (ctx.segments.length != 1) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(splits[1], res);
+        int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
         String data = RequestUtils.readBody(req);
 
-        Deposit updatedDeposit = objectMapper.readValue(data, Deposit.class);
-
+        Deposit updatedDeposit = ctx.mapper.readValue(data, Deposit.class);
         Deposit deposit = dao.update(id, updatedDeposit);
 
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        out.print(objectMapper.writeValueAsString(deposit));
-        res.setStatus(HttpServletResponse.SC_OK);
+        ctx.out.print(ctx.mapper.writeValueAsString(deposit));
     }
-
 }
