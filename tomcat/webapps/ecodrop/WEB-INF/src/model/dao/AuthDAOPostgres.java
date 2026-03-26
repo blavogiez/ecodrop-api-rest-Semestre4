@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import model.Role;
 import utils.DS;
 
 public class AuthDAOPostgres implements AuthDAO {
@@ -11,7 +12,7 @@ public class AuthDAOPostgres implements AuthDAO {
     private static final DS DS = new DS();
 
     @Override
-    public boolean isAdmin(String username) {
+    public Role getRole(String username) {
         boolean isAdmin = false;
 
         try (Connection con = DS.getConnection()) {
@@ -20,18 +21,16 @@ public class AuthDAOPostgres implements AuthDAO {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                isAdmin = rs.getString("role").equals("admin");
+                return Role.valueOf(rs.getString("role"));
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve role for user " + username + " : " + e.getMessage());
         }
-        return isAdmin;
+        return Role.valueOf("UNKNOWN");
     }
 
     @Override
     public boolean credentialsReferToExistingAccount(String username, String password) {
-        boolean credentialsDoRefer = false;
-
         try (Connection con = DS.getConnection()) {
             String sql = "SELECT 1 FROM users WHERE login=? and md5(password)=md5(?)";
             PreparedStatement ps = con.prepareStatement(sql);

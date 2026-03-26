@@ -1,14 +1,14 @@
 package model.dao;
 
-import model.Role;
-import model.dto.Users;
-import utils.DS;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Role;
+import model.dto.Users;
+import utils.DS;
 
 public class UsersDAOPostgres implements UsersDAO {
 
@@ -77,7 +77,8 @@ public class UsersDAOPostgres implements UsersDAO {
 
             System.out.println(ps);
             int rows = ps.executeUpdate();
-            if (rows == 0) return null;
+            if (rows == 0)
+                return null;
             return updated;
         } catch (Exception e) {
             System.err.println("Could not update User with informations " + updated + " : " + e.getMessage());
@@ -85,7 +86,9 @@ public class UsersDAOPostgres implements UsersDAO {
         return null;
     }
 
-    //select userId, sum(poids) * sum(pointsPerKilo) as score from Deposit join WasteType on Deposit.wasteTypeId=WasteType.id group by userId order by (sum(poids) * sum(pointsPerKilo)) desc limit 10;
+    // select userId, sum(poids) * sum(pointsPerKilo) as score from Deposit join
+    // WasteType on Deposit.wasteTypeId=WasteType.id group by userId order by
+    // (sum(poids) * sum(pointsPerKilo)) desc limit 10;
     @Override
     public List<Users> findArgumentTopRecyclers(int theLimit) {
         List<Users> theBestNRecyclers = new ArrayList<>();
