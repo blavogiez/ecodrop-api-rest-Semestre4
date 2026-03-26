@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoDrop - Connexion</title>
+</head>
+<body>
+  <h1>EcoDrop - Obtenir un token</h1>
+  <form onsubmit="handleLogin(event)">
+    <label>Login : <input id="login" placeholder="ex: paulpaulpaul"></label><br><br>
+    <label>Mot de passe : <input id="password" type="password" placeholder="mot de passe"></label><br><br>
+    <button type="submit">Se connecter</button>
+  </form>
+  <pre id="result"></pre>
+  <script>
+    async function handleLogin(e) {
+      e.preventDefault();
+      const credentials = btoa(
+        document.getElementById('login').value + ':' +
+        document.getElementById('password').value
+      );
+      const res = await fetch('/ecodrop/auth/token', {
+        headers: { 'Authorization': 'Basic ' + credentials }
+      });
+      document.getElementById('result').textContent =
+        res.ok ? 'Token :\n' + await res.text() : 'Erreur ' + res.status;
+    }
+  </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,12 +24,19 @@ public class AuthRestAPI extends HttpServlet {
             return;
         }
 
-        String login = req.getParameter("login");
-        if (login == null)
+        String authHeader = req.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Basic ")) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
-        String password = req.getParameter("password");
-        if (password == null)
+        }
+        String decoded = new String(Base64.getDecoder().decode(authHeader.substring(6)));
+        String[] parts = decoded.split(":", 2);
+        if (parts.length != 2) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
+        }
+        String login = parts[0];
+        String password = parts[1];
 
         AuthDAO dao = new AuthDAOPostgres();
 
