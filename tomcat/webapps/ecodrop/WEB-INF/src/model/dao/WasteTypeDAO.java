@@ -13,5 +13,7 @@ public interface WasteTypeDAO {
 
     public boolean delete(int id);
 
+    public boolean isReferencedInDeposits(int id);
+
     public WasteType update(int targetId, WasteType wasteType);
 }

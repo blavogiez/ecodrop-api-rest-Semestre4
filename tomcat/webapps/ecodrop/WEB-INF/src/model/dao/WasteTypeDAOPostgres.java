@@ -75,6 +75,19 @@ public class WasteTypeDAOPostgres implements WasteTypeDAO {
         return false;
     }
 
+    public boolean isReferencedInDeposits(int id) {
+        try (Connection con = DS.getConnection()) {
+            String query = "select 1 from Deposit where wasteTypeId = ? limit 1";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.err.println("Could not check Deposit references for WasteType id " + id + " : " + e.getMessage());
+        }
+        return false;
+    }
+
     public boolean delete(int id) {
         try (Connection con = DS.getConnection()) {
             String query = "delete from WasteType where id = ?";

@@ -10,6 +10,6 @@ public class CollectionPointStatus {
         this.id = id;
         this.adresse = adresse;
         this.taux = taux;
-        this.full = taux > 80.0;
+        this.full = taux >= 100.0;
     }
 }

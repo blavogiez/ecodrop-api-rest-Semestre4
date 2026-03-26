@@ -72,6 +72,10 @@ public class WasteTypeRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.segments[0], res);
         if (id < 0) return;
 
+        if (dao.isReferencedInDeposits(id)) {
+            res.sendError(HttpServletResponse.SC_CONFLICT);
+            return;
+        }
         if (!dao.delete(id)) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
