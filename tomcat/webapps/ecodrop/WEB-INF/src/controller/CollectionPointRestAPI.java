@@ -168,7 +168,7 @@ public class CollectionPointRestAPI extends HttpServlet {
 
         System.out.println(info);
 
-        String[] splits = info.split("/");
+        String[] splits = info == null ? new String[0] : info.split("/");
         if (splits.length != 3) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;

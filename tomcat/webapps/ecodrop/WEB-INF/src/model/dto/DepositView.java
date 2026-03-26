@@ -7,7 +7,7 @@ public class DepositView extends Deposit {
     public String nomDechet;
     public String adressePoint;
 
-    public DepositView(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, String collecte,
+    public DepositView(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, boolean collecte,
             String nomDechet, String adressePoint) {
         super(id, userId, pointId, wasteTypeId, poids, datedepot, collecte);
         this.nomDechet = nomDechet;

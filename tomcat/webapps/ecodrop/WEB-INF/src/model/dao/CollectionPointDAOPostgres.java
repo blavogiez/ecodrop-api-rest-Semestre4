@@ -159,7 +159,7 @@ public class CollectionPointDAOPostgres implements CollectionPointDAO {
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
                 Date datedepot = rs.getDate("datedepot");
-                String collecte = rs.getString("collecte");
+                boolean collecte = rs.getBoolean("collecte");
 
                 deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte));
             }

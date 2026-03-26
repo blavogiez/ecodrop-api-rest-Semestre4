@@ -9,40 +9,16 @@ public class FormatAdapter {
     public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     public static final XmlMapper XML_MAPPER = new XmlMapper();
 
-    public static ObjectMapper mapperFor(HttpServletRequest req) {
+    private static boolean isXml(HttpServletRequest req) {
         String ct = req.getContentType();
-        if (ct != null && ct.contains("application/xml")) {
-            return XML_MAPPER;
-        }
-        return JSON_MAPPER;
+        return ct != null && ct.contains("application/xml");
+    }
+
+    public static ObjectMapper mapperFor(HttpServletRequest req) {
+        return isXml(req) ? XML_MAPPER : JSON_MAPPER;
     }
 
     public static String contentTypeFor(HttpServletRequest req) {
-        String ct = req.getContentType();
-        if (ct != null && ct.contains("application/xml")) {
-            return "application/xml;charset=UTF-8";
-        }
-        return "application/json;charset=UTF-8";
+        return isXml(req) ? "application/xml;charset=UTF-8" : "application/json;charset=UTF-8";
     }
-
-    // public static String toUniversalJSON(String input) throws Exception {
-    // if (input == null || input.isBlank())
-    // return input;
-
-    // String trimmed = input.stripLeading();
-
-    // if (trimmed.startsWith("<")) {
-    // JsonNode node = XML_MAPPER.readTree(trimmed);
-    // return JSON_MAPPER.writeValueAsString(node);
-    // }
-
-    // if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-    // JSON_MAPPER.readTree(trimmed);
-    // return input;
-    // }
-
-    // throw new IllegalArgumentException(
-    // "Format non reconnu (ni JSON ni XML) : " + trimmed.substring(0, Math.min(20,
-    // trimmed.length())));
-    // }
 }

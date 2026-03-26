@@ -29,7 +29,7 @@ public class AcceptsRestAPI extends HttpServlet {
 
         System.out.println(info);
 
-        if (info != null) {
+        if (info != null && !info.equals("/")) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }

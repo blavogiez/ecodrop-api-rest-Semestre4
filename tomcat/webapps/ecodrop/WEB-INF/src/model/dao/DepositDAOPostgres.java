@@ -32,7 +32,7 @@ public class DepositDAOPostgres implements DepositDAO {
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
                 Date datedepot = rs.getDate("datedepot");
-                String collecte = rs.getString("collecte");
+                boolean collecte = rs.getBoolean("collecte");
 
                 deposits.add(new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte));
             }
@@ -63,7 +63,7 @@ public class DepositDAOPostgres implements DepositDAO {
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
                 Date datedepot = rs.getDate("datedepot");
-                String collecte = rs.getString("collecte");
+                boolean collecte = rs.getBoolean("collecte");
                 String nomDechet = rs.getString("nomDechet");
                 String adressePoint = rs.getString("adressePoint");
 
@@ -94,7 +94,7 @@ public class DepositDAOPostgres implements DepositDAO {
                 int wasteTypeId = rs.getInt("wasteTypeId");
                 double poids = rs.getDouble("poids");
                 Date datedepot = rs.getDate("datedepot");
-                String collecte = rs.getString("collecte");
+                boolean collecte = rs.getBoolean("collecte");
 
                 deposit = new Deposit(id, userId, pointId, wasteTypeId, poids, datedepot, collecte);
             }

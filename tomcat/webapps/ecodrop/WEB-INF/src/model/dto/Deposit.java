@@ -9,7 +9,7 @@ public class Deposit {
     public int wasteTypeId;
     public double poids;
     public Date datedepot;
-    public String collecte;
+    public boolean collecte;
 
     public int getId() {
         return id;
@@ -59,18 +59,18 @@ public class Deposit {
         this.datedepot = datedepot;
     }
 
-    public String getCollecte() {
+    public boolean getCollecte() {
         return collecte;
     }
 
-    public void setCollecte(String collecte) {
+    public void setCollecte(boolean collecte) {
         this.collecte = collecte;
     }
 
     public Deposit() {
     }
 
-    public Deposit(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, String collecte) {
+    public Deposit(int id, int userId, int pointId, int wasteTypeId, double poids, Date datedepot, boolean collecte) {
         this.id = id;
         this.userId = userId;
         this.pointId = pointId;
