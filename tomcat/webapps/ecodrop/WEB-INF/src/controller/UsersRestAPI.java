@@ -28,6 +28,7 @@ public class UsersRestAPI extends HttpServlet {
         if (ctx.segments.length == 0) {
             Collection<Users> users = dao.findAll();
             ctx.out.print(ctx.mapper.writeValueAsString(users));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         if (ctx.segments.length != 1) {
@@ -37,6 +38,7 @@ public class UsersRestAPI extends HttpServlet {
         if (ctx.segments[0].equals("leaderboard")) {
             List<Users> theTenBestRecyclers = dao.findArgumentTopRecyclers(DEFAULT_LEADERBOARD_LIMIT);
             ctx.out.print(ctx.mapper.writeValueAsString(theTenBestRecyclers));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         res.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -61,6 +63,7 @@ public class UsersRestAPI extends HttpServlet {
             return;
         }
         ctx.out.print(ctx.mapper.writeValueAsString(user));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -90,6 +93,7 @@ public class UsersRestAPI extends HttpServlet {
             }
 
             ctx.out.print(ctx.mapper.writeValueAsString(updated));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update user : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

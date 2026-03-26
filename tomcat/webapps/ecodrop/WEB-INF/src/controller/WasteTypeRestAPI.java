@@ -25,6 +25,7 @@ public class WasteTypeRestAPI extends HttpServlet {
         if (ctx.segments.length == 0) {
             Collection<WasteType> lesWasteTypes = dao.findAll();
             ctx.out.print(ctx.mapper.writeValueAsString(lesWasteTypes));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         if (ctx.segments.length != 1) {
@@ -39,6 +40,7 @@ public class WasteTypeRestAPI extends HttpServlet {
             return;
         }
         ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -53,6 +55,7 @@ public class WasteTypeRestAPI extends HttpServlet {
                 return;
             }
             ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.err.println("Could not add waste type to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -71,7 +74,9 @@ public class WasteTypeRestAPI extends HttpServlet {
 
         if (!dao.delete(id)) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
         }
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -93,5 +98,6 @@ public class WasteTypeRestAPI extends HttpServlet {
             return;
         }
         ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 }

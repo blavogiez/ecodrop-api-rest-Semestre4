@@ -27,6 +27,7 @@ public class AcceptsRestAPI extends HttpServlet {
         }
         Collection<Accepts> l = dao.findAll();
         ctx.out.print(ctx.mapper.writeValueAsString(l));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -41,6 +42,7 @@ public class AcceptsRestAPI extends HttpServlet {
                 return;
             }
             ctx.out.print(ctx.mapper.writeValueAsString(accepts));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println(e);
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -61,6 +63,8 @@ public class AcceptsRestAPI extends HttpServlet {
 
         if (!dao.delete(pointId, wasteTypeId)) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
         }
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 }

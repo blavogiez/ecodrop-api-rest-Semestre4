@@ -31,6 +31,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         if (ctx.segments.length == 0) {
             Collection<CollectionPoint> l = dao.findAll();
             ctx.out.print(ctx.mapper.writeValueAsString(l));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         if (ctx.segments.length == 2 && ctx.segments[1].equals("status")) {
@@ -42,6 +43,7 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
             ctx.out.print(ctx.mapper.writeValueAsString(status));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         if (ctx.segments.length != 1) {
@@ -51,6 +53,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         if (ctx.segments[0].equals("overloaded")) {
             List<CollectionPoint> pointsAboveThreshold = dao.getOccupatedPointsAboveThreshold(OVERLOADED_THRESHOLD);
             ctx.out.print(ctx.mapper.writeValueAsString(pointsAboveThreshold));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         int id = RequestUtils.parseId(ctx.segments[0], res);
@@ -62,6 +65,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
         List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(id);
         ctx.out.print(ctx.mapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -90,6 +94,7 @@ public class CollectionPointRestAPI extends HttpServlet {
             }
 
             ctx.out.print(ctx.mapper.writeValueAsString(toPut));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -123,6 +128,7 @@ public class CollectionPointRestAPI extends HttpServlet {
             }
 
             ctx.out.print(ctx.mapper.writeValueAsString(updated));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -142,6 +148,7 @@ public class CollectionPointRestAPI extends HttpServlet {
         if (ctx.segments[1].equals("clear")) {
             List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(id);
             ctx.out.print(ctx.mapper.writeValueAsString(deletedDeposits));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         res.sendError(HttpServletResponse.SC_BAD_REQUEST);

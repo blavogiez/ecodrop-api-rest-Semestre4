@@ -30,6 +30,7 @@ public class DepositRestAPI extends HttpServlet {
         if (ctx.segments.length == 0) {
             Collection<DepositView> deposits = dao.findAllEnriched();
             ctx.out.print(ctx.mapper.writeValueAsString(deposits));
+            res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         if (ctx.segments.length != 1) {
@@ -44,6 +45,7 @@ public class DepositRestAPI extends HttpServlet {
             return;
         }
         ctx.out.print(ctx.mapper.writeValueAsString(deposit));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -69,6 +71,7 @@ public class DepositRestAPI extends HttpServlet {
                 return;
             }
             ctx.out.print(ctx.mapper.writeValueAsString(deposit));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not add deposit to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -102,6 +105,7 @@ public class DepositRestAPI extends HttpServlet {
             }
 
             ctx.out.print(ctx.mapper.writeValueAsString(updated));
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not patch deposit : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -127,5 +131,6 @@ public class DepositRestAPI extends HttpServlet {
             return;
         }
         ctx.out.print(ctx.mapper.writeValueAsString(deposit));
+        res.setStatus(HttpServletResponse.SC_OK);
     }
 }
