@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,38 +24,38 @@ public class CollectionPointRestAPI extends HttpServlet {
 
     CollectionPointDAO dao = new CollectionPointDAOPostgres();
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length == 0) {
+        if (!ctx.hasArguments()) {
             Collection<CollectionPoint> l = dao.findAll();
-            ctx.out.print(ctx.mapper.writeValueAsString(l));
+            ctx.printValueAsString(l);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.segments.length == 2 && ctx.segments[1].equals("status")) {
-            int id = RequestUtils.parseId(ctx.segments[0], res);
+        if (ctx.doesNotHaveExactlyXArguments(2) && ctx.getArgument(1).equals("status")) {
+            int id = RequestUtils.parseId(ctx.getArgument(0), res);
             if (id < 0) return;
             CollectionPointStatus status = dao.getStatus(id);
             if (status == null) {
                 res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
-            ctx.out.print(ctx.mapper.writeValueAsString(status));
+            ctx.printValueAsString(status);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        if (ctx.segments[0].equals("overloaded")) {
+        if (ctx.getArgument(0).equals("overloaded")) {
             List<CollectionPoint> pointsAboveThreshold = dao.getOccupatedPointsAboveThreshold(OVERLOADED_THRESHOLD);
-            ctx.out.print(ctx.mapper.writeValueAsString(pointsAboveThreshold));
+            ctx.printValueAsString(pointsAboveThreshold);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
         CollectionPoint collectionPoint = dao.findById(id);
         if (collectionPoint == null) {
@@ -64,18 +63,18 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         List<WasteType> lesWasteTypesAcceptes = dao.getAcceptedWasteTypes(id);
-        ctx.out.print(ctx.mapper.writeValueAsString(new Object[] { collectionPoint, lesWasteTypesAcceptes }));
+        ctx.printValueAsString(new Object[]{collectionPoint, lesWasteTypesAcceptes});
         res.setStatus(HttpServletResponse.SC_OK);
     }
 
-    public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
         try {
@@ -87,13 +86,13 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
 
-            CollectionPoint toPut = ctx.mapper.readValue(data, CollectionPoint.class);
+            CollectionPoint toPut = ctx.readValue(data, CollectionPoint.class);
             if (dao.update(toPut) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
-            ctx.out.print(ctx.mapper.writeValueAsString(toPut));
+            ctx.printValueAsString(toPut);
             res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
@@ -101,14 +100,14 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
     }
 
-    public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPatch(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
         try {
@@ -121,13 +120,13 @@ public class CollectionPointRestAPI extends HttpServlet {
                 return;
             }
 
-            CollectionPoint updated = ctx.mapper.readerForUpdating(existing).readValue(data);
+            CollectionPoint updated = ctx.readerForUpdating(existing).readValue(data);
             if (dao.update(updated) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
-            ctx.out.print(ctx.mapper.writeValueAsString(updated));
+            ctx.printValueAsString(updated);
             res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update collection point : " + e.getMessage());
@@ -135,19 +134,19 @@ public class CollectionPointRestAPI extends HttpServlet {
         }
     }
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 2) {
+        if (ctx.doesNotHaveExactlyXArguments(2)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (ctx.segments[1].equals("clear")) {
+        if (ctx.getArgument(1).equals("clear")) {
             List<Deposit> deletedDeposits = dao.deleteAllDepositsFromPoint(id);
-            ctx.out.print(ctx.mapper.writeValueAsString(deletedDeposits));
+            ctx.printValueAsString(deletedDeposits);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }

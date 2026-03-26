@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,59 +21,59 @@ public class UsersRestAPI extends HttpServlet {
 
     private static final int DEFAULT_LEADERBOARD_LIMIT = 10;
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length == 0) {
+        if (!ctx.hasArguments()) {
             Collection<Users> users = dao.findAll();
-            ctx.out.print(ctx.mapper.writeValueAsString(users));
+            ctx.printValueAsString(users);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        if (ctx.segments[0].equals("leaderboard")) {
+        if (ctx.getArgument(0).equals("leaderboard")) {
             List<Users> theTenBestRecyclers = dao.findArgumentTopRecyclers(DEFAULT_LEADERBOARD_LIMIT);
-            ctx.out.print(ctx.mapper.writeValueAsString(theTenBestRecyclers));
+            ctx.printValueAsString(theTenBestRecyclers);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
         res.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 
-    public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
         String data = RequestUtils.readBody(req);
 
-        Users updatedUser = ctx.mapper.readValue(data, Users.class);
+        Users updatedUser = ctx.readValue(data, Users.class);
         Users user = dao.update(id, updatedUser);
 
         if (user == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        ctx.out.print(ctx.mapper.writeValueAsString(user));
+        ctx.printValueAsString(user);
         res.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
-    protected void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPatch(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
         try {
@@ -86,13 +85,13 @@ public class UsersRestAPI extends HttpServlet {
                 return;
             }
 
-            Users updated = ctx.mapper.readerForUpdating(existing).readValue(data);
+            Users updated = ctx.readerForUpdating(existing).readValue(data);
             if (dao.update(id, updated) == null) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
-            ctx.out.print(ctx.mapper.writeValueAsString(updated));
+            ctx.printValueAsString(updated);
             res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.out.println("Could not update user : " + e.getMessage());

@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.Collection;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,42 +18,42 @@ public class WasteTypeRestAPI extends HttpServlet {
 
     WasteTypeDAO dao = new WasteTypeDAOPostgres();
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length == 0) {
+        if (!ctx.hasArguments()) {
             Collection<WasteType> lesWasteTypes = dao.findAll();
-            ctx.out.print(ctx.mapper.writeValueAsString(lesWasteTypes));
+            ctx.printValueAsString(lesWasteTypes);
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
         WasteType wasteType = dao.findById(id);
         if (wasteType == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+        ctx.printValueAsString(wasteType);
         res.setStatus(HttpServletResponse.SC_OK);
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
         try {
             String data = RequestUtils.readBody(req);
-            WasteType wasteType = ctx.mapper.readValue(data, WasteType.class);
+            WasteType wasteType = ctx.readValue(data, WasteType.class);
             System.out.println(wasteType);
 
             if (!dao.add(wasteType)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
-            ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+            ctx.printValueAsString(wasteType);
             res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             System.err.println("Could not add waste type to database : " + e.getMessage());
@@ -62,14 +61,14 @@ public class WasteTypeRestAPI extends HttpServlet {
         }
     }
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
         if (dao.isReferencedInDeposits(id)) {
@@ -83,25 +82,25 @@ public class WasteTypeRestAPI extends HttpServlet {
         res.setStatus(HttpServletResponse.SC_OK);
     }
 
-    public void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (ctx.segments.length != 1) {
+        if (ctx.doesNotHaveExactlyXArguments(1)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        int id = RequestUtils.parseId(ctx.segments[0], res);
+        int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
         String data = RequestUtils.readBody(req);
 
-        WasteType updatedWasteType = ctx.mapper.readValue(data, WasteType.class);
+        WasteType updatedWasteType = ctx.readValue(data, WasteType.class);
         WasteType wasteType = dao.update(id, updatedWasteType);
 
         if (wasteType == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        ctx.out.print(ctx.mapper.writeValueAsString(wasteType));
+        ctx.printValueAsString(wasteType);
         res.setStatus(HttpServletResponse.SC_OK);
     }
 }
