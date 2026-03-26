@@ -1,14 +1,15 @@
 package controller;
 
+import java.io.IOException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.dao.TokenDAO;
-import model.dao.TokenDAOPostgres;
+import model.dao.AuthDAO;
+import model.dao.AuthDAOPostgres;
+import utils.JwtManager;
 import utils.RequestContext;
-
-import java.io.IOException;
 
 @WebServlet("/auth/token")
 public class AuthRestAPI extends HttpServlet {
@@ -23,13 +24,24 @@ public class AuthRestAPI extends HttpServlet {
         }
 
         String login = req.getParameter("login");
-        if (login == null) return;
+        if (login == null)
+            return;
         String password = req.getParameter("password");
-        if (password == null) return;
+        if (password == null)
+            return;
 
-        TokenDAO dao = new TokenDAOPostgres();
-        String token = dao.getOrCreateToken(login, password);
-        ctx.print(token);
-        res.setStatus(HttpServletResponse.SC_OK);
+        AuthDAO dao = new AuthDAOPostgres();
+
+        if (dao.credentialsReferToExistingAccount(login, password)) {
+            String token = JwtManager.createJWT(login);
+            ctx.print(token);
+            res.setStatus(HttpServletResponse.SC_OK);
+            return;
+        } else {
+            ctx.print("Invalid credentials");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
     }
 }
