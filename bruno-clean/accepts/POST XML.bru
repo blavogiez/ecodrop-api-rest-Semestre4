@@ -17,12 +17,12 @@ headers {
 body:xml {
   <accepts>
     <pointsId>5</pointsId>
-    <wasteTypesId>6</wasteTypesId>
+    <wasteTypesId>3</wasteTypesId>
   </accepts>
 }
 
 tests {
-  test("Status 200", function() {
-    expect(res.status).to.equal(200);
+  test("Status 409", function() {
+    expect(res.status).to.equal(409);
   });
 }

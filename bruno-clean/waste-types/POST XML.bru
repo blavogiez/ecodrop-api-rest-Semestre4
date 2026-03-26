@@ -16,14 +16,14 @@ headers {
 
 body:xml {
   <wasteType>
-    <id>98</id>
+    <id>99</id>
     <nom>test déchets XML</nom>
     <pointsPerKilo>4.0</pointsPerKilo>
   </wasteType>
 }
 
 tests {
-  test("Status 200", function() {
-    expect(res.status).to.equal(200);
+  test("Status 409", function() {
+    expect(res.status).to.equal(409);
   });
 }

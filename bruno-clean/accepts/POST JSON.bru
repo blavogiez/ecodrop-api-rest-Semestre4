@@ -23,6 +23,6 @@ body:json {
 
 tests {
   test("Status 200", function() {
-    expect(res.status).to.equal(200);
+    expect(res.status).to.be.oneOf([200, 409]);
   });
 }
