@@ -32,14 +32,14 @@ public class JwtManager {
         SecretKey signingKey = Keys.hmacShaKeyFor(keyBytes);
 
         Instant now = Instant.now();
-        Instant expiration = now.plusSeconds(TTL_SECONDS); // 20 mn
+        Instant expiration = now.plusSeconds(TTL_SECONDS);
         Date expDate = Date.from(expiration);
 
         // Let's set the JWT Claims
         String token = Jwts.builder()
                 .id(UUID.randomUUID().toString().replace("-", ""))
                 .issuedAt(Date.from(now))
-                .subject("Authentification pour tp333")
+                .subject("Authentification pour Ecodrop")
                 .issuer(username)
                 .expiration(expDate)
                 .signWith(signingKey)

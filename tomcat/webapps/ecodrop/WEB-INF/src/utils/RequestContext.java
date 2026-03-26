@@ -41,17 +41,17 @@ public class RequestContext {
         }
     }
 
-    public String getUser() {
-        return (String) req.getAttribute("user");
+    public String getLogin() {
+        return (String) req.getAttribute("login");
     }
 
     public boolean isAuthenticated() {
-        return getUser() != null;
+        return getLogin() != null;
     }
 
     public Role getUserRole() {
         if (isAuthenticated()) {
-            return dao.getRole(getUser());
+            return dao.getRole(getLogin());
         }
         return Role.valueOf("UNKNOWN");
     }
@@ -103,7 +103,7 @@ public class RequestContext {
     }
 
     public boolean hasNoToken() {
-        return getUser() == null;
+        return getLogin() == null;
     }
 
     public void print(String... args) {

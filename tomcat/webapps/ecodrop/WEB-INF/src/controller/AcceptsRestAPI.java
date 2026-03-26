@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
 import model.dao.AcceptsDAO;
 import model.dao.AcceptsDAOPostgres;
 import model.dto.Accepts;
@@ -32,8 +33,8 @@ public class AcceptsRestAPI extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -65,8 +66,8 @@ public class AcceptsRestAPI extends HttpServlet {
         int wasteTypeId = RequestUtils.parseId(ctx.getArgument(1), res);
         if (wasteTypeId < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (ctx.getUserRole() != Role.ADMIN) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

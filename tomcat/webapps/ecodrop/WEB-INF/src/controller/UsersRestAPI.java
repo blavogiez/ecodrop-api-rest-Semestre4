@@ -53,8 +53,8 @@ public class UsersRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -82,8 +82,8 @@ public class UsersRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

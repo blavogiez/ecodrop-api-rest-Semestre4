@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
 import model.dao.WasteTypeDAO;
 import model.dao.WasteTypeDAOPostgres;
 import model.dto.WasteType;
@@ -45,17 +46,17 @@ public class WasteTypeRestAPI extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
         try {
+            if (!ctx.isAuthenticated()) {
+                res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+
             String data = RequestUtils.readBody(req);
             WasteType wasteType = ctx.readValue(data, WasteType.class);
             System.out.println(wasteType);
 
             if (!dao.add(wasteType)) {
                 res.sendError(HttpServletResponse.SC_CONFLICT);
-                return;
-            }
-
-            if (RequestUtils.tokenIsInvalid(ctx, req)){
-                res.sendError(RequestUtils.getTokenError(ctx, req));
                 return;
             }
 
@@ -77,8 +78,8 @@ public class WasteTypeRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (ctx.getUserRole() != Role.ADMIN) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -103,8 +104,8 @@ public class WasteTypeRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

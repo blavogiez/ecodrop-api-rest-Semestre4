@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
 import model.dao.CollectionPointDAO;
 import model.dao.CollectionPointDAOPostgres;
 import model.dto.CollectionPoint;
@@ -50,6 +51,10 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
         if (ctx.getArgument(0).equals("overloaded")) {
+            if (ctx.getUserRole() != Role.ADMIN) {
+                res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
             List<CollectionPoint> pointsAboveThreshold = dao.getOccupatedPointsAboveThreshold(OVERLOADED_THRESHOLD);
             ctx.printValueAsString(pointsAboveThreshold);
             res.setStatus(HttpServletResponse.SC_OK);
@@ -75,8 +80,8 @@ public class CollectionPointRestAPI extends HttpServlet {
             return;
         }
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -116,8 +121,8 @@ public class CollectionPointRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (!ctx.isAuthenticated()) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -155,8 +160,8 @@ public class CollectionPointRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (RequestUtils.tokenIsInvalid(ctx, req)){
-            res.sendError(RequestUtils.getTokenError(ctx, req));
+        if (ctx.getUserRole() != Role.ADMIN) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
