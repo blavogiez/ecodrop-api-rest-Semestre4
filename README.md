@@ -1,26 +1,24 @@
-# Ecodrop
-
-## Notes pour Paul
-
-- j'ai refactor la gestion de requêtes en mode chemin avec la classe RequestContext (c'est maintenant plus court de lire le chemin d'une requête (par exemple ecodrop/points/overloaded etc tu vois, ça rend les api rest plus claires))
-https://gitlab.univ-lille.fr/baptiste.lavogiez.etu/ecodrop/-/commit/3cdcfe85c918570680ef6823333c7468ff4a3a04
-- la même chose pour la lecture du body de la requête avec RequestUtils
-- (si le nouveau code est pas clair tu peux faire comme avant)
-- tu peux tester l'API entière avec :
-
-```bash
-npm install -g @usebruno/cli
-docker compose up --build -d
-cd bruno-clean && bru run --env local
-```
-
-- et à chaque fois que tu push les tests bruno vont se faire automatiquement dans gitlab. (Si environ 2 à 3 tests ratent c'est pas grave ça peut être un problème de configuration vu que c'est récent)
-- tu n'es pas obligé d'inclure des tests/assertion aux nouvelles requêtes bruno que tu fais pour la semaine 3 je peux le faire après tqt
+# Ecodrop : Le service de recyclage RESTful
 
 ## Membres de l'équipe
+
+**Groupe G1**
+
 Réalisé par :
 - **Paul-Arnaud Delavictoire** : [paul-arnaud.delavictoire.etu@univ-lille.fr](mailto:paul-arnaud.delavictoire.etu@univ-lille.fr)  
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
+- ***Enseignant : Mme Everaere***
+
+## Présentation
+
+Ecodrop est le terrain d'apprentissage parfait pour concevoir une API REST sécurisée, résiliente et testable. Ce service de collecte de déchets permet d'obtenir des points de recyclage où sont déposés des déchets par des utilisateurs. Par l'API REST, différents services externes pourront alors obtenir, injecter ou modifier un [ensemble de données](#schéma-de-la-base). 
+
+### Stack tecknique
+
+- Java EE, Tomcat
+- PostgreSQL
+- GitLab CI
+- Docker Compose
 
 ## Liens utiles
 
@@ -30,7 +28,7 @@ Mme Everaere :
 |------|
 | [Répertoire principal](tomcat/webapps/ecodrop/WEB-INF/src) |
 | [Répertoire de tests](bruno-clean) |
-| CI/CD ; tests à la volée : voir l'historique des commits |
+| CI ; tests à la volée -> voir l'historique des commits |
 
 ## Schéma de la base 
 
@@ -40,6 +38,14 @@ todo
 
 todo
 
-## Retour de l'API
+## Retours de l'API
 
-todo
+| Endpoint | Headers fournis par l'utilisateur | Code de retour |
+| DELETE | Token user | 401 |
+
+## Les petits plus
+
+- Tests `bruno` disponibles avec `Bruno CLI` -> `cd bruno && bru run --env local --tests-only` ;
+- Conteneurisation de l'application pour faciliter le développement / tests, notamment vis-à-vis de l'idempotence des tests ;
+- CI GitLab de tests automatiques à chaque push : construction de l'image, lancement et test sur runner hébergé sur Dattier (pas de runner privilégié dispo sur le GitLab universitaire). Voir les commits et la petite croix à côté pour détails ! ;
+- Chiffrement SHA256 des mots de passe avec l'extension `pgcrypto`.
