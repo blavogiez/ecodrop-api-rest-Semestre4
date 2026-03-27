@@ -36,11 +36,6 @@ public class DepositRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (!ctx.isAuthenticated()) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
-
         Deposit deposit = dao.findById(id);
         if (deposit == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);

@@ -1,5 +1,6 @@
 package model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import model.Role;
 
 public class Users {
@@ -8,6 +9,8 @@ public class Users {
     String login;
     String password;
     Role role;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    Double score;
 
     public Users(int id, String login, String password, Role role) {
         this.id = id;
@@ -49,6 +52,14 @@ public class Users {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     @Override

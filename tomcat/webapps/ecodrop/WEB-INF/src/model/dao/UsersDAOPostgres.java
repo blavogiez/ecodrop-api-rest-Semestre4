@@ -105,8 +105,11 @@ public class UsersDAOPostgres implements UsersDAO {
                 String login = rs.getString("login");
                 String password = rs.getString("password");
                 Role role = Role.valueOf(rs.getString("role"));
+                double score = rs.getDouble("score");
 
-                theBestNRecyclers.add(new Users(id, login, password, role));
+                Users user = new Users(id, login, password, role);
+                user.setScore(score);
+                theBestNRecyclers.add(user);
             }
         } catch (Exception e) {
             System.err.println("Could not retrieve all Users " + " : " + e.getMessage());

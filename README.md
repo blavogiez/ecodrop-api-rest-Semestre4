@@ -151,9 +151,8 @@ Quatre requêtes SQL non triviales méritent d'être explicitées.
 | `DELETE /points/{id}/clear` | Token admin | Dépôts marqués collectés | 200 |
 | `DELETE /points/{id}/clear` | Token user / absent | - | 401 |
 | `GET /deposits` | - | Vue enrichie (nom déchet + adresse) | 200 |
-| `GET /deposits/{id}` | Token (tout rôle) | Dépôt trouvé | 200 |
-| `GET /deposits/{id}` | Token absent | - | 401 |
-| `GET /deposits/{id}` | Token (tout rôle) | Dépôt inexistant | 404 |
+| `GET /deposits/{id}` | - | Dépôt trouvé | 200 |
+| `GET /deposits/{id}` | - | Dépôt inexistant | 404 |
 | `POST /deposits` | Token (tout rôle) | Dépôt créé | 200 |
 | `POST /deposits` | Token (tout rôle) | Poids négatif | 400 |
 | `POST /deposits` | Token absent | - | 401 |
