@@ -23,3 +23,4 @@ CMD ["catalina.sh", "run"]
 
 # docker build .
 # docker run --rm -it -p blavogiez/ecodrop-tester
+# podman exec -it -w /bruno-clean ecodrop_ecodrop_1 bru run --env local
