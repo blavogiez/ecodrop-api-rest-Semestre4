@@ -1,4 +1,5 @@
-# ecodrop + postgresql ; utile pour les tests CI
+# ecodrop + postgresql ; utile pour les tests CI / démo
+
 
 services:
   ecodrop:
@@ -26,6 +27,8 @@ services:
           - ecodrop-db
     volumes:
     # initialisée avec le script init.sql
+    # idéalement avant de relancer on fait podman-compose down -v pour que le init.sql se refasse. 
+    # Les tests modifieront la base de façon déterministe donc cela permet l'idempotence.
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 networks:

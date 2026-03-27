@@ -17,7 +17,7 @@ import model.dto.DepositView;
 import utils.RequestContext;
 import utils.RequestUtils;
 
-@WebServlet("/deposit/*")
+@WebServlet("/deposits/*")
 public class DepositRestAPI extends HttpServlet {
 
     DepositDAO dao = new DepositDAOPostgres();
