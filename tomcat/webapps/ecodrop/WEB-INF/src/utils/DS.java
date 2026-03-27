@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DS {
-    // pour tester quand on est pas à l'iut, on bind psqlserv à localhost dans /etc/hosts
-    
-    static final String url = "jdbc:postgresql://psqlserv/but2";
+    // à l'IUT : psqlserv est dans /etc/hosts → DB_HOST non défini → fallback "psqlserv"
+    // en Docker : DB_HOST=ecodrop-db (alias réseau) pour éviter le conflit /etc/hosts
+    static final String url = "jdbc:postgresql://" + System.getenv().getOrDefault("DB_HOST", "psqlserv") + "/but2";
     static final String user = "baptistelavogiezetu";
     static final String password = "jeanjean";
 

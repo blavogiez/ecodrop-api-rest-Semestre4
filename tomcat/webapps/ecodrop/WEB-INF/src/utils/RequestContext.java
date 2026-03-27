@@ -79,29 +79,7 @@ public class RequestContext {
     public ObjectReader readerForUpdating(Object valueToUpdate) {
         return this.mapper.readerForUpdating(valueToUpdate);
     }
-
-    public boolean tokenIsNotValid(HttpServletRequest req) {
-        String token;
-        try {
-            token = req.getParameter("token");
-        } catch (Exception e) {
-            token = "";
-        }
-
-        boolean isValid = false;
-
-        try (Connection con = new DS().getConnection()) {
-            String sql2 = "SELECT * FROM users WHERE token=?";
-            PreparedStatement ps = con.prepareStatement(sql2);
-            ps.setString(1, token);
-            ResultSet rs = ps.executeQuery();
-            isValid = rs.next();
-        } catch (Exception e) {
-            System.err.println("Could not connect to database : " + e.getMessage());
-        }
-        return !isValid;
-    }
-
+    
     public boolean hasNoToken() {
         return getLogin() == null;
     }

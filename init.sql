@@ -1,4 +1,6 @@
 --- Création de la base avec idempotence
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 DROP TABLE IF EXISTS Accepts CASCADE;
 DROP TABLE IF EXISTS WasteType CASCADE;
 DROP TABLE IF EXISTS CollectionPoint CASCADE;
@@ -26,7 +28,8 @@ CREATE TABLE Accepts (
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
     login VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL CHECK (char_length(password) > 10),
+    --- sha 256 passwords
+    password VARCHAR(64) NOT NULL CHECK (char_length(password) > 10),
     role VARCHAR(10) NOT NULL CHECK (role IN ('USER','ADMIN'))
 );
 
@@ -84,10 +87,17 @@ INSERT INTO Accepts VALUES(5,5);
 INSERT INTO Accepts VALUES(5,7);
 INSERT INTO Accepts VALUES(5,1);
 
-INSERT INTO Users(login, password, role) VALUES('paulpaulpaul', 'paulpaulpaul', 'ADMIN');
-INSERT INTO Users(login, password, role) VALUES('podmanpodman', 'podmanpodman', 'USER');
-INSERT INTO Users(login, password, role) VALUES('podman-compose', 'podman-compose', 'USER');
-INSERT INTO Users(login, password, role) VALUES('temoin', 'temointemoin', 'USER');
+INSERT INTO Users(login, password, role) 
+VALUES('paulpaulpaul', encode(digest('paulpaulpaul', 'sha256'), 'hex'), 'ADMIN');
+
+INSERT INTO Users(login, password, role) 
+VALUES('podmanpodman', encode(digest('podmanpodman', 'sha256'), 'hex'), 'USER');
+
+INSERT INTO Users(login, password, role) 
+VALUES('podman-compose', encode(digest('podman-compose', 'sha256'), 'hex'), 'USER');
+
+INSERT INTO Users(login, password, role) 
+VALUES('temoin', encode(digest('temointemoin', 'sha256'), 'hex'), 'USER');
 
 
 -- Dépôts existants — collecte=false (pas encore ramassés)

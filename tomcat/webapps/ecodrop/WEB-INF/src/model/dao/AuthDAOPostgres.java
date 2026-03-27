@@ -13,8 +13,6 @@ public class AuthDAOPostgres implements AuthDAO {
 
     @Override
     public Role getRole(String username) {
-        boolean isAdmin = false;
-
         try (Connection con = DS.getConnection()) {
             String sql = "SELECT role FROM users WHERE login=?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -32,7 +30,7 @@ public class AuthDAOPostgres implements AuthDAO {
     @Override
     public boolean credentialsReferToExistingAccount(String username, String password) {
         try (Connection con = DS.getConnection()) {
-            String sql = "SELECT 1 FROM users WHERE login=? and md5(password)=md5(?)";
+            String sql = "SELECT 1 FROM users WHERE login=? and password=encode(digest(?, 'sha256'), 'hex')";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);

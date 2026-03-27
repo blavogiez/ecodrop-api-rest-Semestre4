@@ -7,7 +7,10 @@ services:
       - "8080:8080"
     depends_on:
       - psqlserv
-    # env définis dans DS.java en classe utilitaire
+    networks:
+      - ecodrop-net
+    environment:
+      - DB_HOST=ecodrop-db
 
   psqlserv:
     image: postgres:15-alpine
@@ -17,9 +20,17 @@ services:
       - POSTGRES_USER=baptistelavogiezetu
       - POSTGRES_PASSWORD=jeanjean
       - POSTGRES_DB=but2
+    networks:
+      ecodrop-net:
+        aliases:
+          - ecodrop-db
     volumes:
     # initialisée avec le script init.sql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  ecodrop-net:
+    driver: bridge
 
 # quelques tests :
 # podman exec -it /bruno-clean ecodrop_ecodrop_1 bash -c "curl localhost:8080/ecodrop/points"

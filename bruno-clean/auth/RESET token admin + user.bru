@@ -2,6 +2,7 @@ meta {
   name: RESET token admin + user
   type: http
   seq: 1
+  disabled: true
 }
 
 get {
@@ -24,7 +25,7 @@ script:post-response {
 
   res.body = {
     message: "Vos tokens ont été reset",
-    token: `"${oldToken}" → ""`,
-    tokenAdmin: `"${oldTokenAdmin}" → ""`
+    token: `"${oldToken}" -> ""`,
+    tokenAdmin: `"${oldTokenAdmin}" -> ""`
   };
 }
