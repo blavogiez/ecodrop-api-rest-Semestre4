@@ -94,7 +94,15 @@ public class UsersDAOPostgres implements UsersDAO {
         List<Users> theBestNRecyclers = new ArrayList<>();
 
         try (Connection con = DS.getConnection()) {
-            String query = "select Users.*, sum(dp.poids * wt.pointsPerKilo) as score from Users join Deposit dp on Users.id=dp.userId join WasteType wt on dp.wasteTypeId=wt.id group by Users.id order by sum(dp.poids * wt.pointsPerKilo) desc limit ?;";
+            String query = """
+            WITH t(id, login, password, role, score, rank) AS (
+            SELECT u.*, sum(dp.poids * wt.pointsPerKilo), rank() over(ORDER BY sum(dp.poids * wt.pointsPerKilo) DESC)
+            FROM Users AS u JOIN Deposit AS dp ON u.id=dp.userId
+                JOIN WasteType wt ON dp.wasteTypeId=wt.id
+            GROUP BY u.id
+            ORDER BY rank)
+            SELECT id, login, password, role, score FROM t WHERE rank <= ?;
+            """;
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, theLimit);
             System.out.println(ps);
