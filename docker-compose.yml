@@ -1,38 +1,31 @@
 # ecodrop + postgresql ; utile pour les tests CI / démo
-
+# network_mode: host car Podman 4.3.1 rootless (slirp4netns) ne résout pas
+# les noms de service entre conteneurs sur un réseau bridge (pas d'aardvark-dns).
+# Les deux conteneurs partagent le réseau de la machine hôte.
 
 services:
   ecodrop:
     build: .
-    ports:
-      - "8080:8080"
+    network_mode: host
     depends_on:
       - ecodrop-db
-    networks:
-      - ecodrop-net
+    command: /bin/bash -c "sleep 10 && catalina.sh run"
     environment:
-      - DB_HOST=ecodrop-db
+      - DB_HOST=127.0.0.1
 
   ecodrop-db:
     image: postgres:15-alpine
-    ports:
-      - "5432:5432"
+    network_mode: host
     environment:
       - POSTGRES_USER=baptistelavogiezetu
       - POSTGRES_PASSWORD=jeanjean
       - POSTGRES_DB=but2
-    networks:
-      - ecodrop-net
     volumes:
     # initialisée avec le script init.sql
-    # idéalement avant de relancer on fait podman-compose down -v pour que le init.sql se refasse. 
+    # idéalement avant de relancer on fait podman-compose down -v pour que le init.sql se refasse.
     # Les tests modifieront la base de façon déterministe donc cela permet l'idempotence.
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-networks:
-  ecodrop-net:
-    driver: bridge
-
 # quelques tests :
-# podman exec -it /bruno-clean ecodrop_ecodrop_1 bash -c "curl localhost:8080/ecodrop/points"
+# podman exec -it ecodrop_ecodrop_1 bash -c "curl localhost:8080/ecodrop/points"
 # podman exec -it -w /bruno-clean ecodrop_ecodrop_1 bru run --env local
