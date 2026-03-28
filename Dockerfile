@@ -15,7 +15,7 @@ RUN cd /usr/local/tomcat/webapps/ecodrop/WEB-INF && \
     javac -cp "/usr/local/tomcat/lib/*:lib/*" -d classes $(find src -name "*.java")
 
 # collection bruno
-COPY bruno-clean /bruno-clean
+COPY bruno /bruno
 
 EXPOSE 8080
 
@@ -23,4 +23,4 @@ CMD ["catalina.sh", "run"]
 
 # docker build .
 # docker run --rm -it -p blavogiez/ecodrop-tester
-# podman exec -it -w /bruno-clean ecodrop_ecodrop_1 bru run --env local
+# podman exec -it -w /bruno ecodrop_ecodrop_1 bru run --env local

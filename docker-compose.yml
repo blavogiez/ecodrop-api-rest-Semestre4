@@ -28,4 +28,4 @@ services:
 
 # quelques tests :
 # podman exec -it ecodrop_ecodrop_1 bash -c "curl localhost:8080/ecodrop/points"
-# podman exec -it -w /bruno-clean ecodrop_ecodrop_1 bru run --env local
+# podman exec -it -w /bruno ecodrop_ecodrop_1 bru run --env local

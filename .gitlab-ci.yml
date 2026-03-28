@@ -17,7 +17,7 @@ test:
     - sleep 10
     - docker compose logs ecodrop
     - docker compose exec -T ecodrop bash -c "curl localhost:8080/ecodrop/points"
-    - docker compose exec -T ecodrop bash -c "cd /bruno-clean && bru run --env local --tests-only"
+    - docker compose exec -T ecodrop bash -c "cd /bruno && bru run --env local --tests-only"
   after_script:
     - docker compose down
 

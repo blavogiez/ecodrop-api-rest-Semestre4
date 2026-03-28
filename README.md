@@ -51,7 +51,7 @@ Mme Everaere :
 | Code |
 |------|
 | [Répertoire principal](tomcat/webapps/ecodrop/WEB-INF/src) |
-| [Répertoire de tests](bruno-clean) |
+| [Répertoire de tests](bruno) |
 | CI ; tests à la volée -> voir l'historique des commits ([exemple](https://gitlab.univ-lille.fr/baptiste.lavogiez.etu/ecodrop/-/jobs/225791)) |
 
 ## Schéma de la base
