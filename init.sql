@@ -1,5 +1,4 @@
 --- Création de la base avec idempotence
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 DROP TABLE IF EXISTS Accepts CASCADE;
 DROP TABLE IF EXISTS WasteType CASCADE;
@@ -88,16 +87,16 @@ INSERT INTO Accepts VALUES(5,7);
 INSERT INTO Accepts VALUES(5,1);
 
 INSERT INTO Users(login, password, role) 
-VALUES('paulpaulpaul', encode(digest('paulpaulpaul', 'sha256'), 'hex'), 'ADMIN');
+VALUES('paulpaulpaul', md5('paulpaulpaul'), 'ADMIN');
 
 INSERT INTO Users(login, password, role) 
-VALUES('podmanpodman', encode(digest('podmanpodman', 'sha256'), 'hex'), 'USER');
+VALUES('podmanpodman', md5('podmanpodman'), 'USER');
 
 INSERT INTO Users(login, password, role) 
-VALUES('podman-compose', encode(digest('podman-compose', 'sha256'), 'hex'), 'USER');
+VALUES('podman-compose', md5('podman-compose'), 'USER');
 
 INSERT INTO Users(login, password, role) 
-VALUES('temoin', encode(digest('temointemoin', 'sha256'), 'hex'), 'USER');
+VALUES('temoin', md5('temointemoin'), 'USER');
 
 
 -- Dépôts existants — collecte=false (pas encore ramassés)

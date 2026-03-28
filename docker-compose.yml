@@ -7,13 +7,13 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - psqlserv
+      - ecodrop-db
     networks:
       - ecodrop-net
     environment:
       - DB_HOST=ecodrop-db
 
-  psqlserv:
+  ecodrop-db:
     image: postgres:15-alpine
     ports:
       - "5432:5432"
@@ -22,9 +22,7 @@ services:
       - POSTGRES_PASSWORD=jeanjean
       - POSTGRES_DB=but2
     networks:
-      ecodrop-net:
-        aliases:
-          - ecodrop-db
+      - ecodrop-net
     volumes:
     # initialisée avec le script init.sql
     # idéalement avant de relancer on fait podman-compose down -v pour que le init.sql se refasse. 
