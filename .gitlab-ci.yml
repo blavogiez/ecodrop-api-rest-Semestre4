@@ -13,7 +13,7 @@ test:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker compose up -d --build
-    - until docker compose exec -T psqlserv pg_isready -U baptistelavogiezetu; do sleep 1; done
+    - until docker compose exec -T ecodrop-db pg_isready -U baptistelavogiezetu; do sleep 1; done
     - sleep 10
     - docker compose logs ecodrop
     - docker compose exec -T ecodrop bash -c "curl localhost:8080/ecodrop/points"
