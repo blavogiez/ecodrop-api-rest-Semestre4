@@ -117,6 +117,18 @@ Ref: Deposit.wasteTypeId > WasteType.id
 
 Tout fonctionne en `ON UPDATE CASCADE` et `ON DELETE CASCADE`.
 
+### Informations préliminaires
+
+Voici les **login** et **mot de passe** d'utilisateur des deux types (**admin** et **user**) :
+
+| login        | mot de passe |role|
+|--------------|--------------| --- |
+| paulpaulpaul | paulpaulpaul | admin |
+| podmanpodman | podmanpodman |
+
+Vous pouvez vous en servir pour tester l'API avec un navigateur web à l'adresse http://localhost:8080/ecodrop une fois
+le container ou tomcat lancé (voir [Installation rapide](#installation-rapide)).
+
 ## Explication des requêtes complexes
 
 Quatre requêtes SQL non triviales méritent d'être explicitées.
