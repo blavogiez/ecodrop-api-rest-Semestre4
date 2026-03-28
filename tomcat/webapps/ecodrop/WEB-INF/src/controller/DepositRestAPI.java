@@ -73,7 +73,7 @@ public class DepositRestAPI extends HttpServlet {
                 return;
             }
             ctx.printValueAsString(deposit);
-            res.setStatus(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_CREATED);
         } catch (Exception e) {
             System.out.println("Could not add deposit to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);

@@ -47,7 +47,7 @@ public class AcceptsRestAPI extends HttpServlet {
                 return;
             }
             ctx.printValueAsString(accepts);
-            res.setStatus(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_CREATED);
         } catch (Exception e) {
             System.out.println("Could not update Accepts : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);

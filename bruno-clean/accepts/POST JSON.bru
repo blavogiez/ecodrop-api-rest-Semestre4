@@ -23,7 +23,7 @@ body:json {
 }
 
 tests {
-  test("Status 200", function() {
-    expect(res.status).to.be.oneOf([200, 409]);
+  test("Status 201", function() {
+    expect(res.status).to.be.oneOf([201, 409]);
   });
 }

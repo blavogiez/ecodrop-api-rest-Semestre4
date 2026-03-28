@@ -12,6 +12,7 @@ post {
 
 headers {
   Content-Type: application/xml
+  Accept: application/xml
   Authorization: Bearer {{token}}
 }
 
@@ -27,7 +28,7 @@ body:xml {
 }
 
 tests {
-  test("Status 200", function() {
-    expect(res.status).to.equal(200);
+  test("Status 201", function() {
+    expect(res.status).to.equal(201);
   });
 }

@@ -61,7 +61,7 @@ public class WasteTypeRestAPI extends HttpServlet {
             }
 
             ctx.printValueAsString(wasteType);
-            res.setStatus(HttpServletResponse.SC_OK);
+            res.setStatus(HttpServletResponse.SC_CREATED);
         } catch (Exception e) {
             System.err.println("Could not add waste type to database : " + e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);

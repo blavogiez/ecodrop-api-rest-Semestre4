@@ -10,6 +10,8 @@ public class FormatAdapter {
     public static final XmlMapper XML_MAPPER = new XmlMapper();
 
     private static boolean isXml(HttpServletRequest req) {
+        String accept = req.getHeader("Accept");
+        if (accept != null && accept.contains("application/xml")) return true;
         String ct = req.getContentType();
         return ct != null && ct.contains("application/xml");
     }
