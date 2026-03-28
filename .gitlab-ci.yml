@@ -14,7 +14,7 @@ test:
   script:
     - docker compose up -d --build
     - until docker compose exec -T ecodrop-db pg_isready -U baptistelavogiezetu; do sleep 1; done
-    - sleep 10
+    - until docker compose exec -T ecodrop curl -sf localhost:8080/ecodrop/points > /dev/null; do sleep 1; done
     - docker compose logs ecodrop
     - docker compose exec -T ecodrop bash -c "curl localhost:8080/ecodrop/points"
     - docker compose exec -T ecodrop bash -c "cd /bruno && bru run --env local --tests-only"
