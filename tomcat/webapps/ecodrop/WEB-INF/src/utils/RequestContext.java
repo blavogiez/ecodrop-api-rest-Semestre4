@@ -53,7 +53,11 @@ public class RequestContext {
         if (isAuthenticated()) {
             return dao.getRole(getLogin());
         }
-        return Role.valueOf("UNKNOWN");
+        return Role.UNKNOWN;
+    }
+
+    public boolean hasRole(Role required) {
+        return getUserRole().atLeast(required);
     }
 
     public boolean hasArguments() {

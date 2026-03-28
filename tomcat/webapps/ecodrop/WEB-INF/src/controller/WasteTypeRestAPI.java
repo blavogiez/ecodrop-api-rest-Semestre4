@@ -46,7 +46,7 @@ public class WasteTypeRestAPI extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
         try {
-            if (!ctx.isAuthenticated()) {
+            if (!ctx.hasRole(Role.USER)) {
                 res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
@@ -78,7 +78,7 @@ public class WasteTypeRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (ctx.getUserRole() != Role.ADMIN) {
+        if (!ctx.hasRole(Role.ADMIN)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -104,7 +104,7 @@ public class WasteTypeRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (!ctx.isAuthenticated()) {
+        if (!ctx.hasRole(Role.USER)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

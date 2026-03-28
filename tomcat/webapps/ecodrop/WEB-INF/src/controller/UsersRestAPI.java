@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
 import model.dao.UsersDAO;
 import model.dao.UsersDAOPostgres;
 import model.dto.Users;
@@ -53,7 +54,7 @@ public class UsersRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (!ctx.isAuthenticated()) {
+        if (!ctx.hasRole(Role.USER)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -82,7 +83,7 @@ public class UsersRestAPI extends HttpServlet {
         int id = RequestUtils.parseId(ctx.getArgument(0), res);
         if (id < 0) return;
 
-        if (!ctx.isAuthenticated()) {
+        if (!ctx.hasRole(Role.USER)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

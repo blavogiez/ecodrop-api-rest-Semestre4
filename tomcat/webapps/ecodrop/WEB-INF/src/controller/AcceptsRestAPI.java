@@ -33,7 +33,7 @@ public class AcceptsRestAPI extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         RequestContext ctx = new RequestContext(req, res);
 
-        if (!ctx.isAuthenticated()) {
+        if (!ctx.hasRole(Role.USER)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -66,7 +66,7 @@ public class AcceptsRestAPI extends HttpServlet {
         int wasteTypeId = RequestUtils.parseId(ctx.getArgument(1), res);
         if (wasteTypeId < 0) return;
 
-        if (ctx.getUserRole() != Role.ADMIN) {
+        if (!ctx.hasRole(Role.ADMIN)) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

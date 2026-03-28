@@ -153,7 +153,7 @@ Quatre requêtes SQL non triviales méritent d'être explicitées.
 | `GET /deposits` | - | Vue enrichie (nom déchet + adresse) | 200 |
 | `GET /deposits/{id}` | - | Dépôt trouvé | 200 |
 | `GET /deposits/{id}` | - | Dépôt inexistant | 404 |
-| `POST /deposits` | Token (tout rôle) | Dépôt créé | 200 |
+| `POST /deposits` | Token (tout rôle) | Dépôt créé | 201 |
 | `POST /deposits` | Token (tout rôle) | Poids négatif | 400 |
 | `POST /deposits` | Token absent | - | 401 |
 | `POST /deposits` | Token (tout rôle) | Point plein (taux ≥ 100 %) | 403 |
@@ -174,7 +174,7 @@ Quatre requêtes SQL non triviales méritent d'être explicitées.
 | `GET /waste-types` | - | - | 200 |
 | `GET /waste-types/{id}` | - | Type trouvé | 200 |
 | `GET /waste-types/{id}` | - | Type inexistant | 404 |
-| `POST /waste-types` | Token (tout rôle) | Type créé | 200 |
+| `POST /waste-types` | Token (tout rôle) | Type créé | 201 |
 | `POST /waste-types` | Token absent | - | 401 |
 | `POST /waste-types` | Token (tout rôle) | Nom déjà existant | 409 |
 | `PUT /waste-types/{id}` | Token (tout rôle) | Mise à jour réussie | 200 |

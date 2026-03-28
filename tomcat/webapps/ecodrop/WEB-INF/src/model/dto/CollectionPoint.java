@@ -1,10 +1,15 @@
 package model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import java.util.List;
+
 public class CollectionPoint {
 
     private int id;
     private String adresse;
     private double capaciteMax;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<WasteType> wasteTypes;
 
     public CollectionPoint(int id, String adresse, double capaciteMax) {
         this.id = id;
@@ -36,6 +41,14 @@ public class CollectionPoint {
 
     public void setCapaciteMax(double capaciteMax) {
         this.capaciteMax = capaciteMax;
+    }
+
+    public List<WasteType> getWasteTypes() {
+        return wasteTypes;
+    }
+
+    public void setWasteTypes(List<WasteType> wasteTypes) {
+        this.wasteTypes = wasteTypes;
     }
 
     @Override
