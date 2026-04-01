@@ -3,7 +3,7 @@
 FROM tomcat:11.0-jdk21-temurin
 
 # installer Node.js et Bruno CLI pour tests API
-RUN apt-get update && apt-get install -y nodejs npm && npm install -g @usebruno/cli && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nodejs npm curl && npm install -g @usebruno/cli && rm -rf /var/lib/apt/lists/*
 
 # webapp + drivers nécessaires
 COPY tomcat/webapps/ecodrop /usr/local/tomcat/webapps/ecodrop
