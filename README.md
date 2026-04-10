@@ -20,6 +20,8 @@ Réalisé par :
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 - ***Enseignant : Mme Everaere / Mr Mathieu***
 
+Note obtenue : 20/20
+
 ## Présentation
 
 Ecodrop est le terrain d'apprentissage parfait pour concevoir une API REST sécurisée, résiliente et testable. Ce service de collecte de déchets permet d'obtenir des points de recyclage où sont déposés des déchets par des utilisateurs. Par l'API REST, différents services externes pourront alors obtenir, injecter ou modifier un [ensemble de données](#schéma-de-la-base). 
