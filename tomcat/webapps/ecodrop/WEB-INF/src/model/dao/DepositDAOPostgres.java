@@ -51,7 +51,8 @@ public class DepositDAOPostgres implements DepositDAO {
             String query = "select d.*, wt.nom as nomDechet, cp.adresse as adressePoint " +
                     "from Deposit d " +
                     "join WasteType wt on wt.id = d.wasteTypeId " +
-                    "join CollectionPoint cp on cp.id = d.pointId";
+                    "join CollectionPoint cp on cp.id = d.pointId " +
+                    "order by d.datedepot desc, d.id desc";
             PreparedStatement ps = con.prepareStatement(query);
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();
