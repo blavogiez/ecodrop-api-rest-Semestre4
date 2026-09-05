@@ -2,29 +2,116 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>EcoDrop - Connexion</title>
+  <title>EcoDrop</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>EcoDrop - Obtenir un token</h1>
-  <form onsubmit="handleLogin(event)">
-    <label>Login : <input id="login" placeholder="ex: paulpaulpaul"></label><br><br>
-    <label>Mot de passe : <input id="password" type="password" placeholder="mot de passe"></label><br><br>
-    <button type="submit">Se connecter</button>
-  </form>
-  <pre id="result"></pre>
-  <script>
-    async function handleLogin(e) {
-      e.preventDefault();
-      const credentials = btoa(
-        document.getElementById('login').value + ':' +
-        document.getElementById('password').value
-      );
-      const res = await fetch('/ecodrop/auth/token', {
-        headers: { 'Authorization': 'Basic ' + credentials }
-      });
-      document.getElementById('result').textContent =
-        res.ok ? 'Token :\n' + await res.text() : 'Erreur ' + res.status;
-    }
-  </script>
+
+  <h1>EcoDrop</h1>
+
+  <!-- Section Connexion -->
+  <section id="auth-section">
+    <h2>Connexion</h2>
+    <form id="login-form">
+      <div>
+        <label for="login">Login :</label>
+        <input id="login" type="text" required placeholder="ex: podmanpodman">
+      </div>
+      <br>
+      <div>
+        <label for="password">Mot de passe :</label>
+        <input id="password" type="password" required placeholder="mot de passe">
+      </div>
+      <br>
+      <button type="submit">Se connecter</button>
+    </form>
+    <div id="login-msg" class="msg"></div>
+  </section>
+
+  <!-- Section Applicative -->
+  <div id="app-section" class="hidden">
+
+    <header>
+      <p>Connecté en tant que : <strong id="current-user"></strong></p>
+      <button id="btn-refresh">Rafraîchir les données</button>
+      <button id="btn-logout">Déconnexion</button>
+    </header>
+
+    <hr>
+
+    <!-- Dépôt -->
+    <section>
+      <h2>Faire un dépôt</h2>
+      <form id="deposit-form">
+        <label for="deposit-point">Point de collecte :</label>
+        <select id="deposit-point" required></select>
+
+        <label for="deposit-waste">Type de déchet :</label>
+        <select id="deposit-waste" required></select>
+
+        <label for="deposit-weight">Poids (kg) :</label>
+        <input id="deposit-weight" type="number" step="0.1" min="0.1" required style="width: 80px;">
+
+        <button type="submit">Déposer</button>
+      </form>
+      <div id="deposit-msg" class="msg"></div>
+    </section>
+
+    <hr>
+
+    <!-- Points de collecte -->
+    <section>
+      <h2>Points de collecte</h2>
+      <table id="points-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Adresse</th>
+            <th>Capacité max</th>
+            <th>Taux de remplissage</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <!-- Panneau Admin Surchargés -->
+      <div class="admin-only hidden" style="margin-top: 12px;">
+        <button id="btn-overloaded">Vérifier points surchargés (&gt; 80%)</button>
+        <div id="overloaded-result" style="margin-top: 6px;"></div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Historique des dépôts -->
+    <section>
+      <h2>Derniers dépôts</h2>
+      <table id="deposits-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Point de collecte</th>
+            <th>Type de déchet</th>
+            <th>Poids</th>
+            <th>Collecté</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- Classement -->
+    <section>
+      <h2>Classement des recycleurs</h2>
+      <ol id="leaderboard-list"></ol>
+    </section>
+
+  </div>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
