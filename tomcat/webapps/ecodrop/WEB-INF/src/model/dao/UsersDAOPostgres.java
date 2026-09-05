@@ -95,13 +95,13 @@ public class UsersDAOPostgres implements UsersDAO {
 
         try (Connection con = DS.getConnection()) {
             String query = """
-            WITH t(id, login, password, role, score, rank) AS (
-            SELECT u.*, sum(dp.poids * wt.pointsPerKilo), rank() over(ORDER BY sum(dp.poids * wt.pointsPerKilo) DESC)
+            WITH t(id, login, role, score, rank) AS (
+            SELECT u.id, u.login, u.role, sum(dp.poids * wt.pointsPerKilo), rank() over(ORDER BY sum(dp.poids * wt.pointsPerKilo) DESC)
             FROM Users AS u JOIN Deposit AS dp ON u.id=dp.userId
                 JOIN WasteType wt ON dp.wasteTypeId=wt.id
             GROUP BY u.id
             ORDER BY rank)
-            SELECT id, login, password, role, score FROM t WHERE rank <= ?;
+            SELECT id, login, role, score FROM t WHERE rank <= ?;
             """;
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, theLimit);
@@ -111,11 +111,10 @@ public class UsersDAOPostgres implements UsersDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String login = rs.getString("login");
-                String password = rs.getString("password");
                 Role role = Role.valueOf(rs.getString("role"));
                 double score = rs.getDouble("score");
 
-                Users user = new Users(id, login, password, role);
+                Users user = new Users(id, login, null, role);
                 user.setScore(score);
                 theBestNRecyclers.add(user);
             }

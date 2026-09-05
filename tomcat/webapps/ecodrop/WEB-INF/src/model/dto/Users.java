@@ -7,6 +7,7 @@ public class Users {
 
     int id;
     String login;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     String password;
     Role role;
     @JsonInclude(JsonInclude.Include.NON_NULL)
