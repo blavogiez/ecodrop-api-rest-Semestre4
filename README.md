@@ -52,7 +52,7 @@ Mme Everaere :
 
 | Code |
 |------|
-| [Répertoire principal](tomcat/webapps/ecodrop/WEB-INF/src) |
+| [Répertoire principal](tomcat/webapps/ROOT/WEB-INF/src) |
 | [Répertoire de tests](bruno) |
 | CI ; tests à la volée -> voir l'historique des commits ([exemple](https://gitlab.univ-lille.fr/baptiste.lavogiez.etu/ecodrop/-/jobs/225791)) |
 
@@ -128,7 +128,7 @@ Voici les **login** et **mot de passe** d'utilisateur des deux types (**admin** 
 | paulpaulpaul | paulpaulpaul | admin |
 | podmanpodman | podmanpodman |
 
-Vous pouvez vous en servir pour tester l'API avec un navigateur web à l'adresse http://localhost:8080/ecodrop une fois
+Vous pouvez vous en servir pour tester l'API avec un navigateur web à l'adresse http://localhost:8080 une fois
 le container ou tomcat lancé (voir [Installation rapide](#installation-rapide)).
 
 ## Explication des requêtes complexes

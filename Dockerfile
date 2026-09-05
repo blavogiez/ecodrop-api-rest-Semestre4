@@ -4,13 +4,15 @@ FROM tomcat:11.0-jdk21-temurin
 
 # installer Node.js et Bruno CLI pour tests API
 RUN apt-get update && apt-get install -y nodejs npm curl && npm install -g @usebruno/cli && rm -rf /var/lib/apt/lists/*
+ENV NODE_OPTIONS="--experimental-global-webcrypto"
 
 # webapp + drivers nécessaires
-COPY tomcat/webapps/ecodrop /usr/local/tomcat/webapps/ecodrop
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+COPY tomcat/webapps/ROOT /usr/local/tomcat/webapps/ROOT
 COPY tomcat/lib/* /usr/local/tomcat/lib/
 
 # recompiler avec les bons jars jakarta de l'image
-RUN cd /usr/local/tomcat/webapps/ecodrop/WEB-INF && \
+RUN cd /usr/local/tomcat/webapps/ROOT/WEB-INF && \
     mkdir -p classes && \
     javac -cp "/usr/local/tomcat/lib/*:lib/*" -d classes $(find src -name "*.java")
 

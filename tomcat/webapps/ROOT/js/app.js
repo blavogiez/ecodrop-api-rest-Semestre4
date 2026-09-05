@@ -1,4 +1,4 @@
-const BASE_URL = '/ecodrop';
+const BASE_URL = '';
 
 let state = {
   token: sessionStorage.getItem('token') || null,
